@@ -65,8 +65,12 @@
                                             <br></br>
                                             <h:panelGrid columns="2" cellpadding="5">
                                                 <h:outputLabel for="grouped" value="Selecione :" />
-                                                <p:selectCheckboxMenu id="grupoNegocio" value="#{listaNegocio.selectedCars}" label="Cars" multiple="true"
-                                                                      filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                                                <p:selectCheckboxMenu 
+                                                    id="grupoNegocio" 
+                                                    value="#{atendimentoBean.dtla.negocio}" 
+                                                    label="Cars" multiple="true"
+                                                    filter="true" filterMatchMode="startsWith" 
+                                                    panelStyle="width:250px">
                                                     <f:selectItems value="#{listaNegocio.cars}" />
                                                 </p:selectCheckboxMenu>
                                             </h:panelGrid>
@@ -82,7 +86,7 @@
                                             <br></br>
                                             <h:panelGrid columns="2" cellpadding="5">
                                                 <h:outputLabel for="grouped" value="Selecione :" />
-                                                <p:selectCheckboxMenu id="tipoImovel" value="#{listaTipoImovel.selectedCars}" label="Cars" multiple="true"
+                                                <p:selectCheckboxMenu id="tipoImovel" value="#{atendimentoBean.dtla.tipoimovel}" label="Cars" multiple="true"
                                                                       filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
                                                     <f:selectItems value="#{listaTipoImovel.cars}" />
                                                 </p:selectCheckboxMenu>
@@ -99,7 +103,7 @@
                                             <br></br>
                                             <h:panelGrid columns="2" cellpadding="5">
                                                 <h:outputLabel for="grouped" value="Selecione :" />
-                                                <p:selectCheckboxMenu id="grouped" value="#{checkboxView.selectedCars}" label="Cars" multiple="true"
+                                                <p:selectCheckboxMenu id="grouped" value="#{atendimentoBean.dtla.bairros}" label="Cars" multiple="true"
                                                                       filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
                                                     <f:selectItems value="#{checkboxView.cars}" />
                                                 </p:selectCheckboxMenu>
@@ -116,7 +120,7 @@
                                             <br></br>
                                             <h:panelGrid columns="2" cellpadding="5">
                                                 <h:outputLabel for="grouped" value="Selecione :" />
-                                                <p:selectCheckboxMenu id="groupedimovel" value="#{listaCaracteristicas.selectedCars}" label="Cars" multiple="true"
+                                                <p:selectCheckboxMenu id="groupedimovel" value="#{atendimentoBean.dtla.caracteristicas}" label="Cars" multiple="true"
                                                                       filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
                                                     <f:selectItems value="#{listaCaracteristicas.cars}" />
                                                 </p:selectCheckboxMenu>
@@ -217,7 +221,7 @@
                                                           style="width: 480px; height: 100px" 
                                                           required="false" 
                                                           requiredMessage="Por favor, digite uma mensagem." 
-                                                          value="#{formularioManagedBean.novoformulario.mensagem}" 
+                                                          value="#{atendimentoBean.dtla.detalhemsg}" 
                                                           validatorMessage="Escreva uma mensagem maior por favor" > 
                                             <f:validateLength minimum="0" />
                                         </h:inputTextarea>
@@ -230,7 +234,12 @@
                                                 <h:panelGrid columns="1" style="alignment-adjust: central">
                                                     <BR></BR>
                                                     <div id="menuSup">
-                                                        <a href="classificar_atendimento.jsf">GRAVAR ATENDIMENTO</a>
+                                                        <p:commandButton value="Enviar Mensagem" 
+                                                                   onstart="PF('DialogShow').show();"
+                                                                   style="font-size: 1.1em; font-weight: bold" 
+                                                                   styleClass="butn"
+                                                                   actionListener="#{atendimentoBean.GravaDetalheAtendimento()}" 
+                                                                   oncomplete="handleLoginRequest(xhr, status, args)"/>
                                                     </div>
 
                                                     <div id="menuSup">

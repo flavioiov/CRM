@@ -163,16 +163,40 @@ public class atendimentoBean {
         
     }
     
-    public void GravaDetalheAtendimento(int cadastro) throws SQLException{
+    public void GravaDetalheAtendimento() throws SQLException{
         
        
 
         Classe_Geral cg = new Classe_Geral("detalheatendimento");
        
+       
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         int inserido=cg.inserirDadosTabela("detalhe_atendimento",dtla); //INSERE REGISTOR NA TABELA E RETORNA ID
         
          
       
+        
+        
         
     }
     
