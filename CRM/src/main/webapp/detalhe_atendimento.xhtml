@@ -67,7 +67,7 @@
                                                 <h:outputLabel for="grouped" value="Selecione :" />
                                                 <p:selectCheckboxMenu 
                                                     id="grupoNegocio" 
-                                                    value="#{atendimentoBean.dtla.negocio}" 
+                                                   
                                                     label="Cars" multiple="true"
                                                     filter="true" filterMatchMode="startsWith" 
                                                     panelStyle="width:250px">
@@ -86,7 +86,7 @@
                                             <br></br>
                                             <h:panelGrid columns="2" cellpadding="5">
                                                 <h:outputLabel for="grouped" value="Selecione :" />
-                                                <p:selectCheckboxMenu id="tipoImovel" value="#{atendimentoBean.dtla.tipoimovel}" label="Cars" multiple="true"
+                                                <p:selectCheckboxMenu id="tipoImovel" label="Cars" multiple="true"
                                                                       filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
                                                     <f:selectItems value="#{listaTipoImovel.cars}" />
                                                 </p:selectCheckboxMenu>
@@ -103,7 +103,7 @@
                                             <br></br>
                                             <h:panelGrid columns="2" cellpadding="5">
                                                 <h:outputLabel for="grouped" value="Selecione :" />
-                                                <p:selectCheckboxMenu id="grouped" value="#{atendimentoBean.dtla.bairros}" label="Cars" multiple="true"
+                                                <p:selectCheckboxMenu id="grouped"  label="Cars" multiple="true"
                                                                       filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
                                                     <f:selectItems value="#{checkboxView.cars}" />
                                                 </p:selectCheckboxMenu>
@@ -120,7 +120,7 @@
                                             <br></br>
                                             <h:panelGrid columns="2" cellpadding="5">
                                                 <h:outputLabel for="grouped" value="Selecione :" />
-                                                <p:selectCheckboxMenu id="groupedimovel" value="#{atendimentoBean.dtla.caracteristicas}" label="Cars" multiple="true"
+                                                <p:selectCheckboxMenu id="groupedimovel" label="Cars" multiple="true"
                                                                       filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
                                                     <f:selectItems value="#{listaCaracteristicas.cars}" />
                                                 </p:selectCheckboxMenu>

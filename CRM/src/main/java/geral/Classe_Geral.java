@@ -655,37 +655,41 @@ public Integer inserirDadosTabela(String Tabela,Object obj) //fechado funcionand
             fields.setAccessible(true);
             Object value = fields.get(obj); //pega o valor dos atributos armazenados no objeto passdo.
 
-            //Percorre os campos da tabela montando o SQL nomedos campos com o respectivos valores
-            while (rs10.next()) {
-                if (rs10.getString("COLUMN_NAME").equals(campo)) {
+                        //Percorre os campos da tabela montando o SQL nomedos campos com o respectivos valores
+                        while (rs10.next()) {
+                            if (rs10.getString("COLUMN_NAME").equals(campo)) {
 
-                    if (SQL.isEmpty()) {
+                                    if (SQL.isEmpty()) {
 
-                        SQL = SQL + campo;
+                                        SQL = SQL + campo;
 
-                    } else {
-                        SQL = SQL + "," + campo;
+                                    } else {
+                                        SQL = SQL + "," + campo;
 
+                                    }
+
+                                    if (VALORES.isEmpty()) {
+                                            VALORES = VALORES + "'" + value + "'";
+                                       } else {
+                                     
+                                           VALORES = VALORES + "," + "'" + value + "'";
+                                      }
+                                    
+                                    
+                               }
+                        }
+
+                        rs10.first();
+                        contador++;
                     }
+        
+        String Valores=VALORES.replace("'null'","null");
 
-                    if (VALORES.isEmpty()) {
+        query = "insert into " + nome_tabela + " (" + SQL + ") VALUES (" + Valores + ")";
 
-                        VALORES = VALORES + "'" + value + "'";
-                    } else {
-
-                        VALORES = VALORES + "," + "'" + value + "'";
-
-                    }
-                }
-
-            }
-
-            rs10.first();
-            contador++;
-        }
-
-        query = "insert into " + nome_tabela + " (" + SQL + ") VALUES (" + VALORES + ")";
-
+        System.out.println(query);
+        
+        
         prepared_statement = connection.prepareStatement(query);
         prepared_statement.setQueryTimeout(60);
         prepared_statement.execute();

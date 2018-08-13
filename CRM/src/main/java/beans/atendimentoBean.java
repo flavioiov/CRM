@@ -158,40 +158,22 @@ public class atendimentoBean {
 
         
         
-        dtla.setOrigematendimento(cadastro);
+         dtla.setOrigematendimento(cadastro);
       
         
     }
     
     public void GravaDetalheAtendimento() throws SQLException{
         
+    
+       System.out.println("valor do origem "+dtla.getOrigematendimento());
        
+        
 
         Classe_Geral cg = new Classe_Geral("detalheatendimento");
-       
-       
+      
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        int inserido=cg.inserirDadosTabela("detalhe_atendimento",dtla); //INSERE REGISTOR NA TABELA E RETORNA ID
+        int inserido=cg.inserirDadosTabela("detalheatendimento",dtla); //INSERE REGISTOR NA TABELA E RETORNA ID
         
          
       
