@@ -683,7 +683,7 @@ public Integer inserirDadosTabela(String Tabela,Object obj) //fechado funcionand
                         contador++;
                     }
         
-        String Valores=VALORES.replace("'null'","null");
+        String Valores=VALORES.replace("'null'","null"); //substitiu as aspas quando os campos são null, assim evita probleas de compatibilidade com o banco
 
         query = "insert into " + nome_tabela + " (" + SQL + ") VALUES (" + Valores + ")";
 

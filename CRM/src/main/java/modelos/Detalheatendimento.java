@@ -79,9 +79,48 @@ public class Detalheatendimento implements Serializable {
     @NotNull
     @Column(name = "origematendimento")
     private int origematendimento;
+    
+     
+     private String[] bairrosArray;
+     private String[] imovelArray;
+     private String[] caracteristicasArray;
+     private String[] negocioArray;
 
+    public String[] getBairrosArray() {
+        return bairrosArray;
+    }
+
+    public void setBairrosArray(String[] bairrosArray) {
+        this.bairrosArray = bairrosArray;
+    }
+
+    public String[] getImovelArray() {
+        return imovelArray;
+    }
+
+    public void setImovelArray(String[] imovelArray) {
+        this.imovelArray = imovelArray;
+    }
+
+    public String[] getCaracteristicasArray() {
+        return caracteristicasArray;
+    }
+
+    public void setCaracteristicasArray(String[] caracteristicasArray) {
+        this.caracteristicasArray = caracteristicasArray;
+    }
+
+    public String[] getNegocioArray() {
+        return negocioArray;
+    }
+
+    public void setNegocioArray(String[] negocioArray) {
+        this.negocioArray = negocioArray;
+    }
+    
     public Detalheatendimento() {
     }
+    
 
     public Detalheatendimento(Integer id) {
         this.id = id;
@@ -187,6 +226,8 @@ public class Detalheatendimento implements Serializable {
     public void setOrigematendimento(int origematendimento) {
         this.origematendimento = origematendimento;
     }
+    
+    
 
     @Override
     public int hashCode() {

@@ -61,13 +61,15 @@
 
                                         <p:column id="coluna1">
 
+                                            
+                                            
                                             <h3  style="color:red">Que Negócio Faremos Hoje ? </h3>
                                             <br></br>
                                             <h:panelGrid columns="2" cellpadding="5">
                                                 <h:outputLabel for="grouped" value="Selecione :" />
                                                 <p:selectCheckboxMenu 
                                                     id="grupoNegocio" 
-                                                   
+                                                    value="#{atendimentoBean.dtla.negocioArray}"
                                                     label="Cars" multiple="true"
                                                     filter="true" filterMatchMode="startsWith" 
                                                     panelStyle="width:250px">
@@ -86,7 +88,9 @@
                                             <br></br>
                                             <h:panelGrid columns="2" cellpadding="5">
                                                 <h:outputLabel for="grouped" value="Selecione :" />
-                                                <p:selectCheckboxMenu id="tipoImovel" label="Cars" multiple="true"
+                                                <p:selectCheckboxMenu id="tipoImovel" label="Cars" 
+                                                                      value="#{atendimentoBean.dtla.imovelArray}"
+                                                                      multiple="true"
                                                                       filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
                                                     <f:selectItems value="#{listaTipoImovel.cars}" />
                                                 </p:selectCheckboxMenu>
@@ -104,6 +108,7 @@
                                             <h:panelGrid columns="2" cellpadding="5">
                                                 <h:outputLabel for="grouped" value="Selecione :" />
                                                 <p:selectCheckboxMenu id="grouped"  label="Cars" multiple="true"
+                                                                      value="#{atendimentoBean.dtla.bairrosArray}"
                                                                       filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
                                                     <f:selectItems value="#{checkboxView.cars}" />
                                                 </p:selectCheckboxMenu>
@@ -121,6 +126,7 @@
                                             <h:panelGrid columns="2" cellpadding="5">
                                                 <h:outputLabel for="grouped" value="Selecione :" />
                                                 <p:selectCheckboxMenu id="groupedimovel" label="Cars" multiple="true"
+                                                                      value="#{atendimentoBean.dtla.caracteristicasArray}"
                                                                       filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
                                                     <f:selectItems value="#{listaCaracteristicas.cars}" />
                                                 </p:selectCheckboxMenu>
@@ -147,7 +153,7 @@
 
                                                         <h3>Valor Min.</h3>
 
-                                                        <p:inputNumber id="nmb1" value="0" symbol=" R$ " valueChangeListener="#{sliderView.onInputChanged}">
+                                                        <p:inputNumber id="nmb1" value="#{atendimentoBean.dtla.valorminvenda}" symbol=" R$ " valueChangeListener="#{sliderView.onInputChanged}">
                                                             <p:ajax process="@this" update="growl" />
                                                         </p:inputNumber>
                                                         <p:slider for="nmb1" maxValue="1500000" minValue="500" step="1000" />
@@ -155,7 +161,7 @@
 
                                                         <h3>Valor Max</h3>
 
-                                                        <p:inputNumber id="nmb2" value="0" symbol=" R$ " valueChangeListener="#{sliderView.onInputChanged}">
+                                                        <p:inputNumber id="nmb2" value="#{atendimentoBean.dtla.valormaxvenda}" symbol=" R$ " valueChangeListener="#{sliderView.onInputChanged}">
                                                             <p:ajax process="@this" update="growl" />
                                                         </p:inputNumber>
                                                         <p:slider for="nmb2" maxValue="1500000" minValue="500" step="1000" />
@@ -176,7 +182,7 @@
 
                                                 <h3>Valor Min.</h3>
 
-                                                <p:inputNumber id="nmb3" value="0" symbol=" R$ " valueChangeListener="#{sliderView.onInputChanged}">
+                                                <p:inputNumber id="nmb3" value="#{atendimentoBean.dtla.valorminaluguel}" symbol=" R$ " valueChangeListener="#{sliderView.onInputChanged}">
                                                     <p:ajax process="@this" update="growl" />
                                                 </p:inputNumber>
                                                 <p:slider for="nmb3" maxValue="30000" minValue="500" step="250" />
@@ -184,7 +190,7 @@
 
                                                 <h3>Valor Max.</h3>
 
-                                                <p:inputNumber id="nmb4" value="0" symbol=" R$ " valueChangeListener="#{sliderView.onInputChanged}">
+                                                <p:inputNumber id="nmb4" value="#{atendimentoBean.dtla.valormaxaluguel}" symbol=" R$ " valueChangeListener="#{sliderView.onInputChanged}">
                                                     <p:ajax process="@this" update="growl" />
                                                 </p:inputNumber>
                                                 <p:slider for="nmb4" maxValue="10000" minValue="500" step="250" />

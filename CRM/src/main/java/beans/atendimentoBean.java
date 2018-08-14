@@ -14,6 +14,7 @@ import java.sql.SQLException;
 
 import java.text.ParseException;
 import java.time.LocalTime;
+import java.util.Arrays;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -92,7 +93,57 @@ public class atendimentoBean {
         this.dtla = dtla;
     }
     
+    private String[] myArray;
+
+    public String[] getMyArray() {
+        return myArray;
+    }
+
+    public void setMyArray(String[] myArray) {
+        this.myArray = myArray;
+    }
     
+    /*inserir os arrays no modelo detalheAtendimento
+    
+    
+     private String[] bairrosArray;
+     private String[] imovelArray;
+     private String[] caracteristicasArray;
+     private String[] negocioArray;
+
+    public String[] getBairrosArray() {
+        return bairrosArray;
+    }
+
+    public void setBairrosArray(String[] bairrosArray) {
+        this.bairrosArray = bairrosArray;
+    }
+
+    public String[] getImovelArray() {
+        return imovelArray;
+    }
+
+    public void setImovelArray(String[] imovelArray) {
+        this.imovelArray = imovelArray;
+    }
+
+    public String[] getCaracteristicasArray() {
+        return caracteristicasArray;
+    }
+
+    public void setCaracteristicasArray(String[] caracteristicasArray) {
+        this.caracteristicasArray = caracteristicasArray;
+    }
+
+    public String[] getNegocioArray() {
+        return negocioArray;
+    }
+
+    public void setNegocioArray(String[] negocioArray) {
+        this.negocioArray = negocioArray;
+    }
+
+   */
      
     
     
@@ -157,6 +208,8 @@ public class atendimentoBean {
         listaAtendimentoDetalhe = run.query("SELECT * FROM crm.atendimento where id="+cadastro, h);
 
         
+       
+
         
          dtla.setOrigematendimento(cadastro);
       
@@ -166,14 +219,18 @@ public class atendimentoBean {
     public void GravaDetalheAtendimento() throws SQLException{
         
     
-       System.out.println("valor do origem "+dtla.getOrigematendimento());
        
-        
 
-        Classe_Geral cg = new Classe_Geral("detalheatendimento");
+       
+         dtla.setNegocio(Arrays.toString(dtla.getNegocioArray()));
+         dtla.setBairros(Arrays.toString(dtla.getBairrosArray()));
+         dtla.setCaracteristicas(Arrays.toString(dtla.getCaracteristicasArray()));
+         dtla.setTipoimovel(Arrays.toString(dtla.getImovelArray()));
+         
+         Classe_Geral cg = new Classe_Geral("detalheatendimento");
       
         
-        int inserido=cg.inserirDadosTabela("detalheatendimento",dtla); //INSERE REGISTOR NA TABELA E RETORNA ID
+         int inserido=cg.inserirDadosTabela("detalheatendimento",dtla); //INSERE REGISTOR NA TABELA E RETORNA ID
         
          
       
