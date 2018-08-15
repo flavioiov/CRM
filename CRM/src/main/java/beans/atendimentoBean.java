@@ -196,7 +196,9 @@ public class atendimentoBean {
         cadastraDetalheAtendimento(inserido);
         
         FacesContext.getCurrentInstance().getExternalContext().redirect("detalhe_atendimento.jsf");
-     
+        
+        
+        //caso o corretor esteja preenchido envia devolta para primeira tela e avisa que foi cadastrado com sucesso
         
 }
     

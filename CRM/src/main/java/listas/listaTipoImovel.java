@@ -32,7 +32,7 @@ public class listaTipoImovel {
             new SelectItem("Sobrado", "Sobrado"),
             new SelectItem("Galpão","Galpão"),
             new SelectItem("Comercial","Comercial"),
-            new SelectItem("Comercial","Comercial"),
+            new SelectItem("Terreno","Terreno"),
         });
          
         cars.add(lazer);
