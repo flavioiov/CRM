@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
@@ -33,14 +35,14 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Detalheatendimento.findByValormaxvenda", query = "SELECT d FROM Detalheatendimento d WHERE d.valormaxvenda = :valormaxvenda")
     , @NamedQuery(name = "Detalheatendimento.findByValorminaluguel", query = "SELECT d FROM Detalheatendimento d WHERE d.valorminaluguel = :valorminaluguel")
     , @NamedQuery(name = "Detalheatendimento.findByValormaxaluguel", query = "SELECT d FROM Detalheatendimento d WHERE d.valormaxaluguel = :valormaxaluguel")
-    , @NamedQuery(name = "Detalheatendimento.findByAtendendo", query = "SELECT d FROM Detalheatendimento d WHERE d.atendendo = :atendendo")
-    , @NamedQuery(name = "Detalheatendimento.findByOrigematendimento", query = "SELECT d FROM Detalheatendimento d WHERE d.origematendimento = :origematendimento")})
+    , @NamedQuery(name = "Detalheatendimento.findByOrigematendimento", query = "SELECT d FROM Detalheatendimento d WHERE d.origematendimento = :origematendimento")
+    , @NamedQuery(name = "Detalheatendimento.findByTamanho", query = "SELECT d FROM Detalheatendimento d WHERE d.tamanho = :tamanho")})
 public class Detalheatendimento implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id")
     private Integer id;
     @Lob
@@ -72,14 +74,50 @@ public class Detalheatendimento implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "detalhemsg")
     private String detalhemsg;
-    @Size(max = 45)
-    @Column(name = "atendendo")
-    private String atendendo;
     @Basic(optional = false)
     @NotNull
     @Column(name = "origematendimento")
     private int origematendimento;
+    @Column(name = "tamanho")
+    private Integer tamanho;
 
+     private String[] bairrosArray;
+     private String[] imovelArray;
+     private String[] caracteristicasArray;
+     private String[] negocioArray;
+
+    public String[] getBairrosArray() {
+        return bairrosArray;
+    }
+
+    public void setBairrosArray(String[] bairrosArray) {
+        this.bairrosArray = bairrosArray;
+    }
+
+    public String[] getImovelArray() {
+        return imovelArray;
+    }
+
+    public void setImovelArray(String[] imovelArray) {
+        this.imovelArray = imovelArray;
+    }
+
+    public String[] getCaracteristicasArray() {
+        return caracteristicasArray;
+    }
+
+    public void setCaracteristicasArray(String[] caracteristicasArray) {
+        this.caracteristicasArray = caracteristicasArray;
+    }
+
+    public String[] getNegocioArray() {
+        return negocioArray;
+    }
+
+    public void setNegocioArray(String[] negocioArray) {
+        this.negocioArray = negocioArray;
+    }
+    
     public Detalheatendimento() {
     }
 
@@ -172,20 +210,20 @@ public class Detalheatendimento implements Serializable {
         this.detalhemsg = detalhemsg;
     }
 
-    public String getAtendendo() {
-        return atendendo;
-    }
-
-    public void setAtendendo(String atendendo) {
-        this.atendendo = atendendo;
-    }
-
     public int getOrigematendimento() {
         return origematendimento;
     }
 
     public void setOrigematendimento(int origematendimento) {
         this.origematendimento = origematendimento;
+    }
+
+    public Integer getTamanho() {
+        return tamanho;
+    }
+
+    public void setTamanho(Integer tamanho) {
+        this.tamanho = tamanho;
     }
 
     @Override

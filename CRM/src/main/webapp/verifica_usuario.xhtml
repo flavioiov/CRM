@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+          
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+        
+ 
+ 
+    <h:body>
+        
+ <ui:composition template="./template/commomLayout.xhtml">
+ 
+    		<ui:define name="content">
+    	             
+           
+
+                    <h:form>
+                        <p:growl id="growl" showDetail="true" sticky="true"/>
+                        <div id="monta" style="width: 100%; height: 100%" align="center">
+
+                            <div id="centraliza" style="width: 50%; height: 50%; alignment-adjust: central">
+
+                                <h:panelGrid columns="1">
+                                    <br></br>
+
+                                    <p:column>
+
+                                        <h:outputText value="NOME CORRETOR"/>
+                                        <h:inputText id="corretor" styleClass="campoInputText" value="#{usuarioManagedBean.usuario.nome}"/>
+                                        <br>
+
+                                        </br>
+
+                                    </p:column>
+
+                                    <p:column>
+
+                                        <h:outputText value="SENHA"/>
+                                        <p:password id="senha1"  styleClass="campoInputText" value="#{usuarioManagedBean.usuario.senha}"/>
+
+
+                                    </p:column>
+
+
+
+                                </h:panelGrid>
+                                <br></br>
+
+                                <p:commandButton value="GRAVAR"  actionListener="#{usuarioManagedBean.verificaUsuario()}" 
+                                                 update="growl"/>
+
+                            </div>
+                        </div>
+                    </h:form>
+             
+                    
+    		</ui:define>
+    	</ui:composition>
+ 
+    </h:body>
+ 
+</html>
