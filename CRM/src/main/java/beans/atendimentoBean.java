@@ -250,8 +250,7 @@ public class atendimentoBean {
     
     public void GravaDetalheAtendimento() throws SQLException, IOException, NoSuchFieldException{
         
-    
-       
+      
         dtla.setNegocio(Arrays.toString(dtla.getNegocioArray()));
         dtla.setBairros(Arrays.toString(dtla.getBairrosArray()));
         dtla.setCaracteristicas(Arrays.toString(dtla.getCaracteristicasArray()));
@@ -274,7 +273,8 @@ public class atendimentoBean {
              FacesContext.getCurrentInstance().getExternalContext().redirect("triagem.jsf");
         }
      
-         
+        
+        
      }               
                  
     
