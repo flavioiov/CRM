@@ -1,0 +1,365 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="./template/commomLayout.xhtml">
+
+            <f:metadata>
+                <f:viewAction action="#{atendimentoBean.listar()}" />
+            </f:metadata> 
+            
+            <ui:define name="content">
+
+            
+                         <h:form id="atendimento">  
+                    <p:growl id="msg" />
+                    <div id="div_atendimento">
+                        <div id="monta_conteudo_main333" style="text-align: center; ">
+                            <div id="andamentoatendimento">
+                                <div id="al" style="margin-left: 30px; text-align: left">
+
+                                    <ui:repeat value="#{atendimentoBean.listaAtendimentoDetalhe}" var="andamento">
+                                        <h3 style="color:blueviolet">Atendimento em Andamento</h3>
+                                        <p:panelGrid columns="2">
+
+                                            <h:outputText value="Atendente :" style="color:red; width:  130px"/> 
+                                            <h:outputText value="#{andamento.atendente} " style="color:blue;"/>
+                                            <h:outputText value="Cliente :" style="color: red;"/>
+
+                                            <h:outputText value="#{andamento.nome}" style="color:blue;"/>
+
+                                            <h:outputText value="Data :" style="color: red;"/><h:outputText value="#{andamento.dataatendimento}" style="color:blue;"/>
+
+                                            <h:outputText value="Telefone :" style="color: red;"/><h:outputText value="#{andamento.telefone}" style="color:blue;"/>
+                                            
+                                           <!-- <h:outputText value="Telefone :" style="color: red;"/><h:outputText value="#{user}" style="color:blue;"/>-->
+                                            
+                                           
+                                        </p:panelGrid>
+
+                                    </ui:repeat>
+
+                                    <br></br>
+                                </div>
+                            </div> 
+                            <br></br>
+                            <div id="form_detalheatendimento">
+                                <div id="ajusta" style="margin-left: 50px">
+
+
+                                <h:form id="Formularios">
+                                    <p:growl id="growl" showDetail="true" sticky="true"/>
+
+                                    <h:panelGrid columns="1" >
+
+                                        <p:column id="coluna1">
+
+                                            
+                                            
+                                            <h3  style="color:red">Que Negócio Faremos Hoje ? </h3>
+                                            <br></br>
+                                            <h:panelGrid columns="2" cellpadding="5">
+                                                <h:outputLabel for="grouped" value="Selecione :" />
+                                                <p:selectCheckboxMenu 
+                                                    id="grupoNegocio" 
+                                                    value="#{atendimentoBean.dtla.negocioArray}"
+                                                    label="Cars" multiple="true"
+                                                    filter="true" filterMatchMode="startsWith" 
+                                                    panelStyle="width:250px">
+                                                    <f:selectItems value="#{listaNegocio.cars}" />
+                                                </p:selectCheckboxMenu>
+                                            </h:panelGrid>
+                                        </p:column>
+                                        <br></br>
+
+                                        
+                                        
+
+                                        <p:column id="coluna2">
+
+                                            <h3  style="color:red">Qual o Tipo de Imóvel o Cliente Busca ? </h3>
+                                            <br></br>
+                                            <h:panelGrid columns="2" cellpadding="5">
+                                                <h:outputLabel for="grouped" value="Selecione :" />
+                                                <p:selectCheckboxMenu id="tipoImovel" label="Cars" 
+                                                                      value="#{atendimentoBean.dtla.imovelArray}"
+                                                                      multiple="true"
+                                                                      filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                                                    <f:selectItems value="#{listaTipoImovel.cars}" />
+                                                </p:selectCheckboxMenu>
+                                            </h:panelGrid>
+                                            <br></br>
+                                        </p:column>
+
+
+                                        
+
+                                        <p:column id="coluna3">
+
+                                            <h3  style="color:red">Quais Bairros São Buscados ? </h3>
+                                            <br></br>
+                                            <h:panelGrid columns="2" cellpadding="5">
+                                                <h:outputLabel for="grouped" value="Selecione :" />
+                                                <p:selectCheckboxMenu id="grouped"  label="Cars" multiple="true"
+                                                                      value="#{atendimentoBean.dtla.bairrosArray}"
+                                                                      filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                                                    <f:selectItems value="#{checkboxView.cars}" />
+                                                </p:selectCheckboxMenu>
+                                            </h:panelGrid>
+                                            <br></br>
+                                        </p:column>
+                                        
+                                        
+                                        
+
+                                          <p:column id="coluna6">
+
+                                            <h3  style="color:red">Quais as Característiscas Necessárias em seu Imóvel ?</h3>
+                                            <br></br>
+                                            <h:panelGrid columns="2" cellpadding="5">
+                                                <h:outputLabel for="grouped" value="Selecione :" />
+                                                <p:selectCheckboxMenu id="groupedimovel" label="Cars" multiple="true"
+                                                                      value="#{atendimentoBean.dtla.caracteristicasArray}"
+                                                                      filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                                                    <f:selectItems value="#{listaCaracteristicas.cars}" />
+                                                </p:selectCheckboxMenu>
+                                            </h:panelGrid>
+
+
+                                             <br></br>
+
+                                            
+
+                                        </p:column>
+
+                                        
+                                       
+                                       
+                                        <p:column id="coluna4">
+
+                                            
+                                            <h:panelGrid columns="3" cellspacing="15px">
+                                                <h:column>
+                                                    <h3  style="color:red">Faixa de Valor Venda </h3>
+                                                    <br></br>
+
+                                                    <p:panelGrid columns="1">
+
+
+
+                                                        <h3>Valor Min.</h3>
+
+                                                        <p:inputNumber id="nmb1" value="#{atendimentoBean.dtla.valorminvenda}" symbol=" R$ " valueChangeListener="#{sliderView.onInputChanged}">
+                                                            <p:ajax process="@this" update="growl" />
+                                                        </p:inputNumber>
+                                                        <p:slider for="nmb1" maxValue="1500000" minValue="500" step="1000" />
+
+
+                                                        <h3>Valor Max</h3>
+
+                                                        <p:inputNumber id="nmb2" value="#{atendimentoBean.dtla.valormaxvenda}" symbol=" R$ " valueChangeListener="#{sliderView.onInputChanged}">
+                                                            <p:ajax process="@this" update="growl" />
+                                                        </p:inputNumber>
+                                                        <p:slider for="nmb2" maxValue="1500000" minValue="500" step="1000" />
+
+
+                                                    </p:panelGrid>
+
+                                                </h:column>
+                                                
+                                                <h:column>
+                                                    
+                                                     <h3  style="color:red">Faixa de Valor Locação</h3>
+                                            <br></br>
+
+                                            <p:panelGrid columns="1">
+
+
+
+                                                <h3>Valor Min.</h3>
+
+                                                <p:inputNumber id="nmb3" value="#{atendimentoBean.dtla.valorminaluguel}" symbol=" R$ " valueChangeListener="#{sliderView.onInputChanged}">
+                                                    <p:ajax process="@this" update="growl" />
+                                                </p:inputNumber>
+                                                <p:slider for="nmb3" maxValue="30000" minValue="500" step="250" />
+
+
+                                                <h3>Valor Max.</h3>
+
+                                                <p:inputNumber id="nmb4" value="#{atendimentoBean.dtla.valormaxaluguel}" symbol=" R$ " valueChangeListener="#{sliderView.onInputChanged}">
+                                                    <p:ajax process="@this" update="growl" />
+                                                </p:inputNumber>
+                                                <p:slider for="nmb4" maxValue="10000" minValue="500" step="250" />
+
+
+                                            </p:panelGrid>
+                                                    
+                                                    
+                                                    
+                                                </h:column>
+                                                    
+
+
+                                            </h:panelGrid>
+
+
+
+                                            <br></br>
+
+
+
+                                        </p:column>
+
+
+                                        <p:column id="coluna5">
+
+                                            <br></br>
+                                        </p:column>
+
+                                       <h3  style="color:red">DETALHES DO ATENDIMENTO</h3>
+                    
+                                        <h:inputTextarea  styleClass="campoInputText"
+                                                          title="Digite sua mensagem por favor" 
+                                                          style="width: 480px; height: 100px" 
+                                                          required="false" 
+                                                          requiredMessage="Por favor, digite uma mensagem." 
+                                                          value="#{atendimentoBean.dtla.detalhemsg}" 
+                                                          validatorMessage="Escreva uma mensagem maior por favor" > 
+                                            <f:validateLength minimum="0" />
+                                        </h:inputTextarea>
+
+
+                                        <div id="alinha" style="text-align: center">
+
+
+                                            <h:panelGrid columns="1" >
+                                                <h:panelGrid columns="1" style="alignment-adjust: central">
+                                                    <BR></BR>
+                                                    <div id="menuSup">
+                                                        <p:commandButton value="Enviar Mensagem" 
+                                                                   onstart="PF('DialogShow').show();"
+                                                                   style="font-size: 1.1em; font-weight: bold" 
+                                                                   styleClass="butn"
+                                                                   actionListener="#{atendimentoBean.GravaDetalheAtendimento()}" 
+                                                                   oncomplete="handleLoginRequest(xhr, status, args)"/>
+                                                    </div>
+
+                                                  
+
+                                                </h:panelGrid>
+
+                                            </h:panelGrid>
+                                        </div>   
+
+                                    </h:panelGrid>
+
+                                    <br></br>
+                                    <br></br>
+                  
+                                </h:form>
+                                
+                                </div>
+
+                           </div>
+
+
+
+
+
+                    </div> 
+                    </div>
+                </h:form>
+                
+                
+                
+                        <h:form id="listagem">  
+                            <p:panel style="background-color: white; width: 100%">
+                                <h1> "TRIAGEM TRIAGEM TRIAGEM" </h1>
+                                
+                                
+                                <br></br>
+                              
+                                <p:dataTable value="#{atendimentoBean.listaAtendimentos}"
+                                             var="contato" paginator="true"
+                                             rowSelector="true"
+                                             rowHover="true"
+                                             rows="10"
+                                            
+                                             styleClass="order-table"
+                                             >
+                                    <f:facet name="header">
+                                        List de Atendimentos
+                                    </f:facet>
+                                    
+                                     <p:column headerText="Data" style="width: 70px;">
+                                         <h:outputText value="#{contato.dataatendimento}">
+                                            <f:convertDateTime type="both" pattern="dd/MM/yyyy"/>
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column headerText="Hora" style="width: 56px;">
+                                        <h:outputText value="#{contato.horaatendimento}">
+                                            <f:convertDateTime type="time" pattern="hh:mm"/>
+                                        </h:outputText>
+                                    </p:column>
+                                  <p:column headerText="Cliente" style="width: 250px;">
+                                      <h:outputText value="#{contato.nome}" />
+                                    </p:column>
+
+                                    <p:column headerText="Assunto" style="width: 200px;">
+                                        <h:outputText value="#{contato.euquero}" />
+                                    </p:column>
+
+                                    <p:column headerText="Origem" style="width: 200px;">
+                                        <h:outputText value="#{contato.corretor}" />
+                                    </p:column>
+
+                                    <p:column headerText="Mensagem">
+                                          <h:outputText value="#{contato.msg}" />
+                                    </p:column>
+
+                                     <p:column headerText="Já Atendido">
+                                         
+                                        
+                               
+                                    <button type="button" name="" value="" class="classname">Já Atendido</button>
+                                         
+                                         
+                                    </p:column>
+                                    
+                                     <p:column headerText="Atender">
+                                    <button type="button" name="" value="" class="butn">Atender</button>
+                                    </p:column>
+                                     <p:column headerText="Devolver">
+                                         <button type="button" name="" value="" class="myButton">Devolver</button>
+                                         
+                                    </p:column>
+                  
+                                </p:dataTable>
+                            </p:panel> 
+                        </h:form>   
+                  
+         
+
+            </ui:define>
+
+        </ui:composition>
+
+
+
+
+
+    </h:body>
+</html>
+

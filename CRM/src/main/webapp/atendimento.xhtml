@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -31,7 +33,7 @@
                                 
                                 <div id="central" style="text-align: center">
                              
-                                    <h1> PREENCHA O ATENDIMENTO </h1>
+                                    <h2> PREENCHA O ATENDIMENTO </h2>
                                 </div>
                                 <br></br>
                                 <h:form id="Formularios">
@@ -43,6 +45,7 @@
                                         <h:selectOneMenu title="Escolha uma das opções da lista" styleClass="campoInputText"
                                                          value="#{atendimentoBean.atd.atendente}" >
                                             
+                                            <f:selectItem itemValue="#{usuarioManagedBean.usuario.nome}"/>
                                             <f:selectItem itemValue="Andrea"/>
                                             <f:selectItem itemValue="Mary"/>
                                             <f:selectItem itemValue="Sheyla"/>
@@ -154,10 +157,15 @@
                                                   <p:commandButton value="Enviar Mensagem" 
                                                                    onstart="PF('DialogShow').show();"
                                                                    style="font-size: 1.1em; font-weight: bold" 
-                                                                   actionListener="#{atendimentoBean.cadastrarAtendimento()}" 
-                                                                   oncomplete="handleLoginRequest(xhr, status, args)"/>
+                                                                   action="#{atendimentoBean.cadastrarAtendimento()}" 
+                                                                  
+                                                                   oncomplete="handleLoginRequest(xhr, status, args)"
+                                                                   update="growl"/>
                                             </h:panelGrid>
                                   
+                                                    
+                                                    
+                                                    
                              </h:panelGrid>
                                         </div>   
 

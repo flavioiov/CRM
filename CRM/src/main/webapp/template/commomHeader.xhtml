@@ -21,7 +21,10 @@
                 <div id="menu_superior" style="text-align: center; margin-top: 20px;"> <!-- inicio menu superior -->
                 
                      <div id="logo_topo"><!-- INICIO LOGO -->
-                         <a href="index.jsf"><img src="./imagens/novas/thianaimoveis.png" alt="FFA Construtora Caraguatatuba" style="width:  50%"/></a>
+                         <a href="index.jsf"><img src="./imagens/novas/thianaimoveis.png" alt="FFA Construtora Caraguatatuba" style="width:  30%"/></a><br>
+                             
+                         </br>
+                         <h:outputText value="CORRETOR LOGADO : " style="color: red; font-size: 1.3em"/><h:outputText value="#{usuarioManagedBean.usuario.nome}" style="color:blue;font-size: 1.3em"/>
                      
                    </div> <!-- FIM LOGO -->
                </div><!-- inicio menu superior -->
@@ -29,11 +32,11 @@
               <h:form id="formmenu">
                          <div id="menuSup">
                             <a href="atendimento.jsf">NOVO ATENDIMENTO</a>
-                            <a href="index.jsf">MEUS ATENDIMENTOS</a>
+                            <a href="meusatendimentos.jsf">MEUS ATENDIMENTOS</a>
                             <a href="index.jsf">DASHBORD</a>
 
                             <a href="agenda.jsf">MINHA AGENDA</a>
-                            <a href="login.jsf">LOGIN</a>
+                            <a href="verifica_usuario.jsf">LOGIN</a>
                         </div>
                    </h:form>
       
