@@ -222,7 +222,12 @@ public class atendimentoBean {
         cadastraDetalheAtendimento(inserido);
 
         if (corretor == null) {
+            
+            
             FacesContext.getCurrentInstance().getExternalContext().redirect("detalhe_atendimento.jsf");
+            
+            
+            
         } else {
             
             FacesContext.getCurrentInstance().getExternalContext().redirect("atendimento.jsf");
@@ -269,7 +274,9 @@ public class atendimentoBean {
             
              FacesContext.getCurrentInstance().getExternalContext().redirect("atendimento.jsf");
         }else
+            
         {
+             
              FacesContext.getCurrentInstance().getExternalContext().redirect("triagem.jsf");
         }
      

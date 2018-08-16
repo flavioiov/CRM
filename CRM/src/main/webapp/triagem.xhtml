@@ -22,7 +22,7 @@
             <ui:define name="content">
 
             
-                         <h:form id="atendimento">  
+                 <h:form id="atendimento">  
                     <p:growl id="msg" />
                     <div id="div_atendimento">
                         <div id="monta_conteudo_main333" style="text-align: center; ">
@@ -143,6 +143,25 @@
 
                                         </p:column>
 
+                                         <p:column id="coluna7">
+
+                                            <h3  style="color:red">Qual o tamanho Mínimo para seu Imóvel ? M2</h3>
+                                            <br></br>
+                                            <h:panelGrid columns="2" cellpadding="5">
+                                                <h:outputLabel for="groupedw" value="Selecione :" />
+                                                <p:inputNumber id="tamanhoMinimo" value="#{atendimentoBean.dtla.tamanho}" symbol=" " valueChangeListener="#{sliderView.onInputChanged}">
+                                                            <p:ajax process="@this" update="growl" />
+                                                        </p:inputNumber>
+                                                        <p:slider for="tamanhoMinimo" maxValue="15000" minValue="50" step="50" />
+                                               
+                                            </h:panelGrid>
+
+
+                                             <br></br>
+
+                                            
+
+                                        </p:column>
                                         
                                        
                                        
@@ -255,7 +274,9 @@
                                                                    oncomplete="handleLoginRequest(xhr, status, args)"/>
                                                     </div>
 
-                                                  
+                                                    <div id="menuSup">
+                                                        <a href="classificar_atendimento.jsf">TRIAR ATENDIMENTO</a>
+                                                    </div>
 
                                                 </h:panelGrid>
 
