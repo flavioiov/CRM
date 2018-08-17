@@ -154,13 +154,15 @@
                                             
                                                 <h:panelGrid columns="1" >
                                             <h:panelGrid columns="1" style="alignment-adjust: central">
-                                                  <p:commandButton value="Enviar Mensagem" 
+                                                  <p:commandButton value="Gravar Atendimento" 
                                                                    onstart="PF('DialogShow').show();"
                                                                    style="font-size: 1.1em; font-weight: bold" 
                                                                    action="#{atendimentoBean.cadastrarAtendimento()}" 
                                                                   
                                                                    oncomplete="handleLoginRequest(xhr, status, args)"
                                                                    update="growl"/>
+                                                     
+                                                  
                                             </h:panelGrid>
                                   
                                                     

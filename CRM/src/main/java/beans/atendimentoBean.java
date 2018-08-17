@@ -240,8 +240,13 @@ public class atendimentoBean {
         
 }
    
-    
-   
+    public void alterar() throws SQLException, IOException{
+        
+         Classe_Geral cg = new Classe_Geral("atendimento");
+         cg.alteraDadosTabela("atendimento", atd,dtla.getOrigematendimento());
+         
+    }
+     
     public void cadastraDetalheAtendimento(int cadastro) throws SQLException{
         
         ResultSetHandler<List<Atendimento>> h = new BeanListHandler<>(Atendimento.class);
@@ -284,9 +289,13 @@ public class atendimentoBean {
         
      }               
                  
-    
-    
-    
+    public void selecionaAtendimento(int select) throws IOException{
+        
+        System.out.print("id Selecionado"+select);
+          FacesContext.getCurrentInstance().getExternalContext().redirect("triagem.jsf");
+        
+        
+    }
     
     public void listar() throws SQLException {
 
@@ -297,33 +306,25 @@ public class atendimentoBean {
         RequestContext context = RequestContext.getCurrentInstance();
         context.update("listagem");
     }
+   
+    public void listar_meusAtendimentos() throws SQLException {
 
-    
-    
-    
-        public void listar_meusAtendimentos() throws SQLException {
+        usuarioLogado = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
 
-         
+        System.out.println(usuarioLogado);
 
-           usuarioLogado=(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
-        
-           System.out.println(usuarioLogado);
-           
-            
-           String sql = "SELECT * FROM crm.atendimento where corretor='" + usuarioLogado + "'OR corretor is null order by corretor";
-            
-            
-            ResultSetHandler<List<Atendimento>> h = new BeanListHandler<Atendimento>(Atendimento.class);
-            QueryRunner run = new QueryRunner(CustomDataSource.getInstance());
-            listaAtendimentos = run.query(sql, h);
+        String sql = "SELECT * FROM crm.atendimento where corretor='" + usuarioLogado + "'OR corretor is null order by corretor";
 
-            RequestContext context = RequestContext.getCurrentInstance();
-            context.update("listagem");
+        ResultSetHandler<List<Atendimento>> h = new BeanListHandler<Atendimento>(Atendimento.class);
+        QueryRunner run = new QueryRunner(CustomDataSource.getInstance());
+        listaAtendimentos = run.query(sql, h);
 
-        }
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.update("listagem");
 
     }
 
+}
 
     
        

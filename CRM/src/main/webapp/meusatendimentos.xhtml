@@ -80,7 +80,15 @@
                                     </p:column>
                                     
                                      <p:column headerText="Atender">
-                                    <button type="button" name="" value="" class="butn">Atender</button>
+                                         
+                                          <p:commandButton value="Atender" 
+                                                                   onstart="PF('DialogShow').show();"
+                                                                   style="font-size: 1.1em; font-weight: bold" 
+                                                                   action="#{atendimentoBean.selecionaAtendimento(contato.id)}"
+                                                                   
+                                                                  />
+                                         
+                                        
                                     </p:column>
                                      <p:column headerText="Devolver">
                                          <button type="button" name="" value="" class="myButton">Devolver</button>
