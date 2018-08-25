@@ -6,13 +6,12 @@
                 template="/WEB-INF/template.xhtml">
 
 
-    
+
     <ui:define name="content">
         
-        
-           
-            
-           
+         <f:metadata>
+                <f:viewAction action="#{guestPreferences.setTheme('teal-yellow')}" />
+            </f:metadata> 
         <div class="ui-g">
             <div class="ui-g-12">
                 <div class="card" style="font-size: 1.3em">
@@ -26,17 +25,16 @@
                                 <div id="andamento_atende">
                                     <div id="al" style="margin-left: 30px; text-align: left">
 
-                                        <ui:repeat value="#{atendimentoBean.listaAtendimentoDetalhe}" var="andamento">
+
+
+                                        <div class="ui-g-12 ui-lg-6 global-sales">
+                                            <p:panel header="Detalhes do Atendimento Atual" style="height:350px;">
+                                                     <ui:repeat value="#{atendimentoBean.listaAtendimentoDetalhe}" var="andamento">
 
 
                                             <p:panel id="av">
 
-                                                <f:facet name="header">
-                                                    DADOS DO ATENDIMENTO
-                                                </f:facet>
-
-
-                                                <p:panelGrid columns="2">
+                                                  <p:panelGrid columns="2">
 
                                                     <h:outputText value="Atendente :" style="color:red; width:  130px"/> 
                                                     <h:outputText value="#{andamento.atendente} " style="color:blue;"/>
@@ -44,9 +42,14 @@
                                                     <h:outputText value="#{andamento.nome}" style="color:blue;"/>
                                                     <h:outputText value="Data :" style="color: red;"/><h:outputText value="#{andamento.dataatendimento}" style="color:blue;"/>
                                                     <h:outputText value="Telefone :" style="color: red;"/><h:outputText value="#{andamento.telefone}" style="color:blue;"/>
-                                                     <h:outputText value="Corretor :" style="color: red;"/>
+                                                    <h:outputText value="Email :" style="color: red;"/><h:outputText value="#{andamento.email}" style="color:blue;"/> 
+                                                    <h:outputText value="Corretor :" style="color: red;"/>
+                                                     
                                                      <h:outputText value="#{usuarioManagedBean.usuario.nome}" style="color:blue;font-size: 1.3em"/>
-                                                </p:panelGrid>
+                                                    
+                                                     <h:outputText value="Deseja :" style="color: red;"/><h:outputText value="#{andamento.euquero}" style="color:blue;"/> 
+                                                  
+                                                  </p:panelGrid>
 
                                             </p:panel>
 
@@ -54,15 +57,63 @@
 
                                         </ui:repeat>
 
+                                                
+                                            </p:panel>
+                                        </div>
+                                        
+
+                                        
+                                        
+                                        
+                                        <div class="ui-g-12 ui-lg-6 stats" style="size:  70px; height:370px;">
+                                            <p:panel>
+                                                <f:facet name="header">
+                                                    Outros Atendimentos para Um cliente com esse Telefone ou Email
+
+                                                </f:facet>
+                                                <p:dataTable value="#{atendimentoBean.listaAtendimentosMesmoCliente}" var="car"  reflow="true"
+                                                             rowKey="#{car.id}" paginator="true" rows="5" >
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{car.nome}" />
+                                                      </f:facet>
+                                                   
+                                                    <f:facet name="aa">
+                                                       <h:outputText value="#{car.nome}" />
+                                                      </f:facet>
+                                                    
+                                                    <p:column headerText="Data" sortBy="#{car.dataatendimento}">
+                                                   
+                                                    <h:outputText value="#{car.dataatendimento}">
+                                                        <f:convertDateTime type="both" pattern="dd/MM/yyyy"/>
+                                                    </h:outputText>
+                                                    </p:column> 
+                                                    <p:column headerText="Atendente" sortBy="#{car.atendente}">
+                                                        <h:outputText value="#{car.atendente}" />
+                                                    </p:column>
+
+                                                    <p:column headerText="Corretor" sortBy="#{car.corretor}">
+                                                        <h:outputText value="#{car.corretor}" />
+                                                    </p:column>
+
+                                                    <p:column headerText="Brand" sortBy="#{car.euquero}">
+                                                        <h:outputText value="#{car.euquero}" />
+                                                    </p:column>
+
+                                                  
+                                                </p:dataTable>
+                                                </p:panel>
+                                        
+                                        </div>
+
                                         <br></br>
                                     </div>
 
 
 
 
-                                    <div class="ui-g-12 ui-md-6 ui-lg-4 task-list">
-                                        <p:panel header="TIPO DO NEGÓCIO BUSCADO">
-                                            <p:column id="col1">
+                                    <div class="ui-g-12 ui-md-6 ui-lg-4 task-list" >
+                                        <p:panel header="TIPO DO NEGÓCIO BUSCADO" >
+                                            <p:column id="col1" >
 
                                                 <h3  style="color:red">Qual Negócio Faremos Hoje ? </h3>
 
@@ -242,8 +293,8 @@
                                                                      style="font-size: 1.1em; font-weight: bold" 
                                                                      styleClass="butn"
                                                                      rendered="#{mostra}"
-                                                                     actionListener="#{atendimentoBean.triarAtendimento()}" 
-                                                                     oncomplete="#{guestPreferences.setTheme('teal-yellow')}"/>
+                                                                     actionListener="#{atendimentoBean.GravaDetalheAtendimento()}" 
+                                                                     oncomplete="handleLoginRequest(xhr, status, args)"/>
                                                 </div>
 
                                                 

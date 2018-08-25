@@ -61,12 +61,19 @@ public class atendimentoBean {
     
     
     
-    
-    
-    
-    
     public List<Atendimento> listaAtendimentos;
     public List<Atendimento> listaAtendimentoDetalhe;
+    
+    public List<Atendimento> listaAtendimentosMesmoCliente;
+
+    public List<Atendimento> getListaAtendimentosMesmoCliente() {
+        return listaAtendimentosMesmoCliente;
+    }
+
+    public void setListaAtendimentosMesmoCliente(List<Atendimento> listaAtendimentosMesmoCliente) {
+        this.listaAtendimentosMesmoCliente = listaAtendimentosMesmoCliente;
+    }
+    
 
     public List<Atendimento> getListaAtendimentoDetalhe() {
         return listaAtendimentoDetalhe;
@@ -210,7 +217,7 @@ public class atendimentoBean {
 
         }
         
-        
+         dtla = new Detalheatendimento();
         String corretor = atd.getCorretor();
 
         Classe_Geral cg = new Classe_Geral("atendimento");
@@ -273,22 +280,60 @@ public class atendimentoBean {
         
         usuarioLogado=(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
         
-        if (usuarioLogado==null){
             
              dtla = new Detalheatendimento();
             
              FacesContext.getCurrentInstance().getExternalContext().redirect("abrir_atendimento.jsf");
-        }else
-            
-        {
-             
-             FacesContext.getCurrentInstance().getExternalContext().redirect("triagem.jsf");
-        }
+        
+     }          
+    
+    
+    public void triarAtendimento() throws SQLException, IOException, NoSuchFieldException{
+        
+      
+        dtla.setNegocio(Arrays.toString(dtla.getNegocioArray()));
+        dtla.setBairros(Arrays.toString(dtla.getBairrosArray()));
+        dtla.setCaracteristicas(Arrays.toString(dtla.getCaracteristicasArray()));
+        dtla.setTipoimovel(Arrays.toString(dtla.getImovelArray()));
      
+        Classe_Geral cg = new Classe_Geral("detalheatendimento");
+
+        int inserido = cg.inserirDadosTabela("detalheatendimento", dtla); //INSERE REGISTOR NA TABELA E RETORNA ID
+ 
+        
+        
+        this.listarMesmoCliente();
+        
+        usuarioLogado=(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
+          
+        FacesContext.getCurrentInstance().getExternalContext().redirect("triar_atendimento.jsf");
+       
         
         
      }               
-                 
+              
+    
+     public void listarMesmoCliente() throws SQLException {
+
+         
+        String sql = "SELECT * FROM crm.atendimento where telefone like '%"+this.listaAtendimentoDetalhe.get(0).getTelefone()+"%' OR email like'%" + this.listaAtendimentoDetalhe.get(0).getEmail() + "%';"; 
+         
+        ResultSetHandler<List<Atendimento>> h = new BeanListHandler<Atendimento>(Atendimento.class);
+        QueryRunner run = new QueryRunner(CustomDataSource.getInstance());
+        listaAtendimentosMesmoCliente = run.query(sql, h);
+
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.update("listagem");
+    }
+    
+     
+     
+    
+    
+    
+    
+    
+    
     public void selecionaAtendimento(int select) throws IOException{
         
         System.out.print("id Selecionado"+select);
@@ -306,6 +351,10 @@ public class atendimentoBean {
         RequestContext context = RequestContext.getCurrentInstance();
         context.update("listagem");
     }
+    
+    
+   
+    
    
     public void listar_meusAtendimentos() throws SQLException {
 
