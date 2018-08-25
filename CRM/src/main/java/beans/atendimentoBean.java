@@ -43,7 +43,9 @@ import static org.primefaces.behavior.confirm.ConfirmBehavior.PropertyKeys.messa
 import org.primefaces.context.RequestContext;
 
 import beans.usuarioManagedBean;
+import static com.sun.glass.ui.Application.run;
 import java.util.Map;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 
 @ManagedBean 
 @SessionScoped
@@ -63,6 +65,15 @@ public class atendimentoBean {
     
     public List<Atendimento> listaAtendimentos;
     public List<Atendimento> listaAtendimentoDetalhe;
+    public List<Atendimento> listarminhasligacoes;
+
+    public List<Atendimento> getListarminhasligacoes() {
+        return listarminhasligacoes;
+    }
+
+    public void setListarminhasligacoes(List<Atendimento> listarminhasligacoes) {
+        this.listarminhasligacoes = listarminhasligacoes;
+    }
     
     public List<Atendimento> listaAtendimentosMesmoCliente;
 
@@ -217,7 +228,10 @@ public class atendimentoBean {
 
         }
         
-         dtla = new Detalheatendimento();
+        atd.setStatus("ABERTO");
+        
+        
+        dtla = new Detalheatendimento();
         String corretor = atd.getCorretor();
 
         Classe_Geral cg = new Classe_Geral("atendimento");
@@ -254,6 +268,8 @@ public class atendimentoBean {
          
     }
      
+    
+    
     public void cadastraDetalheAtendimento(int cadastro) throws SQLException{
         
         ResultSetHandler<List<Atendimento>> h = new BeanListHandler<>(Atendimento.class);
@@ -264,6 +280,33 @@ public class atendimentoBean {
       
         
     }
+    
+    
+    
+     
+    
+    
+   
+    
+     public void listaDetalheAtendimento(int cadastro) throws SQLException, IOException{
+        
+        ResultSetHandler<List<Atendimento>> h = new BeanListHandler<>(Atendimento.class);
+        QueryRunner run = new QueryRunner(CustomDataSource.getInstance());
+        listaAtendimentoDetalhe = run.query("SELECT * FROM crm.atendimento where id=" + cadastro, h);
+         
+        this.listarMesmoCliente();
+        
+        FacesContext.getCurrentInstance().getExternalContext().redirect("triar_atendimento.jsf");
+        
+        
+        //fazer a lista que carregará o detalhe do atendimento da crm.detalheatendimento
+        
+        
+        
+        
+        
+    }
+    
     
     public void GravaDetalheAtendimento() throws SQLException, IOException, NoSuchFieldException{
         
@@ -285,12 +328,31 @@ public class atendimentoBean {
             
              FacesContext.getCurrentInstance().getExternalContext().redirect("abrir_atendimento.jsf");
         
-     }          
+     }         
+    
+    public Atendimento buscaAtendimento(int cadastro) throws SQLException, IOException{
+        
+        ResultSetHandler<Atendimento> h = new BeanHandler<Atendimento>(Atendimento.class);
+        QueryRunner run = new QueryRunner(CustomDataSource.getInstance());
+        Atendimento atendimentoSelecionado=run.query("SELECT * FROM crm.atendimento where id=?",h,cadastro);
+         
+        return atendimentoSelecionado;
+    }
     
     
     public void triarAtendimento() throws SQLException, IOException, NoSuchFieldException{
         
-      
+        
+        usuarioLogado=(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
+        Atendimento atend = buscaAtendimento(dtla.getOrigematendimento());
+        atend.setCorretor(usuarioLogado);
+        atend.setStatus("EM ATENDIMENTO");
+        
+        
+        Classe_Geral alt = new Classe_Geral("atendimento");
+        alt.alteraDadosTabela("atendimento", atend,dtla.getOrigematendimento());
+        
+        
         dtla.setNegocio(Arrays.toString(dtla.getNegocioArray()));
         dtla.setBairros(Arrays.toString(dtla.getBairrosArray()));
         dtla.setCaracteristicas(Arrays.toString(dtla.getCaracteristicasArray()));
@@ -298,16 +360,18 @@ public class atendimentoBean {
      
         Classe_Geral cg = new Classe_Geral("detalheatendimento");
 
-        int inserido = cg.inserirDadosTabela("detalheatendimento", dtla); //INSERE REGISTOR NA TABELA E RETORNA ID
- 
-        
+        int inserido = cg.inserirDadosTabela("detalheatendimento", dtla); //INSERE REGISTRO NA TABELA E RETORNA ID
         
         this.listarMesmoCliente();
         
-        usuarioLogado=(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
+       
           
         FacesContext.getCurrentInstance().getExternalContext().redirect("triar_atendimento.jsf");
        
+        System.out.println("DADOS DO ATENDIMENTO CORRENTE"+atd.getId()+"nome"+atd.getNome());
+        
+            
+        
         
         
      }               
@@ -362,7 +426,7 @@ public class atendimentoBean {
 
         System.out.println(usuarioLogado);
 
-        String sql = "SELECT * FROM crm.atendimento where corretor='" + usuarioLogado + "'OR corretor is null order by corretor";
+        String sql = "SELECT * FROM crm.atendimento where corretor='" + usuarioLogado + "'OR corretor is null OR status='ABERTO' order by corretor";
 
         ResultSetHandler<List<Atendimento>> h = new BeanListHandler<Atendimento>(Atendimento.class);
         QueryRunner run = new QueryRunner(CustomDataSource.getInstance());
@@ -372,6 +436,26 @@ public class atendimentoBean {
         context.update("listagem");
 
     }
+    
+     public void listar_minhasLigacoes() throws SQLException {
+
+        usuarioLogado = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
+
+      
+        String sql = "SELECT * FROM crm.atendimento where corretor='" + usuarioLogado + "' AND euquero like '%falar%'";
+        System.out.println(sql);
+        
+        ResultSetHandler<List<Atendimento>> h = new BeanListHandler<Atendimento>(Atendimento.class);
+        QueryRunner run = new QueryRunner(CustomDataSource.getInstance());
+        listarminhasligacoes = run.query(sql, h);
+
+        RequestContext context = RequestContext.getCurrentInstance();
+        
+
+    }
+    
+    
+    
 
 }
 

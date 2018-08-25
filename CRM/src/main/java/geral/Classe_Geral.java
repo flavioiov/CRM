@@ -440,7 +440,7 @@ public Integer alteraDadosTabela(String Tabela,Object obj,int idx) //A fazer nes
                         contador++;
                     }
         
-        String Valores=VALORES.replace("'null'","null"); //substitiu as aspas quando os campos são null, assim evita probleas de compatibilidade com o banco
+        String Valores=VALORES.replace("'null'","null"); //substitiu as aspas quando os campos são null, assim evita problemas de compatibilidade com o banco
 
         query = "update "+nome_tabela+" "+SQL+" where id='"+idx+"';";
        

@@ -12,6 +12,9 @@
          <f:metadata>
                 <f:viewAction action="#{guestPreferences.setTheme('teal-yellow')}" />
             </f:metadata> 
+        
+        
+        
         <div class="ui-g">
             <div class="ui-g-12">
                 <div class="card" style="font-size: 1.3em">
@@ -72,7 +75,7 @@
 
                                                 </f:facet>
                                                 <p:dataTable value="#{atendimentoBean.listaAtendimentosMesmoCliente}" var="car"  reflow="true"
-                                                             rowKey="#{car.id}" paginator="true" rows="5" >
+                                                             rowKey="#{car.id}" paginator="true" rows="4" >
                                                     <f:facet name="header">
                                                         <h:outputText value="#{car.nome}" />
                                                       </f:facet>
@@ -87,16 +90,32 @@
                                                         <f:convertDateTime type="both" pattern="dd/MM/yyyy"/>
                                                     </h:outputText>
                                                     </p:column> 
-                                                    <p:column headerText="Atendente" sortBy="#{car.atendente}">
-                                                        <h:outputText value="#{car.atendente}" />
-                                                    </p:column>
-
                                                     <p:column headerText="Corretor" sortBy="#{car.corretor}">
                                                         <h:outputText value="#{car.corretor}" />
                                                     </p:column>
 
-                                                    <p:column headerText="Brand" sortBy="#{car.euquero}">
-                                                        <h:outputText value="#{car.euquero}" />
+                                                    
+                                                     
+                                                    <p:column headerText="Abrir">          
+                                                        <h:form>
+                                                            <p:commandButton id="carBtn" value="Saber Mais" type="button" />
+                                                            <p:overlayPanel id="carPanel" for="carBtn" hideEffect="clip" dynamic="true" style="width:300px" dismissable="false" showCloseIcon="true">
+                                                                <p:dataTable var="car" value="#{dtBasicView.cars}" rows="5" paginator="true" reflow="true">
+                                                                    <p:column headerText="Id">
+                                                                        <h:outputText value="#{car.id}" />
+                                                                    </p:column>
+                                                                    <p:column headerText="Year">
+                                                                        <h:outputText value="#{car.year}" />
+                                                                    </p:column>
+                                                                    <p:column headerText="Brand">
+                                                                        <h:outputText value="#{car.brand}" />
+                                                                    </p:column>
+                                                                </p:dataTable>
+                                                            </p:overlayPanel>
+
+
+                                                        </h:form>
+
                                                     </p:column>
 
                                                   
@@ -276,19 +295,10 @@
                                                 <br></br>
                                                 <br></br>
 
-                                                <div id="menuSup">
-                                                    <p:commandButton value="Gravar Atendimento" 
-                                                                     onstart="PF('DialogShow').show();"
-                                                                     style="font-size: 1.1em; font-weight: bold" 
-                                                                     styleClass="butn"
-                                                                     actionListener="#{atendimentoBean.GravaDetalheAtendimento()}" 
-                                                                     oncomplete="handleLoginRequest(xhr, status, args)"/>
-                                                </div>
-                                                
-                                                <br></br>
+                                               
                                                 
                                                 <div id="menuSup2">
-                                                    <p:commandButton value="Triar Atendimento" 
+                                                    <p:commandButton value="Atualizar Atendimento do Cliente" 
                                                                      onstart="PF('DialogShow').show();"
                                                                      style="font-size: 1.1em; font-weight: bold" 
                                                                      styleClass="butn"

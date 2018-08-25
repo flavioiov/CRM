@@ -49,9 +49,12 @@
 
     <ui:define name="content">
         
-         <f:metadata>
-                <f:viewAction action="#{atendimentoBean.listar_meusAtendimentos()}" />
-            </f:metadata> 
+        <f:metadata>
+            <f:viewAction action="#{atendimentoBean.listar_minhasLigacoes()}" />
+              <f:viewAction action="#{atendimentoBean.listar_meusAtendimentos()}" />
+        </f:metadata> 
+
+
         <div class="ui-g dashboard">
             <div class="ui-g-12 ui-lg-6 ui-xl-3">
                 <div class="ui-g overview-box overview-box-1">
@@ -59,7 +62,7 @@
                          <i class="fa fa-inbox" />
                     </div>
                     <div class="overview-box-content">
-                        <div class="overview-box-title">NOVO ATENDIMENTO</div>
+                        <div class="overview-box-title">ATENDIMENTOS EM ABERTO</div>
                         <div class="overview-box-stats">150</div>
                         <div class="overview-box-details">+%50 more than yesterday</div>
                     </div>
@@ -83,7 +86,7 @@
                          <i class="fa fa-folder" />
                     </div>
                     <div class="overview-box-content">
-                        <div class="overview-box-title">Files Synced</div>
+                        <div class="overview-box-title">ATIVIDADES HOJE</div>
                         <div class="overview-box-stats">25</div>
                         <div class="overview-box-details">+%15 more than yesterday</div>
                     </div>
@@ -95,8 +98,8 @@
                          <i class="fa fa-user" />
                     </div>
                     <div class="overview-box-content">
-                        <div class="overview-box-title">Users Online</div>
-                        <div class="overview-box-stats">156</div>
+                        <div class="overview-box-title">LIGAÇÕES A RETORNAR</div>
+                        <div class="overview-box-stats">15</div>
                         <div class="overview-box-details">-%20 less than last week</div>
                     </div>
                 </div>
@@ -108,12 +111,12 @@
                         ATENDIMENTOS EM ANDAMENTO
                         <span class="header-helper">Last Update: 21m</span>
                     </f:facet>
+                   
                     
-                    
-                    <p:panel header="Atendimentos em Aberto">
+                    <p:panel header="Atendimentos em Aberto" >
                         
-                        <p:dataTable var="atend1" value="#{atendimentoBean.listaAtendimentos}"  reflow="true"
-                                      paginator="true" rows="10">
+                        <p:dataTable var="atend1" value="#{atendimentoBean.listaAtendimentos}" selectionMode="single" reflow="true"
+                                     selection="#{dtSelectionView.selectedCar}" rowKey="#{atend1.id}" paginator="true" rows="10">
                             <f:facet name="header">
                                 ATENDIMENTOS EM ABERTO
                             </f:facet>
@@ -123,12 +126,13 @@
                                             <f:convertDateTime type="both" pattern="dd/MM/yyyy"/>
                                         </h:outputText>
                                     </p:column>
-
-                                         <p:column headerText="Hora">
-                                        <h:outputText value="#{atend1.horaatendimento}">
-                                            <f:convertDateTime type="time" pattern="hh:mm"/>
-                                        </h:outputText>
+            
+                            <p:column headerText="Hora" sortBy="#{atend1.horaatendimento}">
+                                        <h:outputText value="#{atend1.horaatendimento.substring(0, 5)}" />
                                     </p:column>
+
+
+                            
                                   <p:column headerText="Cliente">
                                       <h:outputText value="#{atend1.nome}" />
                                     </p:column>
@@ -141,22 +145,21 @@
                                         <h:outputText value="#{atend1.comochegou}" />
                                     </p:column>
 
-                                     <p:column headerText="Já Atendido">
-                                         
-                                        
-                               
-                                    <button type="button" name="" value="" class="classname">Já Atendido</button>
-                                         
-                                         
-                                    </p:column>
+                                   
                                     
                                      <p:column headerText="Atender">
-                                    <button type="button" name="" value="" class="butn">Atender</button>
+                                        
+                                         <p:commandButton action="#{atendimentoBean.listaDetalheAtendimento(atend1.id)}"  value="ATENDER"/>
                                     </p:column>
                                      <p:column headerText="Devolver">
-                                         <button type="button" name="" value="" class="myButton">Devolver</button>
+                                          <p:commandButton   value="DEVOLVER"/>
                                          
                                     </p:column>
+                            
+                                     <p:column headerText="Status">
+                                           <h:outputText value="EM ABERTO" />
+                                         
+                                    </p:column>        
                             
                         </p:dataTable>
                 </p:panel>
@@ -166,29 +169,37 @@
 
             <div class="ui-g-12 ui-lg-6 stats">
                 <p:panel header="Atendimentos em Aberto">
-                        <p:dataTable var="car" value="#{dtSelectionView.cars7}" selectionMode="single" reflow="true"
+                    <p:dataTable var="car" value="#{atendimentoBean.listarminhasligacoes}" selectionMode="single" reflow="true"
                                      selection="#{dtSelectionView.selectedCar}" rowKey="#{car.id}" paginator="true" rows="10">
-                            <f:facet name="header">
-                                LIGAÇÕES A RETORNAR
-                            </f:facet>
-                            <p:column headerText="Id" sortBy="#{car.id}">
-                                <h:outputText value="#{car.id}" />
-                            </p:column>
+                        <f:facet name="header">
+                            LIGAÇÕES A RETORNAR
+                        </f:facet>
+                        <p:column headerText="Atendeu" sortBy="#{car.atendente}">
+                            <h:outputText value="#{car.atendente}" />
+                        </p:column>
+                        
+                        <p:column headerText="Cliente" sortBy="#{car.atendente}">
+                            <h:outputText value="#{car.nome}" />
+                        </p:column>
 
-                            <p:column headerText="Year" sortBy="#{car.year}">
-                                <h:outputText value="#{car.year}" />
-                            </p:column>
+                         <p:column headerText="Data" sortBy="#{car.dataatendimento}">
+                                         <h:outputText value="#{car.dataatendimento}">
+                                            <f:convertDateTime type="both" pattern="dd/MM/yyyy"/>
+                                        </h:outputText>
+                                    </p:column>
 
-                            <p:column headerText="Brand" sortBy="#{car.brand}">
-                                <h:outputText value="#{car.brand}" />
-                            </p:column>
-
-                            <p:column headerText="Color" sortBy="#{car.color}">
-                                <h:outputText value="#{car.color}" />
-                            </p:column>
-                        </p:dataTable>
+                     
+                        <p:column headerText="Hora">
+                            <h:outputText value="#{car.horaatendimento.substring(0, 5)}" />
+                        </p:column>
+                        
+                      
+                    </p:dataTable>
                 </p:panel>
             </div>
+            
+            
+            
 
             <div class="ui-g-12 ui-md-6 ui-lg-4 task-list">
                 <p:panel header="Tasks">

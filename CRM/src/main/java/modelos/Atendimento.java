@@ -85,6 +85,14 @@ public class Atendimento implements Serializable {
     @Column(name = "horaatendimento")
     private String horaatendimento;
 
+    @Size(max = 45)
+    @Column(name = "status")
+    private String status;
+    
+    @Size(max = 5)
+    @Column(name = "ddd")
+    private String ddd;
+    
     public Atendimento() {
     }
 
@@ -188,6 +196,22 @@ public class Atendimento implements Serializable {
         this.horaatendimento = horaatendimento;
     }
 
+     public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+     public String getDDD() {
+        return ddd;
+    }
+
+    public void setDDD(String ddd) {
+        this.ddd = ddd;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

@@ -52,7 +52,7 @@
                                     </h:selectOneMenu>
 
                                     <h:outputText value="Nome" title="Digite seu nome completo por favor" />
-                                    <h:inputText 
+                                    <p:inputText 
                                         id="nome"
 
                                         title="Digite seu nome completo por favor" 
@@ -64,13 +64,30 @@
                                         value="#{atendimentoBean.atd.nome}" 
                                         validatorMessage="Digite seu nome inteiro por favor"> 
                                         <f:validateLength minimum="5" />
-                                    </h:inputText>
+                                    </p:inputText>
 
 
+                                      <h:outputText value="DDD" title="Digite seu DDD por favor" />
+                                     <p:inputText placeholder="ddd"
+                                      
+                                    
+                                        id="ddd"
+                                        title="Digite seu telefone por favor" 
+                                        size="5"
+                                        style="font-size: 1.1em"
+                                        required="false" 
+                                        requiredMessage="Por favor, Preencha seu Telefone" 
+                                        maxlength="5"
+                                        value="#{atendimentoBean.atd.DDD}" 
+                                        validatorMessage="Digite seu DDD"> 
+                                        <f:validateLength minimum="2" />
+
+                                    </p:inputText>
+                                    
+                                    
 
                                     <h:outputText value="WhatsApp" title="Digite seu Telefone por favor" />
-
-                                    <h:inputText 
+                                     <p:inputText 
                                         id="telefone"
                                         title="Digite seu telefone por favor" 
                                         size="15"
@@ -78,18 +95,18 @@
                                         required="false" 
                                         requiredMessage="Por favor, Preencha seu Telefone" 
                                         maxlength="48"
-
+                                        placeholder="Digite o telefone sem espaços"
                                         value="#{atendimentoBean.atd.telefone}" 
                                         validatorMessage="Digite seu telefone"> 
                                         <f:validateLength minimum="5" />
 
-                                    </h:inputText>
+                                    </p:inputText>
 
 
 
                                     <h:outputText value="Email" title="Digite seu email por favor"/>        
 
-                                    <h:inputText 
+                                    <p:inputText 
                                         id="email"
                                         title="Digite seu email por favor" 
                                         size="35" 
@@ -101,7 +118,7 @@
                                         validatorMessage="O e-mail informado não é válido">
 
                                         <f:validateRegex pattern="(^[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$)" />
-                                    </h:inputText>
+                                    </p:inputText>
 
                                     <h:outputLabel value="Eu Quero" />
                                     <h:selectOneMenu title="Escolha uma das opções da lista" id="euquero" styleClass="campoInputText"
@@ -122,7 +139,7 @@
 
 
                                     <h:outputText value="Mensagem" title="Você pode nos enviar uma mensagem" />
-                                    <h:inputTextarea  
+                                    <p:inputTextarea  
                                         id="mensagem"
                                         title="Digite sua mensagem por favor" 
                                         style="width: 380px; height: 100px; font-size: 1.2em" 
@@ -132,7 +149,7 @@
                                         value="#{atendimentoBean.atd.msg}" 
                                         validatorMessage="Escreva uma mensagem maior por favor" > 
                                         <f:validateLength minimum="0" />
-                                    </h:inputTextarea>
+                                    </p:inputTextarea>
 
 
                                     <div id="alinha" style="text-align: center">

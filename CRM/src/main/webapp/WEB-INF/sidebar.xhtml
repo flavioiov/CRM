@@ -21,11 +21,16 @@
                 <div class="layout-menu-container">
                     <h:form id="menuform">
                         <pm:menu style="font-size: 1.5em">
-                            <p:menuitem id="pm_dashboard" value="DashBoard" icon="fa fa-home" outcome="/dashboardcrm.xhtml" />
-
+                         
                          <p:menuitem id="novoatend" value="Novo Atendimento" icon="fa fa-tty" outcome="/abrir_atendimento.xhtml" />
-                           
-                          
+                            
+                         <p:menuitem id="pm_dashboard" rendered="#{mostra}" value="DashBoard" icon="fa fa-home" outcome="/dashboardcrm.xhtml" />
+ 
+                         <p:menuitem id="pm_buynow" value="Entrar no CRM" icon="fa fa-diamond" url="logar.jsf"/>
+                         
+                         <p:menuitem id="pm_sair" value="Sair" icon="fa fa-sign-out" actionListener="#{usuarioManagedBean.sairSistema()}"/>
+                            
+                            
                             <p:submenu id="pm_hierarchy" label="Configurações" icon="fa fa-gear">
                                 <p:submenu id="pm_sm1" label="Posição  Menu" icon="fa fa-sign-in">
 
@@ -64,9 +69,8 @@
 
                             </p:submenu>
 
-                            <p:menuitem id="pm_doc" value="Docs" icon="fa fa-book" outcome="/docs"/>
-                            <p:menuitem id="pm_buynow" value="Entrar no CRM" icon="fa fa-arrow-down" url="logar.jsf"/>
-                            <p:menuitem id="pm_sair" value="SAIR" icon="fa fa-sign-out" url="login.jsf" target=""/>
+                            
+                            
                         </pm:menu>
                     </h:form>
                 </div>
