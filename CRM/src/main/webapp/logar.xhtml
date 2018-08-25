@@ -1,0 +1,70 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+                
+   
+
+    <ui:define name="content">
+         
+        <div class="ui-g" style="height: 50%; font-size: 1.5em">
+            <div class="ui-g-12">
+                <div class="card">
+                    
+                   
+      
+                    <h:body styleClass="login-body" style="display: inline-block">
+                        <h:form>
+                            <p:growl id="growl" showDetail="true" sticky="true"/>
+                            <div class="ui-g">
+                                <div class="ui-g-12" style="text-align:center">
+                          
+                                   
+                                </div>
+                            </div>
+                            <div class="login-panel ui-fluid">
+                                <div class="ui-g">
+                                    <div class="ui-g-6 left-side">
+                                        <p:graphicImage name="images/login/login-photo.png" library="manhattan-layout" styleClass="login-image" />
+                                    </div>
+                                    <div class="ui-g-6 ui-sm-12 right-side">
+                                        <div class="ui-g-12 container">
+                                            <h3>SEJA BEM VINDO CORRETOR</h3>
+                                            <h2>Digite seu Usuário e Senha para Acessar o CRM</h2>
+                                        </div>
+                                        <div class="ui-g-12">
+                                            <p:outputLabel for="username" value="Usuário" />
+                                            <div class="input-wrapper">
+                                                <p:inputText id="username" placeholder="Username" value="#{usuarioManagedBean.usuario.nome}"/>
+                                                <i class="fa fa-user" />
+                                            </div>
+                                        </div>
+                                        <div class="ui-g-12">
+                                            <p:outputLabel for="password" value="Senha" />
+                                            <div class="input-wrapper">
+                                                <p:password id="password" placeholder="Password" feedback="false" value="#{usuarioManagedBean.usuario.senha}"/>
+                                           
+                                                <i class="fa fa-lock" />
+                                            </div>
+                                        </div>
+                                        <div class="ui-g-12 button-container">
+                                            <p:commandButton value="ENTRAR NO CRM" styleClass="green-btn raised-btn" actionListener="#{usuarioManagedBean.verificaUsuario()}" 
+                                                 update="growl"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </h:form>
+                        <h:outputStylesheet name="css/layout-#{guestPreferences.theme}.css" library="manhattan-layout" />
+                    </h:body>
+
+                  
+                </div>
+            </div>
+        </div>
+ 
+    </ui:define>
+
+</ui:composition>

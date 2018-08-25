@@ -23,10 +23,6 @@ import org.primefaces.context.RequestContext;
 
 
 
-
-
-
-
 /**
  *
  * @author Flavio
@@ -80,12 +76,13 @@ private Usuarios usuario = new Usuarios();
           
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage("BOAS VENDAS",  "Seja Bem Vindo Corretor : " + usuario.getNome()) );
-            FacesContext.getCurrentInstance().getExternalContext().redirect("atendimento.jsf");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("dashboardcrm.jsf");
             
             
             FacesContext context2 = FacesContext.getCurrentInstance();
             HttpSession session = (HttpSession) context2.getExternalContext().getSession(true);
             session.setAttribute("user", usuario.getNome());
+            session.setAttribute("mostra","true");
             //end of new lines
             
             

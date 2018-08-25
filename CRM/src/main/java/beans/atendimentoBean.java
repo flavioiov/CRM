@@ -224,13 +224,13 @@ public class atendimentoBean {
         if (corretor == null) {
             
             
-            FacesContext.getCurrentInstance().getExternalContext().redirect("detalhe_atendimento.jsf");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("detalhar_atendimento.jsf");
             
             
             
         } else {
             
-            FacesContext.getCurrentInstance().getExternalContext().redirect("atendimento.jsf");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("abrir_atendimento.jsf");
             
             // RequestContext context2 = RequestContext.getCurrentInstance();
             // context2.update("growl");
@@ -277,7 +277,7 @@ public class atendimentoBean {
             
              dtla = new Detalheatendimento();
             
-             FacesContext.getCurrentInstance().getExternalContext().redirect("atendimento.jsf");
+             FacesContext.getCurrentInstance().getExternalContext().redirect("abrir_atendimento.jsf");
         }else
             
         {
