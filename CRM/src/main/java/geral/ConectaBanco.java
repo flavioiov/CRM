@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package util;
+package geral;
 
 
+import geral.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,7 +35,7 @@ public class ConectaBanco {
         connection = conf.getDatabaseConnection();
 
         PreparedStatement pstst;
-        query = "SELECT * FROM freebits_13.formularios";
+        query = "SELECT * FROM crm.atendimento";
         pstst = connection.prepareStatement(query);
 
         //pstst.execute(query);
@@ -44,8 +45,8 @@ public class ConectaBanco {
         String assunto, nome;
 
         while (res.next()) {
-            assunto = res.getString("mensagem");
-            nome = res.getString("local");
+            assunto = res.getString("id");
+            nome = res.getString("nome");
             
             System.out.println("ROW = " + nome + ": " + assunto);
         }

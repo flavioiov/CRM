@@ -50,7 +50,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>dashboardcrm.jsf</welcome-file>
+        <welcome-file>abrir_atendimento.jsf</welcome-file>
     </welcome-file-list>
     
      <mime-mapping>

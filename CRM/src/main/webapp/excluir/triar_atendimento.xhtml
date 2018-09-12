@@ -316,23 +316,15 @@
                                                 </p:column>  
                                             </p:panelGrid>
          
-                                            
-                                           
-                                            
-                                            
 
-                                           
+                                            <div class="ui-g-12">
 
 
-                                        </p:panel>
-                                    </div>
-                                    
-                                     <div class="ui-g-12 ui-lg-8 chat">
-                                                <p:panel header="DETALHES DO ATENDIMENTO">
-                                               
+                                                <h3  style="color:red">DETALHES DO ATENDIMENTO</h3>
+
                                                 <h:inputTextarea  styleClass="campoInputText"
                                                                   title="Digite sua mensagem por favor" 
-                                                                  style="width: 85%; height: 200px; font-size: 1.3em;" 
+                                                                  style="width: 430px; height: 200px; font-size: 1.3em;" 
                                                                   required="false"
                                                                   
                                                                   requiredMessage="Por favor, digite uma mensagem." 
@@ -345,71 +337,60 @@
 
                                                
                                                 
-                                               
+                                                <div id="menuSup2">
+                                                    <p:commandButton value="Atualizar Atendimento do Cliente" 
+                                                                     onstart="PF('DialogShow').show();"
+                                                                     style="font-size: 1.1em; font-weight: bold" 
+                                                                     styleClass="butn"
+                                                                     rendered="#{mostra}"
+                                                                     actionListener="#{atendimentoBean.atualizarDadosAtendimento()}" 
+                                                                     oncomplete="handleLoginRequest(xhr, status, args)"/>
+                                                </div>
+
+                                                
+                                                <br></br>
+                                                
+                                                <div id="menuSup2">
+                                                    <p:commandButton value="Finalizar Atendimento" 
+                                                                     onstart="PF('DialogShow').show();"
+                                                                     style="font-size: 1.1em; font-weight: bold" 
+                                                                     styleClass="butn"
+                                                                     rendered="#{mostra}"
+                                                                     actionListener="#{atendimentoBean.finalizarAtendimento()}" 
+                                                                     oncomplete="handleLoginRequest(xhr, status, args)"/>
+                                                </div>
+                                                
                                                 
 
-                                     
-                                                   
-                                                </p:panel>
-                                     </div>
-
-                                     <div class="ui-g-12 ui-lg-4">
-                                         <div class="user-card">
-                                             <br></br>
-                                              <br></br>
-                                               <br></br>
-                                                <br></br>
-                                                 
-                                             <div class="user-card-content">
-
-                                                 <div id="menuSup2">
-                                                     <p:commandButton value="Atualizar Dados do Atendimento" 
-                                                                      onstart="PF('DialogShow').show();"
-                                                                      style="font-size: 1.1em; font-weight: bold" 
-                                                                      styleClass="butn"
-                                                                      rendered="#{mostra}"
-                                                                      actionListener="#{atendimentoBean.atualizarDadosAtendimento()}" 
-                                                                      oncomplete="handleLoginRequest(xhr, status, args)"/>
-                                                 </div>
+                                            </div>
 
 
-                                                 <br></br>
-                                                 <br></br>
-                                               
-
-                                                 <div id="menuSup2">
-                                                     <p:commandButton value="Finalizar Atendimento" 
-                                                                      onstart="PF('DialogShow').show();"
-                                                                      style="font-size: 1.1em; font-weight: bold" 
-                                                                      styleClass="butn"
-                                                                      rendered="#{mostra}"
-                                                                      actionListener="#{atendimentoBean.finalizarAtendimento()}" 
-                                                                      oncomplete="handleLoginRequest(xhr, status, args)"/>
-                                                 </div>
-
-
-
-                                             </div>
-                                         </div>
-                                     </div>
-                                    
+                                        </p:panel>
+                                    </div>
                                 </div> 
 
 
                             </div> 
                         </div>
                     
-    
+
                           <div class="ui-g-12">
-                                  <p:panel header="ENTENDENDO A NECESSIDADE DO CLIENTE" style="text-align: center">
+                                  <p:panel header="TRIAGEM DO CLIENTE" style="text-align: center">
                               
                                 <div class="ui-g-12 ui-md-6 ui-lg-4 task-list" >
                                         <p:panel header="TRIANDO O CLIENTE" >
                                             <p:column id="colx1" >
 
-                                                <h3  style="color:red">TEMOS O PRODUTO ?</h3>
+                                                <h3  style="color:red">Qual Negócio Faremos Hoje ? </h3>
 
-                                                
+                                                <p:selectCheckboxMenu 
+                                                    id="grupoprodu" 
+                                                    value="#{atendimentoBean.atdEscolhido.negocioArray}"
+                                                    label="Cars" multiple="true"
+                                                    filter="true" filterMatchMode="startsWith" 
+                                                    >
+                                                    <f:selectItems value="#{listaNegocio.cars}" />
+                                                </p:selectCheckboxMenu>
 
                                             </p:column>
 
@@ -417,7 +398,12 @@
                                             <p:column id="colunax">
                                                 <h3  style="color:red">Qual o Tipo de Imóvel o Cliente Busca ? </h3>
 
-                                              
+                                                <p:selectCheckboxMenu id="tialkajdfsa" label="Cars" 
+                                                                      value="#{atendimentoBean.atdEscolhido.imovelArray}"
+                                                                      multiple="true"
+                                                                      filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                                                    <f:selectItems value="#{listaTipoImovel.cars}" />
+                                                </p:selectCheckboxMenu>
 
                                                 <br></br>
 

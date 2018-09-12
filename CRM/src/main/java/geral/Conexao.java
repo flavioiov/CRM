@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package util;
+package geral;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,10 +16,10 @@ import java.sql.SQLException;
  */
 public class Conexao {
 
-   private String user = "usercrm";
+   private String user = "root";
 	private String banco="crm";
 	private String password = "kayros33";
-	private String url = "jdbc:mysql://191.252.2.163:3306/"+banco;
+	private String url = "jdbc:mysql://localhost:3306/"+banco;
 	private String erro="";
 	
 	Connection connection;

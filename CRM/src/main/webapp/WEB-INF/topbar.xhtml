@@ -24,11 +24,12 @@
             <ul class="topbar-menu">
                 <li class="profile-item">
                     <a href="#">                            
-                        <p:graphicImage name="images/avatar.png" library="manhattan-layout" />
+                         <p:graphicImage name="images/#{fotouser}" library="manhattan-layout" />
+                        
                         <span class="topbar-item-name profile-name">
                             
                          <h:outputText value="Corretor : " style="color: whitesmoke; font-size: 1.2em"/>
-                         <h:outputText value="#{usuarioManagedBean.usuario.nome}" style="color:whitesmoke;font-size: 1.3em"/>
+                         <h:outputText value="#{user}" style="color:whitesmoke;font-size: 1.3em"/>
                         </span>
                     </a>
                          
@@ -137,7 +138,7 @@
             </ul>
             
             <a href="#" class="topbar-menu-btn">
-                <p:graphicImage name="images/avatar.png" library="manhattan-layout" />
+                <p:graphicImage name="images/#{$fotousuario}" library="manhattan-layout" />
             </a>
             
             <a href="#" class="rightpanel-btn">

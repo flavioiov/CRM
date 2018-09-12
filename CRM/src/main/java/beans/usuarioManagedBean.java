@@ -15,8 +15,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import modelos.Atendimento;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 
@@ -72,6 +74,10 @@ private Usuarios usuario = new Usuarios();
 
         } else {
 
+            
+          
+            
+       
           
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage("BOAS VENDAS",  "Seja Bem Vindo Corretor : " + usuario.getNome()) );
@@ -80,8 +86,15 @@ private Usuarios usuario = new Usuarios();
             
             FacesContext context2 = FacesContext.getCurrentInstance();
             HttpSession session = (HttpSession) context2.getExternalContext().getSession(true);
-            session.setAttribute("user", usuario.getNome());
+            session.setAttribute("user", listaUsuarios.get(0).getNome());
             session.setAttribute("mostra","true");
+            session.setAttribute("fotouser", listaUsuarios.get(0).getFoto());
+            session.setAttribute("permission",listaUsuarios.get(0).getTipo());
+            session.setAttribute("unidade", listaUsuarios.get(0).getUnidade());
+            
+            
+            //System.out.println("TIPO FOTO:"+usuario.getFoto());
+            
             //end of new lines
             
             
@@ -100,7 +113,7 @@ private Usuarios usuario = new Usuarios();
             HttpSession session = (HttpSession) context2.getExternalContext().getSession(true);
             session.setAttribute("user",null);
             session.setAttribute("mostra","false");
-            
+             session.setAttribute("fotouser",null);
             FacesContext.getCurrentInstance().getExternalContext().redirect("abrir_atendimento.jsf");
         
     }

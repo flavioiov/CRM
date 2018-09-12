@@ -1,7 +1,7 @@
 package geral;
 import java.lang.reflect.Field;
 import java.sql.*;
-import util.Conexao;
+import geral.Conexao;
 
 
 
@@ -224,6 +224,38 @@ public ResultSet buscar(String campo,String busca)
     }		
 
 
+public ResultSet existeRegistro(String campo,String busca)
+		throws SQLException
+    {
+          
+      try
+        {
+    
+           Conexao conf = new Conexao(); 
+	       Connection connection;
+		   connection =  conf.getDatabaseConnection();
+                            
+           PreparedStatement prepared_statement;
+		   String sql;
+            sql = "select count(*) from "+nome_tabela+" where "+campo+"='"+busca+"'";
+     		st = connection.createStatement();
+    		rs1 = st.executeQuery(sql);     
+			
+		    	
+       }
+        catch (Exception e2)
+      {
+            e2.printStackTrace();
+      }
+		
+		return rs1;
+    }		
+
+
+
+
+
+
 //RETORNA UMA BUSCA 
 public ResultSet buscar2(String campo,String busca,String campo1,String busca1)
 		throws SQLException
@@ -440,9 +472,11 @@ public Integer alteraDadosTabela(String Tabela,Object obj,int idx) //A fazer nes
                         contador++;
                     }
         
-        String Valores=VALORES.replace("'null'","null"); //substitiu as aspas quando os campos são null, assim evita problemas de compatibilidade com o banco
+        String SQLlimpa=SQL.replace("'null'","null"); //substitiu as aspas quando os campos são null, assim evita problemas de compatibilidade com o banco
 
-        query = "update "+nome_tabela+" "+SQL+" where id='"+idx+"';";
+        
+        
+        query = "update "+nome_tabela+" "+SQLlimpa+" where id='"+idx+"';";
        
 
         System.out.println(query);

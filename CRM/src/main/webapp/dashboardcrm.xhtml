@@ -113,9 +113,9 @@
                     </f:facet>
                    
                     
-                    <p:panel header="Atendimentos em Aberto" >
+                    <p:panel header="ATENDIMENTOS" >
                         
-                        <p:dataTable var="atend1" value="#{atendimentoBean.listaAtendimentos}" selectionMode="single" reflow="true"
+                        <p:dataTable var="atend1" value="#{atendimentoBean.listaMeusAtendimentos}" selectionMode="single" reflow="true"
                                      selection="#{dtSelectionView.selectedCar}" rowKey="#{atend1.id}" paginator="true" rows="10">
                             <f:facet name="header">
                                 ATENDIMENTOS EM ABERTO
@@ -156,8 +156,8 @@
                                          
                                     </p:column>
                             
-                                     <p:column headerText="Status">
-                                           <h:outputText value="EM ABERTO" />
+                            <p:column headerText="Status" sortBy="#{atend1.status}">
+                                           <h:outputText value="#{atend1.status}" />
                                          
                                     </p:column>        
                             
@@ -168,7 +168,7 @@
             </div>
 
             <div class="ui-g-12 ui-lg-6 stats">
-                <p:panel header="Atendimentos em Aberto">
+                <p:panel header="LIGAÇÕES / RECADOS">
                     <p:dataTable var="car" value="#{atendimentoBean.listarminhasligacoes}" selectionMode="single" reflow="true"
                                      selection="#{dtSelectionView.selectedCar}" rowKey="#{car.id}" paginator="true" rows="10">
                         <f:facet name="header">
@@ -191,6 +191,11 @@
                      
                         <p:column headerText="Hora">
                             <h:outputText value="#{car.horaatendimento.substring(0, 5)}" />
+                        </p:column>
+                        
+                        <p:column headerText="Retornar">
+
+                            <p:commandButton action="#{atendimentoBean.listaDetalheAtendimento(car.id)}"  value="ATENDER"/>
                         </p:column>
                         
                       
