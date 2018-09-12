@@ -43,7 +43,9 @@ import static org.primefaces.behavior.confirm.ConfirmBehavior.PropertyKeys.messa
 import org.primefaces.context.RequestContext;
 
 import beans.usuarioManagedBean;
+import static com.sun.glass.ui.Application.run;
 import java.util.Map;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 
 @ManagedBean 
 @SessionScoped
@@ -61,12 +63,28 @@ public class atendimentoBean {
     
     
     
-    
-    
-    
-    
     public List<Atendimento> listaAtendimentos;
     public List<Atendimento> listaAtendimentoDetalhe;
+    public List<Atendimento> listarminhasligacoes;
+
+    public List<Atendimento> getListarminhasligacoes() {
+        return listarminhasligacoes;
+    }
+
+    public void setListarminhasligacoes(List<Atendimento> listarminhasligacoes) {
+        this.listarminhasligacoes = listarminhasligacoes;
+    }
+    
+    public List<Atendimento> listaAtendimentosMesmoCliente;
+
+    public List<Atendimento> getListaAtendimentosMesmoCliente() {
+        return listaAtendimentosMesmoCliente;
+    }
+
+    public void setListaAtendimentosMesmoCliente(List<Atendimento> listaAtendimentosMesmoCliente) {
+        this.listaAtendimentosMesmoCliente = listaAtendimentosMesmoCliente;
+    }
+    
 
     public List<Atendimento> getListaAtendimentoDetalhe() {
         return listaAtendimentoDetalhe;
@@ -210,7 +228,10 @@ public class atendimentoBean {
 
         }
         
+        atd.setStatus("ABERTO");
         
+        
+        dtla = new Detalheatendimento();
         String corretor = atd.getCorretor();
 
         Classe_Geral cg = new Classe_Geral("atendimento");
@@ -224,13 +245,13 @@ public class atendimentoBean {
         if (corretor == null) {
             
             
-            FacesContext.getCurrentInstance().getExternalContext().redirect("detalhe_atendimento.jsf");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("detalhar_atendimento.jsf");
             
             
             
         } else {
             
-            FacesContext.getCurrentInstance().getExternalContext().redirect("atendimento.jsf");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("abrir_atendimento.jsf");
             
             // RequestContext context2 = RequestContext.getCurrentInstance();
             // context2.update("growl");
@@ -240,8 +261,15 @@ public class atendimentoBean {
         
 }
    
+    public void alterar() throws SQLException, IOException{
+        
+         Classe_Geral cg = new Classe_Geral("atendimento");
+         cg.alteraDadosTabela("atendimento", atd,dtla.getOrigematendimento());
+         
+    }
+     
     
-   
+    
     public void cadastraDetalheAtendimento(int cadastro) throws SQLException{
         
         ResultSetHandler<List<Atendimento>> h = new BeanListHandler<>(Atendimento.class);
@@ -252,6 +280,33 @@ public class atendimentoBean {
       
         
     }
+    
+    
+    
+     
+    
+    
+   
+    
+     public void listaDetalheAtendimento(int cadastro) throws SQLException, IOException{
+        
+        ResultSetHandler<List<Atendimento>> h = new BeanListHandler<>(Atendimento.class);
+        QueryRunner run = new QueryRunner(CustomDataSource.getInstance());
+        listaAtendimentoDetalhe = run.query("SELECT * FROM crm.atendimento where id=" + cadastro, h);
+         
+        this.listarMesmoCliente();
+        
+        FacesContext.getCurrentInstance().getExternalContext().redirect("triar_atendimento.jsf");
+        
+        
+        //fazer a lista que carregará o detalhe do atendimento da crm.detalheatendimento
+        
+        
+        
+        
+        
+    }
+    
     
     public void GravaDetalheAtendimento() throws SQLException, IOException, NoSuchFieldException{
         
@@ -268,25 +323,88 @@ public class atendimentoBean {
         
         usuarioLogado=(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
         
-        if (usuarioLogado==null){
             
              dtla = new Detalheatendimento();
             
-             FacesContext.getCurrentInstance().getExternalContext().redirect("atendimento.jsf");
-        }else
-            
-        {
-             
-             FacesContext.getCurrentInstance().getExternalContext().redirect("triagem.jsf");
-        }
+             FacesContext.getCurrentInstance().getExternalContext().redirect("abrir_atendimento.jsf");
+        
+     }         
+    
+    public Atendimento buscaAtendimento(int cadastro) throws SQLException, IOException{
+        
+        ResultSetHandler<Atendimento> h = new BeanHandler<Atendimento>(Atendimento.class);
+        QueryRunner run = new QueryRunner(CustomDataSource.getInstance());
+        Atendimento atendimentoSelecionado=run.query("SELECT * FROM crm.atendimento where id=?",h,cadastro);
+         
+        return atendimentoSelecionado;
+    }
+    
+    
+    public void triarAtendimento() throws SQLException, IOException, NoSuchFieldException{
+        
+        
+        usuarioLogado=(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
+        Atendimento atend = buscaAtendimento(dtla.getOrigematendimento());
+        atend.setCorretor(usuarioLogado);
+        atend.setStatus("EM ATENDIMENTO");
+        
+        
+        Classe_Geral alt = new Classe_Geral("atendimento");
+        alt.alteraDadosTabela("atendimento", atend,dtla.getOrigematendimento());
+        
+        
+        dtla.setNegocio(Arrays.toString(dtla.getNegocioArray()));
+        dtla.setBairros(Arrays.toString(dtla.getBairrosArray()));
+        dtla.setCaracteristicas(Arrays.toString(dtla.getCaracteristicasArray()));
+        dtla.setTipoimovel(Arrays.toString(dtla.getImovelArray()));
      
+        Classe_Geral cg = new Classe_Geral("detalheatendimento");
+
+        int inserido = cg.inserirDadosTabela("detalheatendimento", dtla); //INSERE REGISTRO NA TABELA E RETORNA ID
+        
+        this.listarMesmoCliente();
+        
+       
+          
+        FacesContext.getCurrentInstance().getExternalContext().redirect("triar_atendimento.jsf");
+       
+        System.out.println("DADOS DO ATENDIMENTO CORRENTE"+atd.getId()+"nome"+atd.getNome());
+        
+            
+        
         
         
      }               
-                 
+              
+    
+     public void listarMesmoCliente() throws SQLException {
+
+         
+        String sql = "SELECT * FROM crm.atendimento where telefone like '%"+this.listaAtendimentoDetalhe.get(0).getTelefone()+"%' OR email like'%" + this.listaAtendimentoDetalhe.get(0).getEmail() + "%';"; 
+         
+        ResultSetHandler<List<Atendimento>> h = new BeanListHandler<Atendimento>(Atendimento.class);
+        QueryRunner run = new QueryRunner(CustomDataSource.getInstance());
+        listaAtendimentosMesmoCliente = run.query(sql, h);
+
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.update("listagem");
+    }
+    
+     
+     
     
     
     
+    
+    
+    
+    public void selecionaAtendimento(int select) throws IOException{
+        
+        System.out.print("id Selecionado"+select);
+          FacesContext.getCurrentInstance().getExternalContext().redirect("triagem.jsf");
+        
+        
+    }
     
     public void listar() throws SQLException {
 
@@ -297,33 +415,49 @@ public class atendimentoBean {
         RequestContext context = RequestContext.getCurrentInstance();
         context.update("listagem");
     }
-
     
     
+   
     
-        public void listar_meusAtendimentos() throws SQLException {
+   
+    public void listar_meusAtendimentos() throws SQLException {
 
-         
+        usuarioLogado = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
 
-           usuarioLogado=(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
-        
-           System.out.println(usuarioLogado);
-           
-            
-           String sql = "SELECT * FROM crm.atendimento where corretor='" + usuarioLogado + "'OR corretor is null order by corretor";
-            
-            
-            ResultSetHandler<List<Atendimento>> h = new BeanListHandler<Atendimento>(Atendimento.class);
-            QueryRunner run = new QueryRunner(CustomDataSource.getInstance());
-            listaAtendimentos = run.query(sql, h);
+        System.out.println(usuarioLogado);
 
-            RequestContext context = RequestContext.getCurrentInstance();
-            context.update("listagem");
+        String sql = "SELECT * FROM crm.atendimento where corretor='" + usuarioLogado + "'OR corretor is null OR status='ABERTO' order by corretor";
 
-        }
+        ResultSetHandler<List<Atendimento>> h = new BeanListHandler<Atendimento>(Atendimento.class);
+        QueryRunner run = new QueryRunner(CustomDataSource.getInstance());
+        listaAtendimentos = run.query(sql, h);
+
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.update("listagem");
 
     }
+    
+     public void listar_minhasLigacoes() throws SQLException {
 
+        usuarioLogado = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
+
+      
+        String sql = "SELECT * FROM crm.atendimento where corretor='" + usuarioLogado + "' AND euquero like '%falar%'";
+        System.out.println(sql);
+        
+        ResultSetHandler<List<Atendimento>> h = new BeanListHandler<Atendimento>(Atendimento.class);
+        QueryRunner run = new QueryRunner(CustomDataSource.getInstance());
+        listarminhasligacoes = run.query(sql, h);
+
+        RequestContext context = RequestContext.getCurrentInstance();
+        
+
+    }
+    
+    
+    
+
+}
 
     
        

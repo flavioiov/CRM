@@ -13,18 +13,18 @@
     </h:head>
     <h:body>
 
-        <ui:composition template="./template/commomLayout.xhtml">
+      
 
             <f:metadata>
-                <f:viewAction action="#{atendimentoBean.listar_meusAtendimentos()}" />
+                <f:viewAction action="#{atendimentoBean.listar()}" />
             </f:metadata> 
             
-            <ui:define name="content">
+          
 
             
                         <h:form id="listagem">  
                             <p:panel style="background-color: white; width: 100%">
-                                <h1> "MEUS ATENDIMENTOS" </h1>
+                                <h1> "CONTATOS NÃO ATENDIDOS" </h1>
                                 
                                 
                                 <br></br>
@@ -33,7 +33,7 @@
                                              var="contato" paginator="true"
                                              rowSelector="true"
                                              rowHover="true"
-                                             rows="30"
+                                             rows="10"
                                             
                                              styleClass="order-table"
                                              >
@@ -67,11 +67,9 @@
                                     <p:column headerText="Mensagem">
                                           <h:outputText value="#{contato.msg}" />
                                     </p:column>
-                                    <p:column headerText="Corretor">
-                                        <h:outputText value="#{contato.corretor }" />
-                                    </p:column>
-                                    <p:column headerText="Já Atendido">
 
+                                     <p:column headerText="Já Atendido">
+                                         
                                         
                                
                                     <button type="button" name="" value="" class="classname">Já Atendido</button>
@@ -80,15 +78,7 @@
                                     </p:column>
                                     
                                      <p:column headerText="Atender">
-                                         
-                                          <p:commandButton value="Atender" 
-                                                                   onstart="PF('DialogShow').show();"
-                                                                   style="font-size: 1.1em; font-weight: bold" 
-                                                                   action="#{atendimentoBean.selecionaAtendimento(contato.id)}"
-                                                                   
-                                                                  />
-                                         
-                                        
+                                    <button type="button" name="" value="" class="butn">Atender</button>
                                     </p:column>
                                      <p:column headerText="Devolver">
                                          <button type="button" name="" value="" class="myButton">Devolver</button>
@@ -101,9 +91,9 @@
                   
          
 
-            </ui:define>
+  
 
-        </ui:composition>
+     
 
 
 

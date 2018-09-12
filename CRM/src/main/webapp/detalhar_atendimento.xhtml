@@ -1,0 +1,283 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+
+    
+    <ui:define name="content">
+        
+        
+           
+            
+           
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card" style="font-size: 1.3em">
+
+                    <h:form id="atendimento">  
+                        <p:growl id="msg" />
+                        <p:growl id="growl" showDetail="true" sticky="true"/>
+
+                        <div id="div_atende">
+                            <div id="monta_conteudo_atende" style="text-align: center; ">
+                                <div id="andamento_atende">
+                                    <div id="al" style="margin-left: 30px; text-align: left">
+
+                                        <ui:repeat value="#{atendimentoBean.listaAtendimentoDetalhe}" var="andamento">
+
+
+                                            <p:panel id="av">
+
+                                                <f:facet name="header">
+                                                    DADOS DO ATENDIMENTO
+                                                </f:facet>
+
+
+                                                <p:panelGrid columns="2">
+
+                                                    <h:outputText value="Atendente :" style="color:red; width:  130px"/> 
+                                                    <h:outputText value="#{andamento.atendente} " style="color:blue;"/>
+                                                    <h:outputText value="Cliente :" style="color: red;"/>
+                                                    <h:outputText value="#{andamento.nome}" style="color:blue;"/>
+                                                    <h:outputText value="Data :" style="color: red;"/><h:outputText value="#{andamento.dataatendimento}" style="color:blue;"/>
+                                                    <h:outputText value="Telefone :" style="color: red;"/><h:outputText value="#{andamento.telefone}" style="color:blue;"/>
+                                                     <h:outputText value="Corretor :" style="color: red;"/>
+                                                     <h:outputText value="#{usuarioManagedBean.usuario.nome}" style="color:blue;font-size: 1.3em"/>
+                                                </p:panelGrid>
+
+                                            </p:panel>
+
+
+
+                                        </ui:repeat>
+
+                                        <br></br>
+                                    </div>
+
+
+
+
+                                    <div class="ui-g-12 ui-md-6 ui-lg-4 task-list">
+                                        <p:panel header="TIPO DO NEGÓCIO BUSCADO">
+                                            <p:column id="col1">
+
+                                                <h3  style="color:red">Qual Negócio Faremos Hoje ? </h3>
+
+                                                <p:selectCheckboxMenu 
+                                                    id="grupoNegocio" 
+                                                    value="#{atendimentoBean.dtla.negocioArray}"
+                                                    label="Cars" multiple="true"
+                                                    filter="true" filterMatchMode="startsWith" 
+                                                    >
+                                                    <f:selectItems value="#{listaNegocio.cars}" />
+                                                </p:selectCheckboxMenu>
+
+                                            </p:column>
+
+
+                                            <p:column id="coluna2">
+                                                <h3  style="color:red">Qual o Tipo de Imóvel o Cliente Busca ? </h3>
+
+                                                <p:selectCheckboxMenu id="tipoImovel" label="Cars" 
+                                                                      value="#{atendimentoBean.dtla.imovelArray}"
+                                                                      multiple="true"
+                                                                      filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                                                    <f:selectItems value="#{listaTipoImovel.cars}" />
+                                                </p:selectCheckboxMenu>
+
+                                                <br></br>
+
+                                            </p:column>
+
+                                        </p:panel>
+                                    </div>
+
+
+                                    <div class="ui-g-12 ui-md-6 ui-lg-4 ui-fluid contact-form">
+
+                                        <p:panel header="CARACTERÍSTICAS DO IMÓVEL">
+
+                                            <p:column id="coluna3">
+
+                                                <h3  style="color:red">Quais Bairros São Buscados ? </h3>
+                                                <p:selectCheckboxMenu id="grouped"  multiple="true"
+                                                                      value="#{atendimentoBean.dtla.bairrosArray}"
+                                                                      filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                                                    <f:selectItems value="#{listaBairros.cars}" />
+                                                </p:selectCheckboxMenu>
+
+                                                <br></br>
+                                            </p:column>
+
+
+                                            <p:column id="coluna6">
+
+                                                <h3  style="color:red">Quais as Característiscas Necessárias em seu Imóvel ?</h3>
+                                                <br></br>
+                                                <p:selectCheckboxMenu id="groupedimovel" label="Cars" multiple="true"
+                                                                      value="#{atendimentoBean.dtla.caracteristicasArray}"
+                                                                      filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                                                    <f:selectItems value="#{listaCaracteristicas.cars}" />
+                                                </p:selectCheckboxMenu>
+                                            </p:column>
+
+
+
+                                            <p:column id="coluna7">
+
+                                                <h3  style="color:red">Qual o tamanho Mínimo para seu Imóvel ? M2</h3>
+                                                <br></br>
+                                                <h:panelGrid columns="2" cellpadding="5">
+                                                    <h:outputLabel for="groupedw" value="Selecione :" />
+                                                    <p:inputNumber id="tamanhoMinimo" value="#{atendimentoBean.dtla.tamanho}" symbol=" ">
+                                                        <p:ajax process="@this" update="growl" />
+                                                    </p:inputNumber>
+                                                    <p:slider for="tamanhoMinimo" maxValue="15000" minValue="50" step="50" />
+
+                                                </h:panelGrid>
+
+
+
+                                            </p:column>
+
+
+                                        </p:panel>
+
+                                    </div>
+
+
+
+                                    <div class="ui-g-12 ui-md-6 ui-lg-4 ui-fluid contact-form">
+                                        <p:panel header="VALORES DA NEGOCIAÇÃO" style="text-align: center">
+
+
+                                            <p:panelGrid columns="3" style="display: inline-block">
+
+                                                <p:column id="aaa">
+
+                                                    <h3  style="color:red">Faixa de Valor Venda </h3>
+
+                                                    <p:panelGrid columns="1">
+                                                        <h3 style="color:red">Valor Mínimo Venda</h3>
+
+                                                        <p:inputNumber id="nmb1" value="#{atendimentoBean.dtla.valorminvenda}" symbol=" R$ " >
+                                                            <p:ajax process="@this" />
+                                                        </p:inputNumber>
+                                                        <p:slider for="nmb1" maxValue="1500000" minValue="500" step="1000" />
+
+
+                                                        <h3 style="color:red">Valor Máximo Venda</h3>
+
+                                                        <p:inputNumber id="nmb2" value="#{atendimentoBean.dtla.valormaxvenda}" symbol=" R$ " >
+                                                            <p:ajax process="@this" />
+                                                        </p:inputNumber>
+                                                        <p:slider for="nmb2" maxValue="1500000" minValue="500" step="1000" />
+                                                    </p:panelGrid>    
+
+                                                </p:column>
+                                                <p:column>
+
+
+                                                </p:column>
+
+
+                                                <p:column id="bbb">
+                                                    <h3  style="color:green">Faixa de Valor Locação</h3>
+
+
+                                                    <p:panelGrid columns="1">
+                                                        <h3 style="color:green">Valor Mínimo Locação</h3>
+
+                                                        <p:inputNumber id="nmb3" value="#{atendimentoBean.dtla.valorminaluguel}" symbol=" R$ ">
+                                                            <p:ajax process="@this"/>
+                                                        </p:inputNumber>
+                                                        <p:slider for="nmb3" maxValue="30000" minValue="500" step="250" />
+
+
+                                                        <h3 style="color:green">Valor Máximo Locação</h3>
+
+                                                        <p:inputNumber id="nmb4" value="#{atendimentoBean.dtla.valormaxaluguel}" symbol=" R$ " >
+                                                            <p:ajax process="@this" />
+                                                        </p:inputNumber>
+                                                        <p:slider for="nmb4" maxValue="10000" minValue="500" step="250" />
+                                                    </p:panelGrid>
+                                                </p:column>  
+                                            </p:panelGrid>
+
+
+                                            <div class="ui-g-12">
+
+
+                                                <h3  style="color:red">DETALHES DO ATENDIMENTO</h3>
+
+                                                <h:inputTextarea  styleClass="campoInputText"
+                                                                  title="Digite sua mensagem por favor" 
+                                                                  style="width: 340px; height: 100px; font-size: 1.3em;" 
+                                                                  required="false" 
+                                                                  requiredMessage="Por favor, digite uma mensagem." 
+                                                                  value="#{atendimentoBean.dtla.detalhemsg}" 
+                                                                  validatorMessage="Escreva uma mensagem maior por favor" > 
+                                                    <f:validateLength minimum="0" />
+                                                </h:inputTextarea>
+                                                <br></br>
+                                                <br></br>
+
+                                               
+                                             <div id="menuSup">
+                                                    <p:commandButton value="Gravar Atendimento" 
+                                                                     onstart="PF('DialogShow').show();"
+                                                                     style="font-size: 1.1em; font-weight: bold" 
+                                                                     styleClass="butn"
+                                                                     actionListener="#{atendimentoBean.GravaDetalheAtendimento()}" 
+                                                                     oncomplete="handleLoginRequest(xhr, status, args)"/>
+                                                </div>
+                                                
+                                                <br></br>
+                                                
+                                                <div id="menuSup2">
+                                                    <p:commandButton value="Triar Atendimento" 
+                                                                     onstart="PF('DialogShow').show();"
+                                                                     style="font-size: 1.1em; font-weight: bold" 
+                                                                     styleClass="butn"
+                                                                     rendered="#{mostra}"
+                                                                     actionListener="#{atendimentoBean.triarAtendimento()}" 
+                                                                     oncomplete="#{guestPreferences.setTheme('teal-yellow')}"/>
+                                                </div>
+
+                                                
+                                                <br></br>
+                                                
+                                                <div id="menuSup2">
+                                                    <p:commandButton value="Finalizar Atendimento" 
+                                                                     onstart="PF('DialogShow').show();"
+                                                                     style="font-size: 1.1em; font-weight: bold" 
+                                                                     styleClass="butn"
+                                                                     rendered="#{mostra}"
+                                                                     actionListener="#{atendimentoBean.GravaDetalheAtendimento()}" 
+                                                                     oncomplete="handleLoginRequest(xhr, status, args)"/>
+                                                </div>
+                                                
+                                                
+
+                                            </div>
+
+
+                                        </p:panel>
+                                    </div>
+                                </div> 
+
+
+                            </div> 
+                        </div>
+                    </h:form>
+
+                </div>
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

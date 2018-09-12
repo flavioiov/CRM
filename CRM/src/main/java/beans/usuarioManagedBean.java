@@ -5,7 +5,6 @@
  */
 package beans;
 
-import geral.Classe_Geral;
 import geral.CustomDataSource;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -19,10 +18,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
-import org.primefaces.context.RequestContext;
-
-
-
 
 
 
@@ -80,30 +75,37 @@ private Usuarios usuario = new Usuarios();
           
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage("BOAS VENDAS",  "Seja Bem Vindo Corretor : " + usuario.getNome()) );
-            FacesContext.getCurrentInstance().getExternalContext().redirect("atendimento.jsf");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("dashboardcrm.jsf");
             
             
             FacesContext context2 = FacesContext.getCurrentInstance();
             HttpSession session = (HttpSession) context2.getExternalContext().getSession(true);
             session.setAttribute("user", usuario.getNome());
+            session.setAttribute("mostra","true");
             //end of new lines
             
             
         }
-        
-        
-        
-        
+          
         //RequestContext context = RequestContext.getCurrentInstance();
         //context.update("listagem");
-    
-        
-       
-    
-         
-    
+      
     
 }
+    
+    
+    public void sairSistema() throws IOException{
+            
+            FacesContext context2 = FacesContext.getCurrentInstance();
+            HttpSession session = (HttpSession) context2.getExternalContext().getSession(true);
+            session.setAttribute("user",null);
+            session.setAttribute("mostra","false");
+            
+            FacesContext.getCurrentInstance().getExternalContext().redirect("abrir_atendimento.jsf");
+        
+    }
+    
+    
     
     
        
