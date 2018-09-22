@@ -1,0 +1,290 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                
+                template="/WEB-INF/template.xhtml">
+
+
+    <ui:define name="title">Dashboard</ui:define>
+
+    <ui:define name="head">
+           <script type="text/javascript">
+               //<![CDATA[
+               function skinBar() {
+                   this.cfg.shadow = false;
+                   this.cfg.title = '';
+                   this.cfg.seriesColors = ['#3984b8','#7e8dcd'];
+                   this.cfg.grid = {
+                       background: '#ffffff',
+                       borderColor: '#ffffff',
+                       gridLineColor: '#dee4e9',
+                       shadow: false
+                   };
+                   this.cfg.axesDefaults = {
+                       borderWidth: 0.1,
+                       borderColor: 'dce2e7',
+                       rendererOptions: {
+                           textColor: '#757575'
+                       }
+                   };
+                   this.cfg.seriesDefaults = {
+                       shadow: false,
+                       lineWidth: 1,
+                       renderer: $.jqplot.BarRenderer,
+                       markerOptions: {
+                           shadow: false,
+                           size: 7,
+                           style: 'circle'
+                       }
+                   }
+               }
+               //]]>
+           </script>
+           <style type="text/css">
+               .main-content {
+                   padding: 0;
+               }
+           </style>
+       </ui:define>
+
+   
+    <ui:define id="content" name="content">
+        
+        <h:form id="fomrularioDashBoardadm">
+            
+        
+        
+        <f:metadata>
+           <!-- <f:viewAction action="#{guestPreferences.setTheme('green-purple')}" />-->
+            <f:viewAction action="#{admBean.listar_minhasLigacoes()}" />
+              <f:viewAction action="#{admBean.listar_meusAtendimentos()}" />
+        </f:metadata> 
+
+        
+
+        <div class="ui-g dashboard">
+            <div class="ui-g-12 ui-lg-6 ui-xl-3">
+                <div class="ui-g overview-box overview-box-1">
+                    <div class="overview-box-icon">
+                         <i class="fa fa-inbox" />
+                    </div>
+                    <div class="overview-box-content">
+                        <div class="overview-box-title">ATENDIMENTOS EM ABERTO</div>
+                        <div class="overview-box-stats">#{admBean.listaAbertos.size()}</div>
+                        <div class="overview-box-details">Clientes que ainda não foram atendidos</div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-lg-6 ui-xl-3">
+                <div class="ui-g overview-box overview-box-2">
+                    <div class="overview-box-icon">
+                         <i class="fa fa-map-marker" />
+                    </div>
+                    <div class="overview-box-content">
+                        <div class="overview-box-title">MEUS ATENDIMENTOS</div>
+                        <div class="overview-box-stats">#{admBean.qtdatendimentoscorretor.size()}</div>
+                        <div class="overview-box-details">Meus atendimentos em andamento</div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-lg-6 ui-xl-3">
+                <div class="ui-g overview-box overview-box-3">
+                    <div class="overview-box-icon">
+                         <i class="fa fa-folder" />
+                    </div>
+                    <div class="overview-box-content">
+                        <div class="overview-box-title">ATIVIDADES HOJE</div>
+                        <div class="overview-box-stats">25</div>
+                        <div class="overview-box-details">Atividades que preciso fazer hoje</div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-lg-6 ui-xl-3">
+                <div class="ui-g overview-box overview-box-4">
+                    <div class="overview-box-icon">
+                         <i class="fa fa-user" />
+                    </div>
+                    <div class="overview-box-content">
+                        <div class="overview-box-title">LIGAÇÕES A RETORNAR</div>
+                        <div class="overview-box-stats">#{admBean.listarminhasligacoes.size()}</div>
+                     
+                        <div class="overview-box-details">Ligações a Retornar</div>
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <div class="ui-g-12 ui-lg-6 stats">
+                <p:panel header="LIGAÇÕES / RECADOS">
+                    <p:dataTable var="car" value="#{admBean.listarminhasligacoes}" selectionMode="single" reflow="true"
+                                 rowKey="#{car.id}" paginator="true" rows="10">
+                        <f:facet name="header">
+                            LIGAÇÕES A RETORNAR
+                        </f:facet>
+                        <p:column headerText="Falar Com" sortBy="#{car.euquero}">
+                            <h:outputText value="#{car.euquero}" />
+                        </p:column>
+
+                        <p:column headerText="Cliente" sortBy="#{car.atendente}">
+                            <h:outputText value="#{car.nome}" />
+                        </p:column>
+
+                        <p:column headerText="Data" sortBy="#{car.dataatendimento}">
+                            <h:outputText value="#{car.dataatendimento}">
+                                <f:convertDateTime type="both" pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+
+                        <p:column headerText="Hora">
+                            <h:outputText value="#{car.horaatendimento.substring(0, 5)}" />
+                        </p:column>
+
+                        <p:column headerText="Retornar">
+
+                            <p:commandButton action="#{admBean.listaDetalheAtendimento(car.id)}"  value="DAR RETORNO"/>
+                        </p:column>
+
+                        
+                        <p:column headerText="Apagar">
+                            <p:commandButton value="Apagar" style="font-size: 1em; font-weight: bold" 
+                                          
+                                             actionListener="#{atendimentoBean.apagarAtendimento(car.id)}">  
+
+                                
+                            </p:commandButton>
+
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="SIM" type="button"  styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="NÃO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+                        </p:column>
+
+                        
+
+                    </p:dataTable>
+                </p:panel>
+            </div>
+
+            
+
+            <div class="ui-g-12">
+
+
+                <f:facet name="header">
+                    ATENDIMENTOS EM ANDAMENTO
+                    <span class="header-helper">Last Update: 21m</span>
+                </f:facet>
+
+
+                <p:panel header="ATENDIMENTOS" id="painel2" >
+
+
+
+                    <p:dataTable var="atend1" value="#{admBean.listaMeusAtendimentos}" selectionMode="single" reflow="true"
+                                 id="tableAtendimento2" rowKey="#{atend1.id}" 
+                                 paginator="true" 
+                                 rows="50">
+                        <f:facet name="header">
+                            ATENDIMENTOS EM ABERTO E ANDAMENTO
+                        </f:facet>
+
+                        <p:column headerText="Data" sortBy="#{atend1.dataatendimento}">
+                            <h:outputText value="#{atend1.dataatendimento}">
+                                <f:convertDateTime type="both" pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Hora" sortBy="#{atend1.horaatendimento}">
+                            <h:outputText value="#{atend1.horaatendimento.substring(0, 5)}" />
+                        </p:column>
+
+
+
+                        <p:column headerText="Cliente" sortBy="#{atend1.nome}">
+                            <h:outputText value="#{atend1.nome}" />
+                        </p:column>
+
+                        <p:column headerText="Como Chegou" sortBy="#{atend1.comochegou}">
+                            <h:outputText value="#{atend1.comochegou}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Assunto" sortBy="#{atend1.negocio}">
+                            <h:outputText value="#{atend1.negocio}"/>
+                        </p:column>
+
+
+
+                        <p:column headerText="Grau Interesse" sortBy="#{atend1.interesse}">
+                            <h:outputText value="#{atend1.interesse}" />
+                        </p:column>
+
+
+
+                      
+
+
+                        <p:column headerText="Tipo " sortBy="#{atend1.tipoimovel}">
+                            <h:outputText value="#{atend1.tipoimovel}" />
+                        </p:column>
+
+
+                        <p:column headerText="R$ Max Aluguel" sortBy="#{atend1.valormaxaluguel}">
+                            <h:outputText value="#{atend1.valormaxaluguel}">
+                                <f:convertNumber type="currency" currencySymbol=""/>
+                            </h:outputText>    
+                        </p:column>
+
+
+                        <p:column headerText="R$ Max Venda" sortBy="#{atend1.valormaxvenda}">
+
+                            <h:outputText value="#{atend1.valormaxvenda}">
+                                <f:convertNumber type="currency" currencySymbol=""/>
+
+                            </h:outputText>
+                        </p:column>
+
+
+                        <p:column headerText="VER">
+
+                            <p:commandButton action="#{admBean.listaDetalheAtendimento(atend1.id)}" style="font-size: 1em; font-weight: bold" value="Detalhe"/>
+                        </p:column>
+
+
+                        <p:column headerText="Status" sortBy="#{atend1.status}">
+                            <h:outputText value="#{atend1.status}" />
+                        </p:column>  
+
+                        <p:column headerText="Corretor" sortBy="#{atend1.corretor}">
+                            <h:outputText value="#{atend1.corretor}" />
+                        </p:column>    
+
+                        <p:column headerText="Apagar">
+                            <p:commandButton value="Apagar" style="font-size: 1em; font-weight: bold" rendered="#{configura}" 
+                                             update="tableAtendimento2"
+                                             actionListener="#{atendimentoBean.apagarAtendimento(atend1.id)}">  
+
+                                <p:confirm header="Confirmação" message="Você tem Certeza que deseja APAGAR ESTE ATENDIMENTO  ?" icon="ui-icon-alert" />
+                            </p:commandButton>
+
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="SIM" type="button"  styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="NÃO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+                        </p:column>
+                    </p:dataTable>
+
+                </p:panel>
+
+
+            </div>
+          
+
+        </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

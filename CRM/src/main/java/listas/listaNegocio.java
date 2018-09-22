@@ -30,7 +30,10 @@ public class listaNegocio {
             new SelectItem("Comprar", "Comprar"),
             new SelectItem("Alugar", "Alugar"),
             new SelectItem("Permutar", "Permutar"),
-            new SelectItem("Cadastrar Locação","Cadastrar Locação")
+            new SelectItem("Parceria", "Parceria"),
+            new SelectItem("Cadastrar Locação","Cadastrar Locação"),
+            new SelectItem("Cadastrar Venda","Cadastrar Venda")
+            
         });
          
         cars.add(lazer);

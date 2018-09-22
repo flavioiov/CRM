@@ -56,6 +56,30 @@ public class Usuarios implements Serializable {
     @Size(max = 45)
     @Column(name = "unidade")
     private String unidade;
+     @Size(max = 145)
+    @Column(name = "nomecompleto")
+    private String nomecompleto;
+      @Size(max = 45)
+    @Column(name = "creci")
+    private String creci;
+
+    public String getNomecompleto() {
+        return nomecompleto;
+    }
+
+    public void setNomecompleto(String nomecompleto) {
+        this.nomecompleto = nomecompleto;
+    }
+
+    public String getCreci() {
+        return creci;
+    }
+
+    public void setCreci(String creci) {
+        this.creci = creci;
+    }
+    
+      
 
     public Usuarios() {
     }

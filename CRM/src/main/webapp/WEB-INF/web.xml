@@ -46,11 +46,11 @@
     </servlet-mapping>
     <session-config>
         <session-timeout>
-            30
+            120
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>abrir_atendimento.jsf</welcome-file>
+        <welcome-file>maincrm.jsf</welcome-file>
     </welcome-file-list>
     
      <mime-mapping>

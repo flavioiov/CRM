@@ -34,30 +34,93 @@ public class listaBairros {
         cities.add("Amsterdam");
          
         cars = new ArrayList<SelectItem>();
-        SelectItemGroup central = new SelectItemGroup("Central");
-        central.setSelectItems(new SelectItem[] {
-            new SelectItem("Jardim Primavera", "Jardim Primavera"),
-            new SelectItem("Centro", "Centro"),
-            new SelectItem("Jardim centro", "Jardim")
+        
+        SelectItemGroup centropraia = new SelectItemGroup("Centro - PRAIA");
+        centropraia.setSelectItems(new SelectItem[] {
+            new SelectItem("Jardim Primavera","Jardim Primavera"),
+            new SelectItem("Centro","Centro"),
+            new SelectItem("Ipiranga","Ipiranga")
+                 
         });
          
-        SelectItemGroup sul = new SelectItemGroup("Região SUL");
-        sul.setSelectItems(new SelectItem[]{
-            new SelectItem("Palmeiras", "Palmeiras"),
-            new SelectItem("Tarumas", "Tarumas"),
-            new SelectItem("Britania", "Britania")
+        
+        SelectItemGroup centroserra = new SelectItemGroup("Centro - SERRA");
+        centroserra.setSelectItems(new SelectItem[] {
+            new SelectItem("Rio do Ouro","Rio do Ouro"),
+            new SelectItem("Jaraguazinho","Jaraguazinho"),
+            new SelectItem("Villa Ponte Seca","Villa Ponte Seca"),
+            new SelectItem("Caputera","Caputera"),
+            new SelectItem("Estrela D'alva","Estrela D'alva"),
+            new SelectItem("Benfica","Benfica"),
+            new SelectItem("Jardim Carlifornia","Jardim Carlifornia"),
+            new SelectItem("Centro Lado Serra","Centro Lado Serra"),
+            new SelectItem("Sumaré","Sumaré"),
+            new SelectItem("Jardim Jaqueira", "Jardim Jaqueira")
+                 
+        });
+      
+        
+        SelectItemGroup sulserra = new SelectItemGroup("Região SUL - SERRA");
+        sulserra.setSelectItems(new SelectItem[]{
+            new SelectItem("Tarumas","Tarumas"),
+            new SelectItem("Perequê Mirim","Perequê Mirim"),
+            new SelectItem("Vapapesca","Vapapesca"),
+            new SelectItem("Pegorelli","Pegorelli"),
+            new SelectItem("Travessão","Travessão"),
+            new SelectItem("Jardim Porto Novo","Jardim Porto Novo"),
+            new SelectItem("Barranco Alto","Barranco Alto"),
+            new SelectItem("Morro do Algodão","Morro do Algodão"),
+            new SelectItem("Balneario Recando do Sol","Balneario Recando do Sol"),
+            new SelectItem("Pontal de Santa Marina","Pontal de Santa Marina"),
+            new SelectItem("Balneario dos Golfinhos","Balneario dos Golfinhos"),
+            new SelectItem("Jardim das Palmeiras","Jardim das Palmeiras"),
+            new SelectItem("Jardim Britânia","Jardim Britânia"),
+            new SelectItem("Poiares","Poiares"),
+            new SelectItem("Tinga","Tinga"),
+            new SelectItem("Indaiá Lado Pista","Indaiá Lado Pista"),
+            new SelectItem("Jardim Gaivotas","Jardim Gaivotas")
         });
         
-         SelectItemGroup norte = new SelectItemGroup("Região NORTE");
-        norte.setSelectItems(new SelectItem[]{
-            new SelectItem("Massaguaçu", "Massaguaçu"),
-            new SelectItem("Pegoreli", "Pegoreli"),
-            new SelectItem("Britania", "Britania")
+        
+        SelectItemGroup sulpraia = new SelectItemGroup("Região SUL - PRAIA");
+        sulpraia.setSelectItems(new SelectItem[]{
+            new SelectItem("Praia das Palmeiras","Praia das Palmeiras"),
+            new SelectItem("Porto Novo","Porto Novo"),
+            new SelectItem("Britânia","Britânia"),
+            new SelectItem("Jardim Aruan","Jardim Aruan"),
+            new SelectItem("Balneario Poiares","Balnearia Poiares"),
+            new SelectItem("Indaiá","Indaiá")
         });
+      
+        
+        SelectItemGroup norteserra = new SelectItemGroup("Região NORTE - SERRA");
+        norteserra.setSelectItems(new SelectItem[]{
+            new SelectItem("Jardim Terralão", "Jardim Terralão"),
+            new SelectItem("Jaraguazinho", "Jaraguazinho"),
+            new SelectItem("Cidade Jardim", "Cidade Jardim"),
+            new SelectItem("Jardim Casa Branca", "Jardim Casa Branca"),
+            new SelectItem("Jardim Olaria", "Jardim Olaria"),
+            new SelectItem("Getuba", "Getuba"),});
+        
+             SelectItemGroup nortepraia = new SelectItemGroup("Região NORTE - PRAIA");
+        nortepraia.setSelectItems(new SelectItem[]{
+            new SelectItem("Capricornio", "Capricornio"),
+            new SelectItem("Prainha", "Prainha"),
+            new SelectItem("Martim de Sá", "Martim de Sá"),
+            new SelectItem("Massaguaçu", "Massaguaçu"),
+            new SelectItem("Cocanha", "Cocanha"),
+            new SelectItem("Mocóca", "Mocóca"),
+            new SelectItem("Tabatinga", "Tabatinga")});
  
-        cars.add(central);
-        cars.add(sul);
-        cars.add(norte);
+       
+        cars.add(sulserra);
+        cars.add(sulpraia);
+        
+         cars.add(centroserra);
+        cars.add(centropraia);
+        
+         cars.add(norteserra);
+         cars.add(nortepraia);
     }
  
     public String[] getSelectedCities() {

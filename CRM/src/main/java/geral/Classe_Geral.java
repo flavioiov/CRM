@@ -97,35 +97,36 @@ public class Classe_Geral {
 	
 
 //EXCLUIR CAMPO DE UMA TABELA
-public void excluir(String campo,String cod)
+public void excluir(String campo,Integer cod)
 throws SQLException
 {
+            
+        Conexao conf = new Conexao();
+        Connection connection;
+        connection = conf.getDatabaseConnection();
 
-	 	  Conexao conf = new Conexao();
-	       Connection connection;
-		   connection =  conf.getDatabaseConnection();
-                            
-           PreparedStatement prepared_statement;
-		   String sql;
-        
-        try {       
-        
+        PreparedStatement prepared_statement;
+        String sql;
+
+        try {
+
+            sql = "delete from " + nome_tabela + " where " + campo + "=" + cod;
+
+            System.out.println(sql);
+            st = connection.createStatement();
+            st.executeUpdate(sql);
             
-            sql = "delete from "+nome_tabela+" where "+campo+"="+cod;
-     		st = connection.createStatement();
-    		rs1 = st.executeQuery(sql);     
-			
-		    	
-       }
-        catch (Exception e2)
-      {
             
-       	System.out.println(e2.getMessage());
-	  	this.setErro(e2.getMessage() );
-	    e2.printStackTrace();
-      }	
-	
-}
+            connection.close();
+
+        } catch (Exception e2) {
+
+            System.out.println(e2.getMessage());
+            this.setErro(e2.getMessage());
+            e2.printStackTrace();
+        }
+
+    }
 
 
 

@@ -11,10 +11,10 @@ import org.apache.commons.dbcp2.BasicDataSource;
 public class CustomDataSource {
    // JDBC driver name and database URL
    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-   static final String DB_URL = "jdbc:mysql://localhost:3306/crm";
+   static final String DB_URL = "jdbc:mysql://191.252.2.163:3306/crm";
    
    //  Database credentials
-   static final String USER = "root";
+   static final String USER = "usercrm";
    static final String PASS = "kayros33";
    private static DataSource datasource;
    private static final BasicDataSource basicDataSource;
@@ -31,3 +31,4 @@ public class CustomDataSource {
       return basicDataSource;
    }
 }
+

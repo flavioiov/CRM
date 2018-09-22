@@ -45,11 +45,14 @@
 
                                         <f:selectItem itemValue="Telefone"/>
                                         <f:selectItem itemValue="Site"/>
+                                        <f:selectItem itemValue="Imobiliária"/>
+                                        <f:selectItem itemValue="Placa Imóvel"/>
                                         <f:selectItem itemValue="Indicação"/>
                                         <f:selectItem itemValue="Fachada"/>
                                         <f:selectItem itemValue="Facebook"/>
                                         <f:selectItem itemValue="Evento"/>
                                         <f:selectItem itemValue="Plantão"/>
+                                        
                                     </h:selectOneMenu>
 
                                     <h:outputText value="Nome" title="Digite seu nome completo por favor" />
@@ -111,14 +114,14 @@
                                         id="email"
                                         title="Digite seu email por favor" 
                                         size="35" 
-                                        required="true"
+                                        
                                         style="font-size: 1.1em"
-                                        requiredMessage="Por favor, Preencha um e-mail para enviarmos uma resposta"
+                                 
                                         maxlength="200" 
                                         value="#{atendimentoBean.atd.email}" 
                                         validatorMessage="O e-mail informado não é válido">
 
-                                        <f:validateRegex pattern="(^[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$)" />
+                                       
                                     </p:inputText>
 
                                     <h:outputLabel value="Eu Quero" />
@@ -132,6 +135,8 @@
                                         <f:selectItem itemValue="Falar com a Andrea"/>
                                         <f:selectItem itemValue="Falar com o Flávio"/>
                                         <f:selectItem itemValue="Falar com a Administração"/>
+                                        <f:selectItem itemValue="Évora"/>
+                                        
                                         <f:selectItem itemValue="Deixar imóvel para negociar"/>
 
 
@@ -154,9 +159,6 @@
 
 
                                     <div id="alinha" style="text-align: center">
-
-
-
 
                                         <h:panelGrid columns="1" >
                                             <h:panelGrid columns="1" style="alignment-adjust: central">

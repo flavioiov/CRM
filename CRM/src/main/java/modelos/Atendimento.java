@@ -39,7 +39,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Atendimento.findByDdd", query = "SELECT a FROM Atendimento a WHERE a.ddd = :ddd")
     , @NamedQuery(name = "Atendimento.findByTelefone", query = "SELECT a FROM Atendimento a WHERE a.telefone = :telefone")
     , @NamedQuery(name = "Atendimento.findByEmail", query = "SELECT a FROM Atendimento a WHERE a.email = :email")
-    , @NamedQuery(name = "Atendimento.findByMsg", query = "SELECT a FROM Atendimento a WHERE a.msg = :msg")
     , @NamedQuery(name = "Atendimento.findByDataatendimento", query = "SELECT a FROM Atendimento a WHERE a.dataatendimento = :dataatendimento")
     , @NamedQuery(name = "Atendimento.findByIp", query = "SELECT a FROM Atendimento a WHERE a.ip = :ip")
     , @NamedQuery(name = "Atendimento.findByCorretor", query = "SELECT a FROM Atendimento a WHERE a.corretor = :corretor")
@@ -51,7 +50,16 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Atendimento.findByValormaxvenda", query = "SELECT a FROM Atendimento a WHERE a.valormaxvenda = :valormaxvenda")
     , @NamedQuery(name = "Atendimento.findByValorminaluguel", query = "SELECT a FROM Atendimento a WHERE a.valorminaluguel = :valorminaluguel")
     , @NamedQuery(name = "Atendimento.findByValormaxaluguel", query = "SELECT a FROM Atendimento a WHERE a.valormaxaluguel = :valormaxaluguel")
-    , @NamedQuery(name = "Atendimento.findByTamanho", query = "SELECT a FROM Atendimento a WHERE a.tamanho = :tamanho")})
+    , @NamedQuery(name = "Atendimento.findByTamanho", query = "SELECT a FROM Atendimento a WHERE a.tamanho = :tamanho")
+    , @NamedQuery(name = "Atendimento.findByTemproduto", query = "SELECT a FROM Atendimento a WHERE a.temproduto = :temproduto")
+    , @NamedQuery(name = "Atendimento.findByProdutooferecido", query = "SELECT a FROM Atendimento a WHERE a.produtooferecido = :produtooferecido")
+    , @NamedQuery(name = "Atendimento.findByTempoparamudar", query = "SELECT a FROM Atendimento a WHERE a.tempoparamudar = :tempoparamudar")
+    , @NamedQuery(name = "Atendimento.findByMotivomudanca", query = "SELECT a FROM Atendimento a WHERE a.motivomudanca = :motivomudanca")
+    , @NamedQuery(name = "Atendimento.findByCidadecliente", query = "SELECT a FROM Atendimento a WHERE a.cidadecliente = :cidadecliente")
+    , @NamedQuery(name = "Atendimento.findByProfissaocliente", query = "SELECT a FROM Atendimento a WHERE a.profissaocliente = :profissaocliente")
+    , @NamedQuery(name = "Atendimento.findByCondicaoparamudar", query = "SELECT a FROM Atendimento a WHERE a.condicaoparamudar = :condicaoparamudar")
+    , @NamedQuery(name = "Atendimento.findByTemanimal", query = "SELECT a FROM Atendimento a WHERE a.temanimal = :temanimal")
+    , @NamedQuery(name = "Atendimento.findByMsg", query = "SELECT a FROM Atendimento a WHERE a.msg = :msg")})
 public class Atendimento implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -79,9 +87,6 @@ public class Atendimento implements Serializable {
     @Size(max = 145)
     @Column(name = "email")
     private String email;
-    @Size(max = 500)
-    @Column(name = "msg")
-    private String msg;
     @Column(name = "dataatendimento")
     @Temporal(TemporalType.DATE)
     private Date dataatendimento;
@@ -134,11 +139,44 @@ public class Atendimento implements Serializable {
     private String detalhemsg;
     @Column(name = "tamanho")
     private Integer tamanho;
+    @Size(max = 3)
+    @Column(name = "temproduto")
+    private String temproduto;
+    @Size(max = 1000)
+    @Column(name = "produtooferecido")
+    private String produtooferecido;
+    @Size(max = 45)
+    @Column(name = "tempoparamudar")
+    private String tempoparamudar;
+    @Size(max = 45)
+    @Column(name = "motivomudanca")
+    private String motivomudanca;
+    @Size(max = 45)
+    @Column(name = "cidadecliente")
+    private String cidadecliente;
+    @Size(max = 45)
+    @Column(name = "profissaocliente")
+    private String profissaocliente;
+    @Size(max = 145)
+    @Column(name = "condicaoparamudar")
+    private String condicaoparamudar;
+    @Size(max = 45)
+    @Column(name = "temanimal")
+    private String temanimal;
+    @Size(max = 500)
+    @Column(name = "msg")
+    private String msg;
     
+    @Size(max = 45)
+    @Column(name = "interesse")
+    private String interesse;
+
     private String[] bairrosArray;
      private String[] imovelArray;
      private String[] caracteristicasArray;
      private String[] negocioArray;
+
+   
 
     public String[] getBairrosArray() {
         return bairrosArray;
@@ -167,14 +205,25 @@ public class Atendimento implements Serializable {
     public String[] getNegocioArray() {
         return negocioArray;
     }
-
+    
     public void setNegocioArray(String[] negocioArray) {
         this.negocioArray = negocioArray;
     }
-
+    
+    
     public Atendimento() {
     }
 
+    public String getInteresse() {
+        return interesse;
+    }
+
+    public void setInteresse(String interesse) {
+        this.interesse = interesse;
+    }
+
+    
+    
     public Atendimento(Integer id) {
         this.id = id;
     }
@@ -233,14 +282,6 @@ public class Atendimento implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
     }
 
     public Date getDataatendimento() {
@@ -377,6 +418,78 @@ public class Atendimento implements Serializable {
 
     public void setTamanho(Integer tamanho) {
         this.tamanho = tamanho;
+    }
+
+    public String getTemproduto() {
+        return temproduto;
+    }
+
+    public void setTemproduto(String temproduto) {
+        this.temproduto = temproduto;
+    }
+
+    public String getProdutooferecido() {
+        return produtooferecido;
+    }
+
+    public void setProdutooferecido(String produtooferecido) {
+        this.produtooferecido = produtooferecido;
+    }
+
+    public String getTempoparamudar() {
+        return tempoparamudar;
+    }
+
+    public void setTempoparamudar(String tempoparamudar) {
+        this.tempoparamudar = tempoparamudar;
+    }
+
+    public String getMotivomudanca() {
+        return motivomudanca;
+    }
+
+    public void setMotivomudanca(String motivomudanca) {
+        this.motivomudanca = motivomudanca;
+    }
+
+    public String getCidadecliente() {
+        return cidadecliente;
+    }
+
+    public void setCidadecliente(String cidadecliente) {
+        this.cidadecliente = cidadecliente;
+    }
+
+    public String getProfissaocliente() {
+        return profissaocliente;
+    }
+
+    public void setProfissaocliente(String profissaocliente) {
+        this.profissaocliente = profissaocliente;
+    }
+
+    public String getCondicaoparamudar() {
+        return condicaoparamudar;
+    }
+
+    public void setCondicaoparamudar(String condicaoparamudar) {
+        this.condicaoparamudar = condicaoparamudar;
+    }
+
+    public String getTemanimal() {
+        return temanimal;
+    }
+
+    public void setTemanimal(String temanimal) {
+        this.temanimal = temanimal;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     @Override

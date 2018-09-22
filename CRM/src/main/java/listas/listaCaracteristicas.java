@@ -30,6 +30,7 @@ public class listaCaracteristicas {
             new SelectItem("Piscina", "Piscina"),
             new SelectItem("Churrasqueira", "Churrasqueira"),
             new SelectItem("Varanda Gourmet", "Varanda Gourmet"),
+            new SelectItem("Mobiliado", "Mobiliado"),
             new SelectItem("Quintal","Quintal")
         });
          
@@ -45,21 +46,19 @@ public class listaCaracteristicas {
         vagas.setSelectItems(new SelectItem[]{
             new SelectItem("1 Vaga", "1 Vaga"),
             new SelectItem("2 Vagas", "2 Vagas"),
-            new SelectItem("3 Vagas+", "3 Vagas+"),
-                new SelectItem("300 Vagas+", "300 Vagas+")
+            new SelectItem("3 Vagas", "3 Vagas"),
+                new SelectItem("4 Vagas ou +", "4 Vagas ou +")
         });
         
         
         
-         SelectItemGroup tamanho = new SelectItemGroup("Tamnho Mínimo");
+         SelectItemGroup tamanho = new SelectItemGroup("Banheiros");
         tamanho.setSelectItems(new SelectItem[]{
-            new SelectItem("0 a 50", "0 a 50"),
-            new SelectItem("50 a 100", "50 a 100"),
-            new SelectItem("100 a 200+", "100 a 200"),
-            new SelectItem("200 a 300", "200 a 300"),
-             new SelectItem("300 a 400", "300 a 400"),
-              new SelectItem("400 a 500", "400 a 500"),
-               new SelectItem("500 a 600", "500 a 600"),
+            new SelectItem("1 Banheiro", "1 Banheiro"),
+            new SelectItem("2 Banheiros", "2 Banheiros"),
+            new SelectItem("3 Banheiros ", "3 Banheiros"),
+            new SelectItem("4 Banheiros", "4 Banheiros"),
+           
         });
         
  
