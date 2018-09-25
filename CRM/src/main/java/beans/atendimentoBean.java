@@ -364,9 +364,7 @@ public class atendimentoBean {
             
             
                 FacesContext.getCurrentInstance().getExternalContext().redirect("detalhar_atendimento.jsf");
-            
-            
-            
+             
             
         } else {
             
@@ -701,7 +699,7 @@ public class atendimentoBean {
         
         //FacesContext.getCurrentInstance().getExternalContext().redirect("triar_atendimento.jsf");
          
-           RequestContext.getCurrentInstance().update("formabriratividade");
+        RequestContext.getCurrentInstance().update("formabriratividade");
         
     }
     
