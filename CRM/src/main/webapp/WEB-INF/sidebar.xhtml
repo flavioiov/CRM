@@ -28,7 +28,7 @@
                          <p:menuitem id="pm_clientes" rendered="#{mostra}" value="Meus Clientes" icon="fa fa-home" outcome="/clientes.xhtml" />
                          <p:menuitem id="pm_dashboarda" rendered="#{configura}" value="DashBoard" icon="fa fa-home" outcome="/dashboardadm.xhtml" />
  
-                         <p:menuitem id="pm_buynow" value="Entrar no CRM" icon="fa fa-diamond" url="logar.jsf"/>
+                         <p:menuitem id="pm_buynow" value="Entrar no CRM" rendered="#{mostralogin}" icon="fa fa-diamond" url="logar.jsf"/>
                          
                          <p:menuitem id="pm_sair" value="Sair" icon="fa fa-sign-out" actionListener="#{usuarioManagedBean.sairSistema()}"/>
                             

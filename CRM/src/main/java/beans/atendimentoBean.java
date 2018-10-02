@@ -12,19 +12,15 @@ import java.io.IOException;
 import java.util.List;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Date;
-import java.util.Locale;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -38,7 +34,6 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
-import org.primefaces.PrimeFaces.Ajax;
 import org.primefaces.context.RequestContext;
 
 @ManagedBean
@@ -225,7 +220,17 @@ public class atendimentoBean {
         this.usuarioLogado = usuarioLogado;
     }
 
+    private String permissao;
 
+    public String getPermissao() {
+        return permissao;
+    }
+
+    public void setPermissao(String permissao) {
+        this.permissao = permissao;
+    }
+    
+    
 
     private String[] myArray;
 
@@ -278,6 +283,19 @@ public class atendimentoBean {
     }
 
      */
+    
+    
+    public void carregaSistema(){
+        
+        
+            FacesContext context2 = FacesContext.getCurrentInstance();
+            HttpSession session = (HttpSession) context2.getExternalContext().getSession(true);
+            session.setAttribute("user",null);
+            session.setAttribute("mostralogin","true");
+        
+    }
+    
+    
     public void cadastrarAtendimento() throws SQLException, IOException, NoSuchFieldException { //Metodo utilizado na tela abrir_atendimento.jsf
 
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
@@ -293,9 +311,18 @@ public class atendimentoBean {
 
         atd.setIp(remoteIp); //seta ip do cliente no objeto
 
-         usuarioLogado="null";
+        usuarioLogado="null";
+         
+        
+         permissao=(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("permission");
+         
          usuarioLogado = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
-         atd.setCorretor(usuarioLogado);
+         
+         if(permissao.equals("CORRETOR")){
+              atd.setCorretor(usuarioLogado);
+         }
+         
+        
          
          String volta="nao";
         
@@ -339,11 +366,6 @@ public class atendimentoBean {
         atd.setBairros("[]");
         atd.setTipoimovel("[]");
         atd.setNegocio("[]");
-        
-        
-     
-          
-        
        
         
         Classe_Geral cg = new Classe_Geral("atendimento");
@@ -360,8 +382,6 @@ public class atendimentoBean {
          
         if ( (atd.getCorretor())==null) {
         
-            System.out.println("NAO TEM ACORRETOR:"+atd.getCorretor());
-            
             
                 FacesContext.getCurrentInstance().getExternalContext().redirect("detalhar_atendimento.jsf");
              
@@ -374,11 +394,8 @@ public class atendimentoBean {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("triar_atendimento.jsf");
             }
              
-            System.out.println(" TEM CORRETOR:"+atd.getCorretor());
            
             
-            // RequestContext context2 = RequestContext.getCurrentInstance();
-            // context2.update("growl");
         }
 
          atd = new Atendimento(); //limpaAtendimentos
@@ -444,7 +461,11 @@ public class atendimentoBean {
 
         FacesContext.getCurrentInstance().getExternalContext().redirect("triar_atendimento.jsf");
 
-       this.buscaAgenda(atdEscolhido.getId());
+        this.buscaAgenda(atdEscolhido.getId());
+        
+       
+         Classe_Geral cg = new Classe_Geral("atendimento");
+         cg.pegaAtendimento(usuarioLogado, atdEscolhido.getId()); //nesse metodo seta o corretor logo que ele clica em Atender.
         
         
     }
@@ -464,7 +485,7 @@ public class atendimentoBean {
         FacesContext.getCurrentInstance().getExternalContext().redirect("abrir_atendimento.jsf");
 
     }
-    
+   
     
 
     public void atualizarDadosAtendimento() throws SQLException, IOException { //metodo utilizado no botão pagina triar_atendimento.jsr botao Atualizar dados aTendimento
@@ -476,7 +497,8 @@ public class atendimentoBean {
         //atd.setHoraatendimento(tempo.toString()); //converte a hora local  e guarda no objeto a ser inserido
         //seta data do atendimento no objeto   
         usuarioLogado = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
-
+        permissao=(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("permission");
+ 
         atdEscolhido.setNegocio(Arrays.toString(atdEscolhido.getNegocioArray()));
         atdEscolhido.setBairros(Arrays.toString(atdEscolhido.getBairrosArray()));
         atdEscolhido.setCaracteristicas(Arrays.toString(atdEscolhido.getCaracteristicasArray()));
@@ -487,14 +509,29 @@ public class atendimentoBean {
 
         }
 
-        atdEscolhido.setCorretor(usuarioLogado); //setar Corretor
-        atdEscolhido.setStatus("EM ATENDIMENTO"); //Setar Status novamente
+        
+        if(permissao.equals("CORRETOR")){
+            atdEscolhido.setCorretor(usuarioLogado); //setar Corretor
+             atdEscolhido.setStatus("EM ATENDIMENTO");
+            
+        }
+      
+        //Setar Status novamente
         atdEscolhido.setDatainicioatendimento(dt);                     //Atualizar objeto
 
         Classe_Geral alt = new Classe_Geral("atendimento");
         alt.alteraDadosTabela("atendimento", atdEscolhido, atdEscolhido.getId());
 
-        FacesContext.getCurrentInstance().getExternalContext().redirect("triar_atendimento.jsf");
+        //FacesContext.getCurrentInstance().getExternalContext().redirect("triar_atendimento.jsf");
+        
+        // RequestContext.getCurrentInstance().update("atividade");
+        
+        alt.alteraCorretorAgenda(usuarioLogado,atdEscolhido.getId());
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Obrigado :-)", "Seu Atendimento Foi Gravado com Sucesso !"));
+        RequestContext.getCurrentInstance().update("msg");
+        
 
     }
 
@@ -524,6 +561,9 @@ public class atendimentoBean {
         Classe_Geral deleta = new Classe_Geral("atendimento");
 
         deleta.excluir("id", cod);
+        
+        Classe_Geral delagenda=new Classe_Geral("agenda");
+        delagenda.excluir("idatendimento",cod);
 
         FacesContext.getCurrentInstance().getExternalContext().redirect("dashboardadm.jsf");
 
@@ -540,7 +580,15 @@ public class atendimentoBean {
         atdEscolhido.setStatus("ABERTO");
         alt.alteraDadosTabela("atendimento", atdEscolhido, atdEscolhido.getId());
         
+        
+        alt.alteraCorretorAgenda("", atdEscolhido.getId()); //usa metodo especifico criado para mudar o corretor para null;
+        
+        
         FacesContext.getCurrentInstance().getExternalContext().redirect("dashboardcrm.jsf");
+        
+        
+        
+        
 
     }
 
@@ -577,7 +625,6 @@ public class atendimentoBean {
         QueryRunner run = new QueryRunner(CustomDataSource.getInstance());
         listaMeusAtendimentos = run.query(sql, h);
         
-      
         
         this.loadStatisticsDashboard();
         
@@ -602,7 +649,7 @@ public class atendimentoBean {
         
     
     public void listaAtendimentosMesmoCliente() throws SQLException {
-        String sql = "SELECT * FROM crm.atendimento where telefone like '%" +atdEscolhido.getTelefone() + "%' OR email like'%" + atdEscolhido.getEmail() + "%';";
+        String sql = "SELECT * FROM crm.atendimento where telefone like '%" +atdEscolhido.getTelefone() + "%'";
         ResultSetHandler<List<Atendimento>> h2 = new BeanListHandler<Atendimento>(Atendimento.class);
         QueryRunner QR2 = new QueryRunner(CustomDataSource.getInstance());
         listaAtendimentosMesmoCliente = QR2.query(sql, h2);
@@ -679,7 +726,11 @@ public class atendimentoBean {
     
     public void gravarAtividades() throws IOException, SQLException, ParseException{
         
-        Timestamp a=testaTMS(agenda.getData());
+         
+        
+        if(agenda.getData()!=null){
+           
+           Timestamp a=testaTMS(agenda.getData());
 
         
          agenda.setIdatendimento(atdEscolhido.getId());
@@ -700,11 +751,32 @@ public class atendimentoBean {
         //FacesContext.getCurrentInstance().getExternalContext().redirect("triar_atendimento.jsf");
          
         RequestContext.getCurrentInstance().update("formabriratividade");
+            
+            
+        }else{
+           FacesContext context = FacesContext.getCurrentInstance();
+        //context.addMessage(null, new FacesMessage("DATA :-)", "SELECIONE UMA DATA POR FAVOR !"));
+          RequestContext.getCurrentInstance().update("form_atividade2");
+          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "OPS!", "SELECIONE UMA DATA POR FAVOR !! ;-("));  
+        
+        }
+        
+        
+        
+        
+        
+        
+        
         
     }
     
         public void listarMinhaAgenda() throws SQLException { //busca atividades relacionadas ao atendimento utilizado no triarAtendimento
-        String sql7 = "SELECT * FROM crm.agenda where corretor='" + usuarioLogado + "' AND status ='Aberto'";
+       
+        String sql7="SELECT atendimento.nome as cliente,concat(atendimento.ddd,'-',atendimento.telefone) as telefone,agenda.id,agenda.idatendimento,agenda.evento,agenda.data,agenda.obs,agenda.corretor,agenda.status FROM crm.agenda,crm.atendimento where atendimento.id=agenda.idatendimento and atendimento.corretor='" + usuarioLogado + "' and agenda.status='ABERTO'";
+            
+            
+            
+          //  String sql7 = "SELECT * FROM crm.agenda where corretor='" + usuarioLogado + "' AND status ='Aberto'";
         ResultSetHandler<List<Agenda>> h7 = new BeanListHandler<Agenda>(Agenda.class);
         QueryRunner QR7 = new QueryRunner(CustomDataSource.getInstance());
         listatodasatividades = QR7.query(sql7, h7);
@@ -724,9 +796,14 @@ public class atendimentoBean {
     }
 
     
+
     
-    public void novaAtividade(){
+    
+    
+    public void novaAtividade() throws SQLException, IOException{
        
+        this.atualizarDadosAtendimento();
+        
         agenda=new Agenda();
         RequestContext.getCurrentInstance().update("form_atividade");
         RequestContext.getCurrentInstance().execute("PF('dlg3').show();");

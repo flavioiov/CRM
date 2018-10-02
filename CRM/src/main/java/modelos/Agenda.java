@@ -69,12 +69,38 @@ public class Agenda implements Serializable {
     @Size(max = 45)
     @Column(name = "corretor")
     private String corretor;
+    @Size(max = 45)
+    @Column(name = "cliente")
+    private String cliente;
+    
+           @Size(max = 45)
+    @Column(name = "telefone")
+    private String telefone;
     
     
 
     public Agenda() {
     }
 
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    
+    
+    
     public String getCorretor() {
         return corretor;
     }

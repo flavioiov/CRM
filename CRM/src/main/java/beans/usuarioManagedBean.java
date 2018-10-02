@@ -93,6 +93,7 @@ private Usuarios usuario = new Usuarios();
                     session.setAttribute("permission",listaUsuarios.get(0).getTipo());
                     session.setAttribute("unidade", listaUsuarios.get(0).getUnidade());
                     session.setAttribute("mostramenuentrarcrm", "false");
+                    session.setAttribute("mostralogin","false");
                     
                    
                   
@@ -103,6 +104,7 @@ private Usuarios usuario = new Usuarios();
                     session.setAttribute("configura","false");
                     session.setAttribute("user", listaUsuarios.get(0).getNome());
                     session.setAttribute("mostra","true");
+                    session.setAttribute("mostralogin","false");
                     session.setAttribute("fotouser", listaUsuarios.get(0).getFoto());
                     session.setAttribute("permission",listaUsuarios.get(0).getTipo());
                     session.setAttribute("unidade", listaUsuarios.get(0).getUnidade());
@@ -126,7 +128,8 @@ private Usuarios usuario = new Usuarios();
             session.setAttribute("user",null);
             session.setAttribute("mostra","false");
             session.setAttribute("configura","false");
-             session.setAttribute("fotouser",null);
+            session.setAttribute("mostralogin","true");
+            session.setAttribute("fotouser",null);
             FacesContext.getCurrentInstance().getExternalContext().redirect("abrir_atendimento.jsf");
             
             session.setAttribute("mostramenuentrarcrm", "true");

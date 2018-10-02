@@ -34,18 +34,21 @@
 
 
                                         <div class="ui-g-12 ui-lg-6 global-sales">
-                                            <p:panel header="Detalhes do Atendimento Atual" style="height:350px;">
+                                            <p:panel header="Detalhes do Atendimento Atual aaa" style="height:350px;">
                                                
 
 
                                             <p:panel id="av">
 
+                                                <p:inputText value="#{atendimentoBean.atdEscolhido.nome}" label="Nome"/>
+                                                
                                                   <p:panelGrid columns="2">
 
                                                     <h:outputText value="Atendente :" style="color:red; width:  130px"/> 
                                                     <h:outputText value="#{atendimentoBean.atdEscolhido.atendente} " style="color:blue;"/>
                                                     <h:outputText value="Cliente :" style="color: red;"/>
-                                                    <h:outputText value="#{atendimentoBean.atdEscolhido.nome}" style="color:blue;"/>
+                                                    <p:inputText value="#{atendimentoBean.atdEscolhido.nome}" style="color:blue;"/>
+                                                   
                                                     
                                                     <h:outputText value="Data :" style="color: red;"/>   <h:outputText value="#{atendimentoBean.atdEscolhido.dataatendimento}">
                                             <f:convertDateTime type="both" pattern="dd/MM/yyyy"/>

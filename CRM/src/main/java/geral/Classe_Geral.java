@@ -409,9 +409,6 @@ public Integer inserirDadosTabela(String Tabela,Object obj) //fechado funcionand
 }
 
 
-
-
-
 public Integer alteraDadosTabela(String Tabela,Object obj,int idx) //A fazer neste objeto será necessário 
         // caso o objeto já exista ou ainda esteja vivo o sistema deverá identificar seu ID
         // e a partir de então atualizar os objetos 
@@ -508,12 +505,79 @@ public Integer alteraDadosTabela(String Tabela,Object obj,int idx) //A fazer nes
 }
 
 
+public void pegaAtendimento(String usuario,Integer cod)
+throws SQLException
+{
+            
+        Conexao conf = new Conexao();
+        Connection connection;
+        connection = conf.getDatabaseConnection();
+
+        PreparedStatement prepared_statement;
+        String sql;
+
+        try {
+
+            sql = "update crm.atendimento set status='EM ATENDIMENTO',corretor='"+usuario+"' where id=" + cod;
+
+            System.out.println(sql);
+            st = connection.createStatement();
+            st.executeUpdate(sql);
+            
+            
+            connection.close();
+
+        } catch (Exception e2) {
+
+            System.out.println(e2.getMessage());
+            this.setErro(e2.getMessage());
+            e2.printStackTrace();
+        }
+
+    }
+
+
+
+public void alteraCorretorAgenda(String campo,Integer cod)
+throws SQLException
+{
+            
+        Conexao conf = new Conexao();
+        Connection connection;
+        connection = conf.getDatabaseConnection();
+
+        PreparedStatement prepared_statement;
+        String sql;
+
+        try {
+
+            sql = "update crm.agenda set corretor='"+campo+"' where idatendimento=" + cod;
+
+            System.out.println(sql);
+            st = connection.createStatement();
+            st.executeUpdate(sql);
+            
+            
+            connection.close();
+
+        } catch (Exception e2) {
+
+            System.out.println(e2.getMessage());
+            this.setErro(e2.getMessage());
+            e2.printStackTrace();
+        }
+
+    }
+
+
+
+
 
 }  
 
 
  
-	
+
 	
 	
 	

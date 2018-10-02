@@ -17,6 +17,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import modelos.Agenda;
 
 /**
  *
@@ -42,7 +43,11 @@ public class admBean {
     public void setListaAtendimentos(List<Atendimento> listaAtendimentos) {
         this.listaAtendimentos = listaAtendimentos;
     }
-
+    
+    
+    public List<Agenda> listatodasatividades;
+    
+    
     public List<Atendimento> listaMeusAtendimentos;
 
     public List<Atendimento> listaAtendimentoSelecionado;
@@ -77,6 +82,15 @@ public class admBean {
     public void setQtdatendimentoscorretor(List<Atendimento> qtdatendimentoscorretor) {
         this.qtdatendimentoscorretor = qtdatendimentoscorretor;
     }
+
+    public List<Agenda> getListatodasatividades() {
+        return listatodasatividades;
+    }
+
+    public void setListatodasatividades(List<Agenda> listatodasatividades) {
+        this.listatodasatividades = listatodasatividades;
+    }
+
     
     
     
@@ -378,9 +392,17 @@ public class admBean {
         }
 
         FacesContext.getCurrentInstance().getExternalContext().redirect("triar_atendimentoadm.jsf");
-
+        
+         this.buscaAgenda(atdEscolhido.getId());
     }
 
+      public void buscaAgenda(int Cadastro) throws SQLException{ //busca atividades relacionadas ao atendimento utilizado no triarAtendimento
+        String sql7 = "SELECT * FROM crm.agenda where idatendimento='"+atdEscolhido.getId()+"'";
+        ResultSetHandler<List<Agenda>> h7 = new BeanListHandler<Agenda>(Agenda.class);
+        QueryRunner QR7 = new QueryRunner(CustomDataSource.getInstance());
+        List<Agenda> listaAtividades = QR7.query(sql7, h7);
+           
+    }
     
     
     public void gravadetalheAtendimento() throws SQLException, IOException { //metodo utilizado para gravar detalhe atendimento quando o usuário não esta logado.
@@ -398,7 +420,19 @@ public class admBean {
     }
     
     
-    
+    public void listarMinhaAgenda() throws SQLException { //busca atividades relacionadas ao atendimento utilizado no triarAtendimento
+       
+        String sql7="SELECT atendimento.nome as cliente,concat(atendimento.ddd,'-',atendimento.telefone) as telefone,agenda.id,agenda.idatendimento,agenda.evento,agenda.data,agenda.obs,agenda.corretor,agenda.status FROM crm.agenda,crm.atendimento where atendimento.id=agenda.idatendimento and agenda.status='ABERTO'";
+            
+            
+          //  String sql7 = "SELECT * FROM crm.agenda where corretor='" + usuarioLogado + "' AND status ='Aberto'";
+        ResultSetHandler<List<Agenda>> h7 = new BeanListHandler<Agenda>(Agenda.class);
+        QueryRunner QR7 = new QueryRunner(CustomDataSource.getInstance());
+        listatodasatividades = QR7.query(sql7, h7);
+
+        System.out.println(sql7);
+    }
+
     
     
     public void atualizarDadosAtendimento() throws SQLException, IOException { //metodo utilizado no botão pagina triar_atendimento.jsr botao Atualizar dados aTendimento

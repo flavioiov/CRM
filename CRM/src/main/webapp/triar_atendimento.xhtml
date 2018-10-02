@@ -12,7 +12,7 @@
             <f:metadata>
               <!--  <f:viewAction action="#{guestPreferences.setTheme('teal-yellow')}" /> -->
                  <f:viewAction action="#{atendimentoBean.listaAtendimentosMesmoCliente()}" />
-                 <f:viewAction action="#{atendimentoBean.listar_meusAtendimentos()}" />
+                 
                  
                 
             </f:metadata> 
@@ -24,7 +24,7 @@
                 <div class="card" style="font-size: 1.3em">
 
                     <h:form id="atendimento" >  
-                        <p:growl id="msg" />
+                        
                         <p:growl id="growl" showDetail="true" sticky="true"/>
 
                         <div id="div_atende">
@@ -39,40 +39,45 @@
                                                
 
 
-                                            <p:panel id="av">
+                                                <p:panel id="av" style="font-size: 1em">
 
-                                                <p:panelGrid columns="2">
-                                                    
-                                                    <h:outputText value="Origem :" style="color:red; width:  130px"/> 
-                                                    <h:outputText value="#{atendimentoBean.atdEscolhido.comochegou} " style="color:blue;"/>
-
-                                                    <h:outputText value="Atendente :" style="color:red; width:  130px"/> 
-                                                    <h:outputText value="#{atendimentoBean.atdEscolhido.atendente} " style="color:blue;"/>
-                                                    <h:outputText value="Cliente :" style="color: red;"/>
-                                                    <h:outputText value="#{atendimentoBean.atdEscolhido.nome}" style="color:blue;"/>
-
-                                                    <h:outputText value="Data :" style="color: red;"/>   <h:outputText value="#{atendimentoBean.atdEscolhido.dataatendimento}">
-                                                        <f:convertDateTime type="both" pattern="dd/MM/yyyy"/>
-                                                    </h:outputText>
-                                                    <h:outputText value="Hora :" style="color: red;"/>  <h:outputText value="#{atendimentoBean.atdEscolhido.horaatendimento.substring(0, 5)}" />
-
-                                                    <h:outputText value="DDD :" style="color: red;"/><h:outputText value="#{atendimentoBean.atdEscolhido.ddd}" style="color:blue;"/>
-                                                    <h:outputText value="Telefone :" style="color: red;"/><h:outputText value="#{atendimentoBean.atdEscolhido.telefone}" style="color:blue;"/>
-                                                    <h:outputText value="Email :" style="color: red;"/><h:outputText value="#{atendimentoBean.atdEscolhido.email}" style="color:blue;"/> 
-                                                    <h:outputText value="Corretor :" style="color: red;"/>
-
-                                                    <h:outputText value="#{usuarioManagedBean.usuario.nome}" style="color:blue;font-size: 1.3em"/>
-
-                                                    <h:outputText value="Deseja :" style="color: red;"/><h:outputText value="#{atendimentoBean.atdEscolhido.euquero}" style="color:blue;"/> 
-
-                                                </p:panelGrid>
-
-                                            </p:panel>
+                                                  
+                                                        <h:outputText value="Cliente :" style="color: red;margin-right:10px"/>
+                                                        <p:inputText value="#{atendimentoBean.atdEscolhido.nome}" style="color:blue; width:300px; margin-right: 10px;font-size: 1em"/> 
 
 
+                                                        <h:outputText value="DDD : " style="color: red;"/>
+                                                        <p:inputText value="#{atendimentoBean.atdEscolhido.ddd}" style="color:blue;width: 20px; margin-right: 10px;font-size: 1em"/>
 
-                                  
+                                                        <h:outputText value="Telefone : " style="color: red;"/>
+                                                        <p:inputText value="#{atendimentoBean.atdEscolhido.telefone}" style="color:blue; font-size: 1em"/><br></br><br></br>
+                                                        <h:outputText value="Email : " style="color: red; margin-right: 14px"/>
+                                                        <p:inputText value="#{atendimentoBean.atdEscolhido.email}" style="color:blue; width: 220px; ;font-size: 1em"/> <br></br>
+                                                   
 
+
+ <br></br>
+                                                        <h:outputText value="    Origem : " style="color:red; width:  130px"/>
+                                                        <h:outputText value="#{atendimentoBean.atdEscolhido.comochegou} " style="color:blue;margin-right: 10px"/> 
+
+                                                        <h:outputText value="Atendente :" style="color:red; width:  130px"/> 
+                                                        <h:outputText value="#{atendimentoBean.atdEscolhido.atendente} " style="color:blue;margin-right: 10px"/> 
+
+                                                        <br></br> <h:outputText value="Deseja :" style="color: red;"/><h:outputText value="#{atendimentoBean.atdEscolhido.euquero}" style="color:blue;"/> 
+                                                        <br></br>
+                                                        <h:outputText value="Data :" style="color: red;"/>   <h:outputText value="#{atendimentoBean.atdEscolhido.dataatendimento}" style="margin-right: 10px">
+                                                            <f:convertDateTime type="both" pattern="dd/MM/yyyy"/>
+                                                        </h:outputText>
+                                                        <h:outputText value="Hora :" style="color: red;margin-right: 10px"/>  <h:outputText value="#{atendimentoBean.atdEscolhido.horaatendimento.substring(0, 5)}" style="margin-right: 10px"/>
+
+
+                                                        <h:outputText value="Corretor :" style="color: red;"/>
+
+                                                        <h:outputText value="#{usuarioManagedBean.usuario.nome}" style="color:blue;font-size: 1.3em"/>
+
+
+
+                                                </p:panel>
                                                 
                                             </p:panel>
                                         </div>
@@ -170,10 +175,12 @@
                                         <br></br>
                                     </div>
 
-
+                                   
+                                    
 
 
                                     <div class="ui-g-12 ui-md-6 ui-lg-4 task-list" >
+                                         <br></br>
                                         <p:panel header="TIPO DO NEGÓCIO BUSCADO" >
                                             <p:column id="col1" >
 
@@ -192,7 +199,7 @@
 
 
                                             <p:column id="coluna2">
-                                                <h3  style="color:red">Qual o Tipo de Imóvel o Cliente Busca ? </h3>
+                                                <h3  style="color:red">Qual o Tipo de Imóvel buscado ? </h3>
 
                                                 <p:selectCheckboxMenu id="tipoImovel" label="Cars" 
                                                                       value="#{atendimentoBean.atdEscolhido.imovelArray}"
@@ -206,14 +213,9 @@
                                             </p:column>
 
                                         </p:panel>
-                                    </div>
-
-
-                                    <div class="ui-g-12 ui-md-6 ui-lg-4 ui-fluid contact-form">
-
-                                        <p:panel header="CARACTERÍSTICAS DO IMÓVEL">
-
-                                            <p:column id="coluna3">
+                                        
+                                         <p:panel header="CARACTERÍSTICAS DO IMÓVEL">
+                                                  <p:column id="coluna3">
 
                                                 <h3  style="color:red">Quais Bairros São Buscados ? </h3>
                                                 <p:selectCheckboxMenu id="grouped"  multiple="true"
@@ -229,7 +231,7 @@
                                             <p:column id="coluna6">
                                                
                                                 <h3  style="color:red">Quais as Característiscas Necessárias em seu Imóvel ?</h3>
-                                                <br></br>
+                                           
                                                 <p:selectCheckboxMenu id="groupedimovel" label="Cars" multiple="true"
                                                                       value="#{atendimentoBean.atdEscolhido.caracteristicasArray}"
                                                                       filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
@@ -251,19 +253,9 @@
                                                     <p:slider for="tamanhoMinimo" maxValue="15000" minValue="50" step="50" />
 
                                                 </h:panelGrid>
-
-
-
-                                            </p:column>
-
-
-                                        </p:panel>
-
-                                    </div>
-
-
-
-                                    <div class="ui-g-12 ui-md-6 ui-lg-4 ui-fluid contact-form">
+                                               </p:column>
+                                          </p:panel>
+                                        
                                         <p:panel header="VALORES DA NEGOCIAÇÃO" style="text-align: center">
 
 
@@ -271,7 +263,7 @@
 
                                                 <p:column id="aaa">
 
-                                                    <h3  style="color:red">Faixa de Valor Venda </h3>
+                                          
 
                                                     <p:panelGrid columns="1">
                                                         <h3 style="color:red">Valor Mínimo Venda</h3>
@@ -298,7 +290,7 @@
 
 
                                                 <p:column id="bbb">
-                                                    <h3  style="color:green">Faixa de Valor Locação</h3>
+                                                   
 
 
                                                     <p:panelGrid columns="1">
@@ -323,9 +315,12 @@
                         
 
                                         </p:panel>
+                                        
                                     </div>
-                                    
+
+       
                                      <div class="ui-g-12 ui-lg-8 chat">
+                                         <br></br>
                                                 <p:panel header="DETALHES DO ATENDIMENTO">
                                                
                                                 <h:inputTextarea  styleClass="campoInputText"
@@ -342,32 +337,8 @@
                                                 <br></br>
                           
                                                 </p:panel>
-                                     </div>
-
-                                     <div class="ui-g-12 ui-lg-4">
-                                         <div class="user-card">
-                                             <br></br>
-                                              <br></br>
-                                               <br></br>
-                                                <br></br>
-                                                 
-                                             <div class="user-card-content">
-
-                                                 
-
-                                             </div>
-                                         </div>
-                                     </div>
-                                    
-                                </div> 
-
-
-                            </div> 
-                        </div>
-                    
-    
-                        <div class="ui-g-12">
-                            <p:panel header="ENTENDENDO A NECESSIDADE DO CLIENTE" style="text-align: center">
+                                         
+                                         
 
                                 <div class="ui-g-12 ui-md-6 ui-lg-4 task-list" >
                                     <p:panel header="Triando o Atendimento" >
@@ -516,12 +487,13 @@
                                             
                                         <div id="menuSup2">
                                                      <p:commandButton value="Gravar Dados do Atendimento" 
-                                                                      onstart="PF('DialogShow').show();"
+                                                                      
                                                                       style="font-size: 1em; font-weight: bold" 
                                                                       styleClass="butn"
                                                                       rendered="#{mostra}"
                                                                       actionListener="#{atendimentoBean.atualizarDadosAtendimento()}" 
-                                                                      oncomplete="handleLoginRequest(xhr, status, args)"/>
+                                                                      update="growl"
+                                                                      />
                                                  </div>
 
 
@@ -549,7 +521,7 @@
 
                                                     
                                                      
-                                                     <p:commandButton value="Agendar Atividade" 
+                                                     <p:commandButton value="Atividades com o Cliente" 
                                                                       action="#{atendimentoBean.novaAtividade()}"
                                                                      
                                                                       style="font-size: 1em; font-weight: bold" 
@@ -566,7 +538,35 @@
                                 </div>
                               
                               
-                                  </p:panel>
+                                
+                                         
+                                         
+                                     </div>
+
+                                     <div class="ui-g-12 ui-lg-4">
+                                         <div class="user-card">
+                                             <br></br>
+                                              <br></br>
+                                               <br></br>
+                                                <br></br>
+                                                 
+                                             <div class="user-card-content">
+
+                                                 
+
+                                             </div>
+                                         </div>
+                                     </div>
+                                    
+                                </div> 
+
+
+                            </div> 
+                        </div>
+                    
+    
+                        <div class="ui-g-12">
+                           
                                  
                          </div>
                                             
@@ -614,7 +614,7 @@
 
                     <p:column>
 
-                        <p:commandButton value="Atividade" 
+                        <p:commandButton value="Ver Atividade" 
                                          action="#{atendimentoBean.abrirAtividade(listatudo.id)}"
                                          style="font-size: 1em; font-weight: bold" 
                                          styleClass="butn"
@@ -622,8 +622,6 @@
                                          >
                             <!--<f:ajax execute="@form" render="form_atividade" />-->
                         </p:commandButton>
-
-
                     </p:column>
 
 
@@ -633,16 +631,7 @@
             </p:panel>
         </div> 
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+         
         
         
         
@@ -679,7 +668,8 @@
 
                             <p:calendar value="#{atendimentoBean.agenda.data}" pattern="dd/MM/yyyy HH:mm" 
                                         mode="inline" timeZone="America/Sao_Paulo" mask="true" 
-                                        locale="pt_BR" style="display: inline-block"
+                                        locale="pt_BR" style="display: inline-block" 
+                                         
                                         />
                         </p:column>
                     </div>
@@ -694,7 +684,7 @@
                                               style="width: 600px; height: 250px; font-size: 1.3em;" 
                                               required="false"
 
-                                              requiredMessage="Por favor, digite as referências dos imóveis mostrados" 
+                                             
                                               value="#{atendimentoBean.agenda.obs}" 
                                               validatorMessage="Escreva uma mensagem maior por favor" > 
                                 <f:validateLength minimum="0" />
@@ -746,8 +736,10 @@
             <div class="principal" style="font-size: 1.3em">
                 <h:form id="form_atividade2">
 
-                  
-
+                  <p:messages id="messages" showDetail="true" closable="true">
+        <p:autoUpdate />
+    </p:messages>
+                    <p:growl id="msgdata" showDetail="true" sticky="true"/>
                     <div id='parte1' style="width: 500px; float: left; text-align:  center">
 
 
@@ -805,10 +797,11 @@
                             <br></br><br></br>
                             <p:commandButton value="Gravar Atividade" 
 
-                                             action="#{atendimentoBean.atualizarAtividade()}"
+                                             action="#{atendimentoBean.novaAtividade()}"
                                              style="font-size: 1em; font-weight: bold" 
                                              styleClass="butn"
-                                             rendered="#{mostra}"/>
+                                             rendered="#{mostra}"
+                                           />
 
 
                             <br></br>
@@ -822,7 +815,7 @@
 
                 </h:form> 
             </div> 
-        </p:dialog>
+         </p:dialog>
 
         
          

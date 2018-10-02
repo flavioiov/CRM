@@ -60,7 +60,9 @@
            <!-- <f:viewAction action="#{guestPreferences.setTheme('green-purple')}" />-->
             <f:viewAction action="#{admBean.listar_minhasLigacoes()}" />
               <f:viewAction action="#{admBean.listar_meusAtendimentos()}" />
+              <f:viewAction action="#{admBean.listarMinhaAgenda()}" />
         </f:metadata> 
+            
 
         
 
@@ -117,10 +119,12 @@
 
             
 
-            <div class="ui-g-12 ui-lg-6 stats">
+            <p:tabView>
+                <p:tab title="ATENDIMENTOS" >
+                    <div class="ui-g-12 ui-lg-6 stats">
                 <p:panel header="LIGAÇÕES / RECADOS">
                     <p:dataTable var="car" value="#{admBean.listarminhasligacoes}" selectionMode="single" reflow="true"
-                                 rowKey="#{car.id}" paginator="true" rows="10">
+                                 rowKey="#{car.id}" paginator="true" rows="10" style="font-size:1">
                         <f:facet name="header">
                             LIGAÇÕES A RETORNAR
                         </f:facet>
@@ -185,26 +189,30 @@
 
 
                     <p:dataTable var="atend1" value="#{admBean.listaMeusAtendimentos}" selectionMode="single" reflow="true"
-                                 id="tableAtendimento2" rowKey="#{atend1.id}" 
+                                 id="tableAtendimento2" rowKey="#{atend1.id}"  style="font-size:1.2em"
                                  paginator="true" 
                                  rows="50">
                         <f:facet name="header">
                             ATENDIMENTOS EM ABERTO E ANDAMENTO
                         </f:facet>
-
-                        <p:column headerText="Data" sortBy="#{atend1.dataatendimento}">
+                        
+                        <p:column headerText="Id" sortBy="#{atend1.id}" style="width: 4%">
+                            <h:outputText value="#{atend1.id}" />
+                        </p:column>
+                        
+                        <p:column headerText="Data" sortBy="#{atend1.dataatendimento}" style="width:7%"> 
                             <h:outputText value="#{atend1.dataatendimento}">
                                 <f:convertDateTime type="both" pattern="dd/MM/yyyy"/>
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Hora" sortBy="#{atend1.horaatendimento}">
+                        <p:column headerText="Hora" sortBy="#{atend1.horaatendimento}"  style="width:5%">
                             <h:outputText value="#{atend1.horaatendimento.substring(0, 5)}" />
                         </p:column>
 
 
 
-                        <p:column headerText="Cliente" sortBy="#{atend1.nome}">
+                         <p:column filterBy="#{atend1.nome}" headerText="Cliente" sortBy="#{atend1.nome}" footerText="contains"  width="25%" filterMatchMode="contains">
                             <h:outputText value="#{atend1.nome}" />
                         </p:column>
 
@@ -218,7 +226,7 @@
 
 
 
-                        <p:column headerText="Grau Interesse" sortBy="#{atend1.interesse}">
+                        <p:column headerText="Grau Interesse" sortBy="#{atend1.interesse}"  style="width:5%">
                             <h:outputText value="#{atend1.interesse}" />
                         </p:column>
 
@@ -281,6 +289,76 @@
 
 
             </div>
+                </p:tab>
+                <p:tab title="O QUE OS CORRETORES PRECISAM FAZER">
+                     <p:panel  style="height:50%">
+
+                    
+                    <p:dataTable var="listatudo" value="#{admBean.listatodasatividades}" selectionMode="single" reflow="true"
+                                 rowKey="#{listatudo.id}" paginator="true" rows="33" style="font-size: 1.25em">
+                    
+                  
+
+                        <f:facet name="header">
+                            <h:outputText value="#{listatudo.data}" />
+                        </f:facet>
+                        
+                         <p:column headerText="Atender" style="width: 6%">
+                             <p:commandButton action="#{atendimentoBean.listaDetalheAtendimento(listatudo.idatendimento)}"  value="Atendimento"/>
+                        </p:column>
+                        
+                          <p:column headerText="ID"  style="width: 3%">
+                              <h:outputText value="#{listatudo.idatendimento}" />
+                        </p:column>
+                        
+                        <p:column headerText="Corretor"  style="width: 5%">
+                            <h:outputText value="#{listatudo.corretor}" />
+                        </p:column>
+                        
+                        <p:column headerText="Cliente" sortBy="#{listatudo.data}" style="width: 18%">
+                            <h:outputText value="#{listatudo.cliente}" >
+                               
+                            </h:outputText>
+                        </p:column>
+                         <p:column headerText="Telefone" sortBy="#{listatudo.data}" style="width: 10%">
+                            <h:outputText value="#{listatudo.telefone}" >
+                               
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Data" sortBy="#{listatudo.data}" style="width: 6%">
+                            <h:outputText value="#{listatudo.data}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Hora" sortBy="#{listatudo.data}" style="width: 5%">
+                            <h:outputText value="#{listatudo.data}">
+                                <f:convertDateTime pattern="HH:mm" timeZone="GMT-03:00"/>
+                            </h:outputText>
+                        </p:column>
+
+
+                        <p:column headerText="Atividade"  style="width: 15%">
+                            <h:outputText value="#{listatudo.evento}" />
+                        </p:column>
+                        <p:column headerText="Status"  style="width: 5%">
+                            <h:outputText value="#{listatudo.status}" />
+                        </p:column>
+                        <p:column headerText="Observação">
+                            <h:outputText value="#{listatudo.obs}" />
+                        </p:column>
+
+            </p:dataTable>
+                </p:panel>
+                </p:tab>
+                <p:tab title="ESTATISTICAS DE ATENDIMENTO">
+                    
+                </p:tab>
+            </p:tabView>
+            
+
+           
           
 
         </div>
