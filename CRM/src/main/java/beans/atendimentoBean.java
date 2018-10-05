@@ -412,8 +412,15 @@ public class atendimentoBean {
     public void listaDetalheAtendimento(int cadastro) throws SQLException, IOException {
 
         //  arrumar isso.....
+        
+        System.out.println("Id do contrato :"+cadastro);
         atdEscolhido = buscaAtendimento(cadastro); //esse metodo retornar o atendimento selecionado.
 
+        
+         System.out.println("Id do contrato :"+atdEscolhido.getNome());
+                 
+         System.out.println("Id do contrato :"+atdEscolhido.getId());
+         
         // metodo Flávio Ventureli converter String em String[] 
         // Ao trazer o Array gravado no banco de dados [Piscina, Churrasqueira] estes dados estao armazenados
         //em uma variavel varchar e precisam ser convertidas em array, porém para que fiquem compatíveis com
@@ -725,9 +732,7 @@ public class atendimentoBean {
     
     
     public void gravarAtividades() throws IOException, SQLException, ParseException{
-        
          
-        
         if(agenda.getData()!=null){
            
            Timestamp a=testaTMS(agenda.getData());
@@ -761,22 +766,17 @@ public class atendimentoBean {
         
         }
         
-        
-        
-        
-        
-        
-        
-        
+    
     }
     
-        public void listarMinhaAgenda() throws SQLException { //busca atividades relacionadas ao atendimento utilizado no triarAtendimento
-       
-        String sql7="SELECT atendimento.nome as cliente,concat(atendimento.ddd,'-',atendimento.telefone) as telefone,agenda.id,agenda.idatendimento,agenda.evento,agenda.data,agenda.obs,agenda.corretor,agenda.status FROM crm.agenda,crm.atendimento where atendimento.id=agenda.idatendimento and atendimento.corretor='" + usuarioLogado + "' and agenda.status='ABERTO'";
-            
-            
-            
-          //  String sql7 = "SELECT * FROM crm.agenda where corretor='" + usuarioLogado + "' AND status ='Aberto'";
+    
+    
+    
+      public void listarMinhaAgenda() throws SQLException { //busca atividades relacionadas ao atendimento utilizado no triarAtendimento
+
+        String sql7 = "SELECT atendimento.nome as cliente,concat(atendimento.ddd,'-',atendimento.telefone) as telefone,agenda.id,agenda.idatendimento,agenda.evento,agenda.data,agenda.obs,agenda.corretor,agenda.status FROM crm.agenda,crm.atendimento where atendimento.id=agenda.idatendimento and atendimento.corretor='" + usuarioLogado + "' and agenda.status='ABERTO'";
+
+        //  String sql7 = "SELECT * FROM crm.agenda where corretor='" + usuarioLogado + "' AND status ='Aberto'";
         ResultSetHandler<List<Agenda>> h7 = new BeanListHandler<Agenda>(Agenda.class);
         QueryRunner QR7 = new QueryRunner(CustomDataSource.getInstance());
         listatodasatividades = QR7.query(sql7, h7);
@@ -796,51 +796,49 @@ public class atendimentoBean {
     }
 
     
+    public void novaAtividade() throws SQLException, IOException {
 
-    
-    
-    
-    public void novaAtividade() throws SQLException, IOException{
-       
         this.atualizarDadosAtendimento();
-        
-        agenda=new Agenda();
+
+        agenda = new Agenda();
         RequestContext.getCurrentInstance().update("form_atividade");
         RequestContext.getCurrentInstance().execute("PF('dlg3').show();");
-        
-    }
-    
-    
-    public void atualizarAtividade() throws IOException, SQLException, ParseException{
-        
-        Timestamp a=testaTMS(agenda.getData());
 
-        
-         agenda.setIdatendimento(atdEscolhido.getId());
-         agenda.setData(a);
-         agenda.setCorretor(atdEscolhido.getCorretor());
-         
-         Classe_Geral cg = new Classe_Geral("agenda");
-         int inserido = cg.alteraDadosTabela("agenda", agenda,agenda.getId()); //PEGA VALOR CHAVE INSERIDO NA TABELA AGENDA
-         
-         
-         
-         this.buscaAgenda(atdEscolhido.getId());
-        
-         
-        RequestContext.getCurrentInstance().update("formabriratividade");
-        
-                
-                
-        RequestContext context2 = RequestContext.getCurrentInstance();
-        context2.execute("PF('dlg4').hide();");
-        
-       // FacesContext.getCurrentInstance().getExternalContext().redirect("triar_atendimento.jsf");
-         
-         
-        
     }
 
     
     
+    public void novaAtividade2() throws SQLException, IOException {
+
+        if (agenda.getData() != null) {
+
+            Timestamp a = testaTMS(agenda.getData());
+
+            agenda.setData(a);
+
+            Classe_Geral cg = new Classe_Geral("agenda");
+
+            cg.alteraDadosTabela("agenda", agenda, agenda.getId());
+
+            this.buscaAgenda(atdEscolhido.getId());
+            
+            RequestContext.getCurrentInstance().execute("PF('dlg4').hide();");
+
+          
+        
+            
+            RequestContext.getCurrentInstance().update("formabriratividade");
+
+        }else{
+           FacesContext context = FacesContext.getCurrentInstance();
+        //context.addMessage(null, new FacesMessage("DATA :-)", "SELECIONE UMA DATA POR FAVOR !"));
+          RequestContext.getCurrentInstance().update("form_atividade2");
+          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "OPS!", "SELECIONE UMA DATA POR FAVOR !! ;-("));  
+        
+        }
+
+
+    }
 }
+    
+

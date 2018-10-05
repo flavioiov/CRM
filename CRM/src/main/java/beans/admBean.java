@@ -46,7 +46,7 @@ public class admBean {
     
     
     public List<Agenda> listatodasatividades;
-    
+     public List<Agenda> listaAtividades;
     
     public List<Atendimento> listaMeusAtendimentos;
 
@@ -172,7 +172,16 @@ public class admBean {
         this.usuarioLogado = usuarioLogado;
     }
 
+    public List<Agenda> getListaAtividades() {
+        return listaAtividades;
+    }
 
+    public void setListaAtividades(List<Agenda> listaAtividades) {
+        this.listaAtividades = listaAtividades;
+    }
+
+    
+   
 
     private String[] myArray;
 
@@ -400,7 +409,7 @@ public class admBean {
         String sql7 = "SELECT * FROM crm.agenda where idatendimento='"+atdEscolhido.getId()+"'";
         ResultSetHandler<List<Agenda>> h7 = new BeanListHandler<Agenda>(Agenda.class);
         QueryRunner QR7 = new QueryRunner(CustomDataSource.getInstance());
-        List<Agenda> listaAtividades = QR7.query(sql7, h7);
+        listaAtividades = QR7.query(sql7, h7);
            
     }
     

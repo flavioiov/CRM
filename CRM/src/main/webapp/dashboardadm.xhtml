@@ -118,64 +118,11 @@
             </div>
 
             
-
-            <p:tabView>
+            <br/><br/>
+            <p:tabView style="margin-top: 20px; margin-bottom: 20px">
                 <p:tab title="ATENDIMENTOS" >
-                    <div class="ui-g-12 ui-lg-6 stats">
-                <p:panel header="LIGAÇÕES / RECADOS">
-                    <p:dataTable var="car" value="#{admBean.listarminhasligacoes}" selectionMode="single" reflow="true"
-                                 rowKey="#{car.id}" paginator="true" rows="10" style="font-size:1">
-                        <f:facet name="header">
-                            LIGAÇÕES A RETORNAR
-                        </f:facet>
-                        <p:column headerText="Falar Com" sortBy="#{car.euquero}">
-                            <h:outputText value="#{car.euquero}" />
-                        </p:column>
-
-                        <p:column headerText="Cliente" sortBy="#{car.atendente}">
-                            <h:outputText value="#{car.nome}" />
-                        </p:column>
-
-                        <p:column headerText="Data" sortBy="#{car.dataatendimento}">
-                            <h:outputText value="#{car.dataatendimento}">
-                                <f:convertDateTime type="both" pattern="dd/MM/yyyy"/>
-                            </h:outputText>
-                        </p:column>
-
-
-                        <p:column headerText="Hora">
-                            <h:outputText value="#{car.horaatendimento.substring(0, 5)}" />
-                        </p:column>
-
-                        <p:column headerText="Retornar">
-
-                            <p:commandButton action="#{admBean.listaDetalheAtendimento(car.id)}"  value="DAR RETORNO"/>
-                        </p:column>
-
-                        
-                        <p:column headerText="Apagar">
-                            <p:commandButton value="Apagar" style="font-size: 1em; font-weight: bold" 
-                                          
-                                             actionListener="#{atendimentoBean.apagarAtendimento(car.id)}">  
-
-                                
-                            </p:commandButton>
-
-                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                <p:commandButton value="SIM" type="button"  styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                                <p:commandButton value="NÃO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                            </p:confirmDialog>
-                        </p:column>
-
-                        
-
-                    </p:dataTable>
-                </p:panel>
-            </div>
-
-            
-
-            <div class="ui-g-12">
+                    <br></br>
+              
 
 
                 <f:facet name="header">
@@ -288,10 +235,61 @@
                 </p:panel>
 
 
-            </div>
                 </p:tab>
                 <p:tab title="O QUE OS CORRETORES PRECISAM FAZER">
-                     <p:panel  style="height:50%">
+                     
+                    <p:panel header="LIGAÇÕES / RECADOS">
+                    <p:dataTable var="car" value="#{admBean.listarminhasligacoes}" selectionMode="single" reflow="true"
+                                 rowKey="#{car.id}" paginator="true" rows="10" style="font-size:1.25em">
+                        <f:facet name="header">
+                            LIGAÇÕES A RETORNAR
+                        </f:facet>
+                        <p:column headerText="Falar Com" sortBy="#{car.euquero}">
+                            <h:outputText value="#{car.euquero}" />
+                        </p:column>
+
+                        <p:column headerText="Cliente" sortBy="#{car.atendente}">
+                            <h:outputText value="#{car.nome}" />
+                        </p:column>
+
+                        <p:column headerText="Data" sortBy="#{car.dataatendimento}">
+                            <h:outputText value="#{car.dataatendimento}">
+                                <f:convertDateTime type="both" pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+
+                        <p:column headerText="Hora">
+                            <h:outputText value="#{car.horaatendimento.substring(0, 5)}" />
+                        </p:column>
+
+                        <p:column headerText="Retornar">
+
+                            <p:commandButton action="#{admBean.listaDetalheAtendimento(car.id)}"  value="DAR RETORNO"/>
+                        </p:column>
+
+                        
+                        <p:column headerText="Apagar">
+                            <p:commandButton value="Apagar" style="font-size: 1em; font-weight: bold" 
+                                          
+                                             actionListener="#{atendimentoBean.apagarAtendimento(car.id)}">  
+
+                                
+                            </p:commandButton>
+
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="SIM" type="button"  styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="NÃO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+                        </p:column>
+
+                        
+
+                    </p:dataTable>
+                </p:panel>
+                    
+                    
+                    <p:panel  style="height:50%">
 
                     
                     <p:dataTable var="listatudo" value="#{admBean.listatodasatividades}" selectionMode="single" reflow="true"
@@ -355,6 +353,13 @@
                 <p:tab title="ESTATISTICAS DE ATENDIMENTO">
                     
                 </p:tab>
+                
+                
+                <p:tab title="SESSÕES ATIVAS">
+                    
+                </p:tab>
+                
+                
             </p:tabView>
             
 

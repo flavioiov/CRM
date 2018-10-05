@@ -23,25 +23,21 @@
                         <pm:menu style="font-size: 1.5em">
                          
                          <p:menuitem id="novoatend" value="Novo Atendimento" icon="fa fa-tty" outcome="/abrir_atendimento.xhtml" />
-                            
                          <p:menuitem id="pm_dashboard" rendered="#{mostra}" value="DashBoard" icon="fa fa-home" outcome="/dashboardcrm.xhtml" />
                          <p:menuitem id="pm_clientes" rendered="#{mostra}" value="Meus Clientes" icon="fa fa-home" outcome="/clientes.xhtml" />
                          <p:menuitem id="pm_dashboarda" rendered="#{configura}" value="DashBoard" icon="fa fa-home" outcome="/dashboardadm.xhtml" />
- 
                          <p:menuitem id="pm_buynow" value="Entrar no CRM" rendered="#{mostralogin}" icon="fa fa-diamond" url="logar.jsf"/>
-                         
                          <p:menuitem id="pm_sair" value="Sair" icon="fa fa-sign-out" actionListener="#{usuarioManagedBean.sairSistema()}"/>
                             
                             
-                            <p:submenu id="pm_hierarchy" label="Configurações" rendered="#{configura}" icon="fa fa-gear">
+                         
+                          <p:submenu id="pm_hierarchy" label="Configurações" rendered="#{configura}" icon="fa fa-gear">
                                 <p:submenu id="pm_sm1" label="Posição  Menu" icon="fa fa-sign-in">
-
                                     <p:menuitem id="pm_layout_static" value="Esquerda Fixo" icon="fa fa-bars" actionListener="#{guestPreferences.updateLayoutMode('STATIC')}" ajax="false"></p:menuitem>
                                     <p:menuitem id="pm_layout_horizontal" value="Em Cima Fixo" icon="fa fa-arrows-v" actionListener="#{guestPreferences.updateLayoutMode('HORIZONTAL')}" ajax="false"></p:menuitem>
                                     <p:menuitem id="pm_layout_toggle" value="Esquerda" icon="fa fa-chevron-left" actionListener="#{guestPreferences.updateLayoutMode('TOGGLE')}" ajax="false"></p:menuitem>
-
-
                                 </p:submenu>
+                         
 
                                 <p:submenu id="pm_sm12" label="Cores Sistema" icon="fa fa-sign-in">
                                     <p:menuitem id="pm_layout_teal_yellow" value="Teal - Yellow" icon="fa fa-diamond" actionListener="#{guestPreferences.setTheme('teal-yellow')}" ajax="false"/>
@@ -71,7 +67,7 @@
 
                             </p:submenu>
 
-                            
+                        <p:menuitem id="novocontrato" value="Contratos" rendered="#{configura}" icon="fa fa-tty" outcome="/contratos/contratos.xhtml" />
                             
                         </pm:menu>
                     </h:form>
