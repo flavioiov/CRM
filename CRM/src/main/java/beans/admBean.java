@@ -60,6 +60,8 @@ public class admBean {
         this.listaAtendimentoSelecionado = listaAtendimentoSelecionado;
     }
 
+    
+    private List<Atendimento> listaatendimentosrevisar;
     public List<Atendimento> listaAtendimentos;
 
     public List<Atendimento> listaAtendimentoDetalhe;
@@ -89,6 +91,14 @@ public class admBean {
 
     public void setListatodasatividades(List<Agenda> listatodasatividades) {
         this.listatodasatividades = listatodasatividades;
+    }
+
+    public List<Atendimento> getListaatendimentosrevisar() {
+        return listaatendimentosrevisar;
+    }
+
+    public void setListaatendimentosrevisar(List<Atendimento> listaatendimentosrevisar) {
+        this.listaatendimentosrevisar = listaatendimentosrevisar;
     }
 
     
@@ -527,11 +537,9 @@ public class admBean {
         QueryRunner run = new QueryRunner(CustomDataSource.getInstance());
         listaMeusAtendimentos = run.query(sql, h);
         
-      
-        
         this.loadStatisticsDashboard();
         
-        
+        this.atividadesRevisar();
         
     }
 
@@ -575,6 +583,18 @@ public class admBean {
         
     }
    
+    
+    public void atividadesRevisar() throws SQLException {
+
+String sql7 = "SELECT id,nome,dataatendimento,status,corretor FROM crm.atendimento where "
+        + "(id not in ( select idatendimento from crm.agenda ) and euquero not like 'Falar%')";
+      
+        ResultSetHandler<List<Atendimento>> h7 = new BeanListHandler<Atendimento>(Atendimento.class);
+        QueryRunner QR7 = new QueryRunner(CustomDataSource.getInstance());
+        listaatendimentosrevisar = QR7.query(sql7, h7);
+
+        System.out.println(sql7);
+    }
     
     
     

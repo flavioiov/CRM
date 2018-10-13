@@ -65,6 +65,8 @@ public class atendimentoBean {
 
     public List<Atendimento> listaAtendimentoDetalhe;
     public List<Atendimento> listarminhasligacoes;
+    
+   public List<Atendimento> listaatendimentosrevisar;
     public List<Atendimento> listaAbertos;
     public List<Atendimento> qtdatendimentoscorretor;
     public List<Agenda> listaAtividades;
@@ -90,6 +92,14 @@ public class atendimentoBean {
 
     public void setListaacoes(List<Acoes> listaacoes) {
         this.listaacoes = listaacoes;
+    }
+
+    public List<Atendimento> getListaatendimentosrevisar() {
+        return listaatendimentosrevisar;
+    }
+
+    public void setListaatendimentosrevisar(List<Atendimento> listaatendimentosrevisar) {
+        this.listaatendimentosrevisar = listaatendimentosrevisar;
     }
     
     
@@ -312,7 +322,7 @@ public class atendimentoBean {
         atd.setIp(remoteIp); //seta ip do cliente no objeto
 
         usuarioLogado="null";
-         
+        permissao="vazia";
         
          permissao=(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("permission");
          
@@ -404,9 +414,7 @@ public class atendimentoBean {
         
         
     }
-
-  
-    
+   
     
     //Método utilizado no Botao ATENDER do DashBoard
     public void listaDetalheAtendimento(int cadastro) throws SQLException, IOException {
@@ -419,7 +427,7 @@ public class atendimentoBean {
         
          System.out.println("Id do contrato :"+atdEscolhido.getNome());
                  
-         System.out.println("Id do contrato :"+atdEscolhido.getId());
+         System.out.println("Status Atendimento :"+atdEscolhido.getStatus());
          
         // metodo Flávio Ventureli converter String em String[] 
         // Ao trazer o Array gravado no banco de dados [Piscina, Churrasqueira] estes dados estao armazenados
@@ -472,7 +480,14 @@ public class atendimentoBean {
         
        
          Classe_Geral cg = new Classe_Geral("atendimento");
-         cg.pegaAtendimento(usuarioLogado, atdEscolhido.getId()); //nesse metodo seta o corretor logo que ele clica em Atender.
+         
+         if(atdEscolhido.getStatus().equals("Finalizado")){
+             System.out.println("atendimento já finalizado, não pode ser Reatendido");
+         }else{
+              cg.pegaAtendimento(usuarioLogado, atdEscolhido.getId()); //nesse metodo seta o corretor logo que ele clica em Atender.
+         }
+         
+        
         
         
     }
@@ -492,8 +507,7 @@ public class atendimentoBean {
         FacesContext.getCurrentInstance().getExternalContext().redirect("abrir_atendimento.jsf");
 
     }
-   
-    
+      
 
     public void atualizarDadosAtendimento() throws SQLException, IOException { //metodo utilizado no botão pagina triar_atendimento.jsr botao Atualizar dados aTendimento
 
@@ -539,14 +553,27 @@ public class atendimentoBean {
         context.addMessage(null, new FacesMessage("Obrigado :-)", "Seu Atendimento Foi Gravado com Sucesso !"));
         RequestContext.getCurrentInstance().update("msg");
         
+        this.atividadesRevisar();
 
     }
-
-    
-    
+   
     
     public void finalizarAtendimento() throws SQLException, IOException, NoSuchFieldException {
 
+        
+          RequestContext.getCurrentInstance().execute("PF('dlg5').show();");
+       
+          
+
+    }
+    
+    public void confirmafinalizarAtendimento() throws SQLException, IOException {
+        
+        
+         
+        
+        System.out.println("Motivo Finalinzou :"+atdEscolhido.getMotivofinalizou());
+        
         atdEscolhido.setNegocio(Arrays.toString(atdEscolhido.getNegocioArray()));
         atdEscolhido.setBairros(Arrays.toString(atdEscolhido.getBairrosArray()));
         atdEscolhido.setCaracteristicas(Arrays.toString(atdEscolhido.getCaracteristicasArray()));
@@ -556,10 +583,10 @@ public class atendimentoBean {
         Classe_Geral alt = new Classe_Geral("atendimento");
         alt.alteraDadosTabela("atendimento", atdEscolhido, atdEscolhido.getId());
 
-        FacesContext.getCurrentInstance().getExternalContext().redirect("abrir_atendimento.jsf");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("dashboardcrm.jsf");
+        
+        RequestContext.getCurrentInstance().execute("PF('dlg5').hide();");
       
-          
-
     }
     
     
@@ -599,9 +626,6 @@ public class atendimentoBean {
 
     }
 
-    
-    
-    
 
     public Atendimento buscaAtendimento(int cadastro) throws SQLException, IOException {
 
@@ -613,14 +637,6 @@ public class atendimentoBean {
     }
      
     
-
-    public void selecionaAtendimento(int select) throws IOException {
-
-        System.out.print("id Selecionado" + select);
-        FacesContext.getCurrentInstance().getExternalContext().redirect("triagem.jsf");
-
-    }
-
 
     public void listar_meusAtendimentos() throws SQLException {
 
@@ -634,13 +650,14 @@ public class atendimentoBean {
         
         
         this.loadStatisticsDashboard();
+        this.atividadesRevisar();
         
         
         
     }
 
     
-        public void listar_minhasLigacoes() throws SQLException {
+    public void listar_minhasLigacoes() throws SQLException {
             
          usuarioLogado = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
          String sql = "SELECT * FROM crm.atendimento where corretor='" + usuarioLogado + "' AND euquero like '%falar%' AND status='ABERTO' order by id desc";
@@ -691,7 +708,6 @@ public class atendimentoBean {
     }
    
     
-    
     public void listarMeusClientes() throws SQLException{ //busca clientes do corretor agrupados
         String sql77 = "SELECT nome,ddd,telefone,email FROM crm.atendimento where corretor='"+usuarioLogado+"'";
         ResultSetHandler<List<Atendimento>> h7 = new BeanListHandler<Atendimento>(Atendimento.class);
@@ -720,7 +736,6 @@ public class atendimentoBean {
         return agendaselecionada;
     }
 
-    
 
     public java.sql.Date sqlDate(java.util.Date calendarDate) {
         return new java.sql.Date(calendarDate.getTime());
@@ -768,8 +783,7 @@ public class atendimentoBean {
         
     
     }
-    
-    
+   
     
     
       public void listarMinhaAgenda() throws SQLException { //busca atividades relacionadas ao atendimento utilizado no triarAtendimento
@@ -839,6 +853,21 @@ public class atendimentoBean {
 
 
     }
+
+public void atividadesRevisar() throws SQLException {
+
+String sql7 = "SELECT id,nome,dataatendimento,status,corretor FROM crm.atendimento where "
+        + "(id not in ( select idatendimento from crm.agenda ) and euquero not like 'Falar%' and corretor='"+ usuarioLogado+"')";
+      
+        ResultSetHandler<List<Atendimento>> h7 = new BeanListHandler<Atendimento>(Atendimento.class);
+        QueryRunner QR7 = new QueryRunner(CustomDataSource.getInstance());
+        listaatendimentosrevisar = QR7.query(sql7, h7);
+
+        System.out.println(sql7);
+    }
+
+
+
 }
     
 

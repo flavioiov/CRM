@@ -77,11 +77,24 @@ public class Agenda implements Serializable {
     @Column(name = "telefone")
     private String telefone;
     
-    
+       @Size(max = 45)
+    @Column(name = "horaagendada")
+    private String horaagendada;
 
     public Agenda() {
     }
 
+    public String getHoraagendada() {
+        return horaagendada;
+    }
+
+    public void setHoraagendada(String horaagendada) {
+        this.horaagendada = horaagendada;
+    }
+
+    
+    
+    
     public String getCliente() {
         return cliente;
     }

@@ -123,6 +123,8 @@
 
                                                 <p:selectCheckboxMenu 
                                                     id="grupoNegocio" 
+                                                    required="true" 
+                                        requiredMessage="Por favor, Selecione o tipo de Negócio" 
                                                     value="#{atendimentoBean.atdEscolhido.negocioArray}"
                                                     label="Cars" multiple="true"
                                                     filter="true" filterMatchMode="startsWith" 
@@ -378,7 +380,7 @@
                                         </p:column>
 
                                           <p:column id="colunax23">
-                                            <h3  style="color:red">Como você Classifica o Interesse do Cliente ? </h3>
+                                            <h3  style="color:red">Classifique o Interesse do Cliente ? </h3>
                                             <h:selectOneMenu id="classificacliente" style="font-size: 1em" value="#{atendimentoBean.atdEscolhido.interesse}">
                                                 <f:selectItem itemValue="" itemLabel=""/>
                                                 <f:selectItem itemValue="Alto" itemLabel="Alto"/>
@@ -418,14 +420,11 @@
                                                
 
                                                  <div id="menuSup2">
-                                                     <p:commandButton value="Finalizar Atendimento" style="font-size: 1em; font-weight: bold" rendered="#{mostra}" actionListener="#{atendimentoBean.finalizarAtendimento()}">  
-                                                         <p:confirm header="Confirmação" message="Você tem Certeza que deseja finalizar este atendimento ?" icon="ui-icon-alert" />
-                                                     </p:commandButton>
-
-                                                     <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                                         <p:commandButton value="SIM" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                                                         <p:commandButton value="NÃO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                                                     </p:confirmDialog>
+                                                     <p:commandButton value="Finalizar Atendimento" style="font-size: 1em; font-weight: bold" rendered="#{mostra}" actionListener="#{atendimentoBean.finalizarAtendimento()}"/>  
+                                                
+                                                     
+                                                  
+                                                       
 
                                                  </div>
 
@@ -478,6 +477,8 @@
         </div>
 
         
+        
+        
 
         <div class="ui-g-12">
             <p:panel header="ATIVIDADES REALIZADAS OU A REALIZAR COM O CLIENTE" style="text-align: center; font-size: 1.3em">
@@ -497,7 +498,7 @@
                     </p:column>
 
                     <p:column headerText="Hora" sortBy="#{listatudo.data}" style="width: 10%">
-                        <h:outputText value="#{listatudo.data}">
+                        <h:outputText value="#{listatudo.horaagendada}">
                             <f:convertDateTime pattern="HH:mm" timeZone="GMT-03:00"/>
                         </h:outputText>
                     </p:column>
@@ -561,18 +562,24 @@
                                 <f:selectItems value="#{atendimentoBean.listaacoes}" var="act" itemLabel="#{act.acao}" itemValue="#{act.acao}"/>
 
                             </h:selectOneMenu>
+              
+                            <br></br><br/>
 
-
-                            <br></br>
-                            <br></br>
-
-
-                            <p:calendar value="#{atendimentoBean.agenda.data}" pattern="dd/MM/yyyy HH:mm" 
+                            <p:calendar value="#{atendimentoBean.agenda.data}" pattern="dd/MM/yyyy" 
                                         mode="inline" timeZone="America/Sao_Paulo" mask="true" 
-                                        locale="pt_BR" style="display: inline-block" 
+                                        locale="pt_BR" style="display: inline-block"
                                          
                                         />
+                             
                         </p:column>
+                        <p:column id="hora">
+                            <h3  style="color:red">A que horas </h3>
+                            
+                            <p:inputMask id="date" value="#{atendimentoBean.agenda.horaagendada}" mask="99:99"/>
+
+                        </p:column>
+                        
+                        
                     </div>
 
                     <div id='parte2' style=" width: 500px; float: left">
@@ -582,7 +589,7 @@
                             <h3  style="color:red">Observação </h3>
                             <h:inputTextarea  styleClass="campoInputText"
                                               title="Por favor, digite as referências dos imóveis mostrados" 
-                                              style="width: 600px; height: 250px; font-size: 1.3em;" 
+                                              style="width: 300px; height: 150px; font-size: 1.3em;" 
                                               required="false"
 
                                              
@@ -599,11 +606,7 @@
                             <h:selectOneMenu id="statusatividade" style="font-size: 1em" value="#{atendimentoBean.agenda.status}">
                                 <f:selectItem itemValue="Aberto" itemLabel="Aberto"/>
                                 <f:selectItem itemValue="Realizado" itemLabel="Realizado"/>
- 
-
-
-
-                            </h:selectOneMenu>
+                          </h:selectOneMenu>
                             <br></br><br></br>
                             <p:commandButton value="Gravar Atividade" 
 
@@ -658,10 +661,18 @@
                             <br></br>
 
 
-                            <p:calendar value="#{atendimentoBean.agenda.data}" pattern="dd/MM/yyyy HH:mm" 
+                              <p:calendar value="#{atendimentoBean.agenda.data}" pattern="dd/MM/yyyy" 
                                         mode="inline" timeZone="America/Sao_Paulo" mask="true" 
                                         locale="pt_BR" style="display: inline-block"
+                                         
                                         />
+                             
+                        </p:column>
+                        <p:column id="hora">
+                            <h3  style="color:red">A que horas </h3>
+                            
+                            <p:inputMask id="date" value="#{atendimentoBean.agenda.horaagendada}" mask="99:99" style="font-size: 1.25em"/>
+
                         </p:column>
                     </div>
 
@@ -716,8 +727,50 @@
 
         
          
+        <!--DIALOG FINALIZA ATIVIDADE -->
+        <p:dialog header="Você tem Certeza de que deseja Finalizar esta Atividade ?" widgetVar="dlg5" showEffect="explode"
+                  hideEffect="clip" 
+                  width="35%"
+                  height="35%" style="font-size: 1.3em">
 
-        
+
+            <div class="principal" style="font-size: 1.3em">
+                <h:form id="formfinaliza">
+
+                     
+                                                        <h3  style="color:red">Selecione o Motivo para Fechar o Atendimento ? </h3>
+                                                        <h:selectOneMenu id="motivofinalizacao" style="font-size: 1em" value="#{atendimentoBean.atdEscolhido.motivofinalizou}">
+                                                            
+                                                              <f:selectItem itemValue="Venda Realizada" itemLabel="Venda Realizada"/>
+                                                              <f:selectItem itemValue="Locação Realizada" itemLabel="Locação Realizada"/>
+                                                              <f:selectItem itemValue="Retornei Ligação" itemLabel="Retornei Ligação"/>
+                                                              <f:selectItem itemValue="Não temos imóvel" itemLabel="Não temos imóvel"/>
+                                                              <f:selectItem itemValue="Já fez Negócio" itemLabel="Já fez Negócio"/>
+                                                              <f:selectItem itemValue="Fora do Valor buscado" itemLabel="Fora do Valor buscado"/>
+                                                              <f:selectItem itemValue="Cliente vai Esperar" itemLabel="Cliente vai Esperar"/>
+                                                               
+                                                         </h:selectOneMenu>
+                                                         <h3  style="color:red">Detalhes do Fechamento ? </h3>
+                                                         <p:inputTextarea id="motivofinal"  value="#{atendimentoBean.atdEscolhido.detalhefinalizou}" style="width: 550px; height: 200px; font-size: 1em" />
+                                                         
+                                                         
+                                                         <br></br>
+                                                         
+                                                         <p:commandButton value="SIM, FINALIZE" style="font-size: 0.8em; font-weight: bold" rendered="#{mostra}" actionListener="#{atendimentoBean.confirmafinalizarAtendimento()}"/>  <br/>
+                                                         <br></br> <p:commandButton value="NÃO, CANCELE" style="font-size: 0.8em; font-weight: bold" onclick="dlg5.hide()"/>  
+                                                         
+
+                                                        
+                                                    
+                                                     
+
+
+
+
+                </h:form> 
+            </div> 
+        </p:dialog>
+
         
     </ui:define>
 

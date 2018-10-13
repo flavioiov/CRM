@@ -167,14 +167,51 @@ public class Atendimento implements Serializable {
     @Column(name = "msg")
     private String msg;
     
+     @Size(max = 45)
+    @Column(name = "motivofinalizou")
+    private String motivofinalizou;
+     
+      @Size(max = 400)
+    @Column(name = "detalhefinalizou")
+    private String detalhefinalizou;
+    
     @Size(max = 45)
     @Column(name = "interesse")
     private String interesse;
+    
+   @Column(name = "total")
+    private Integer total;
+    @Size(max = 6)
+    
 
     private String[] bairrosArray;
      private String[] imovelArray;
      private String[] caracteristicasArray;
      private String[] negocioArray;
+
+    public String getMotivofinalizou() {
+        return motivofinalizou;
+    }
+
+    public void setMotivofinalizou(String motivofinalizou) {
+        this.motivofinalizou = motivofinalizou;
+    }
+
+    public String getDetalhefinalizou() {
+        return detalhefinalizou;
+    }
+
+    public void setDetalhefinalizou(String detalhefinalizou) {
+        this.detalhefinalizou = detalhefinalizou;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
 
    
 

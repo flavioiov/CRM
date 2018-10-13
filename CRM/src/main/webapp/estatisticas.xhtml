@@ -1,0 +1,188 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                >
+                
+    <ui:define name="title">Empty Page</ui:define>
+    <h:form id="formstat">
+        
+    
+   
+   
+    <div class="ui-g">
+        <div class="ui-g-12">
+            
+            
+            <div class="ui-g-12 ui-lg-4">
+                <p:panel>
+                    <p:dataTable var="listatudo" value="#{estatisticaBean.listaatendimentostotal}"
+                                 paginator="true" rows="33" style="font-size: 1.25em">
+                        
+                         <f:facet name="header">
+                           TOTAIS POR CORRETOR E STATUS
+                        </f:facet>
+
+                        <p:column headerText="Corretor"  style="width: 40%">
+                            <h:outputText value="#{listatudo.corretor}" />
+                        </p:column>
+                        
+                        <p:column headerText="STATUS"  style="width: 40%">
+                            <h:outputText value="#{listatudo.status}" />
+                        </p:column>
+
+                       
+
+                        <p:column headerText="Total" sortBy="#{listatudo.data}" style="width: 13%">
+                            <h:outputText value="#{listatudo.total}" >
+
+                            </h:outputText>
+                        </p:column>
+                    
+                     
+
+                    </p:dataTable>
+                </p:panel>
+                
+                <p:panel>
+                    <p:dataTable var="listatudo" value="#{estatisticaBean.listaatendimentostotalcorretor}"
+                                 paginator="true" rows="33" style="font-size: 1.25em">
+                        <f:facet name="header">
+                           TOTAIS GERIS POR CORRETOR
+                        </f:facet>
+                       
+                        <p:column headerText="CORRETOR"  style="width: 40%">
+                             <h:outputText value="#{listatudo.corretor}" />
+                        </p:column>
+               
+                        <p:column headerText="Total" sortBy="#{listatudo.data}" style="width: 13%">
+                            <h:outputText value="#{listatudo.total}" />
+                        </p:column>
+
+
+                    </p:dataTable>
+                </p:panel>
+            </div>
+            
+              <div class="ui-g-12 ui-lg-4">
+               
+                
+                <p:panel>
+                    <p:dataTable var="listatudo" value="#{estatisticaBean.listatotalporano}"
+                                 paginator="true" rows="33" style="font-size: 1.25em">
+                        <f:facet name="header">
+                           TOTAIS POR ANO
+                        </f:facet>
+                       
+                        <p:column headerText="Ano"  style="width: 20%">
+                            <h:outputText value="#{listatudo.corretor}" />
+                        </p:column>
+                        
+                        <p:column headerText="Mes"  style="width: 20%">
+                            <h:outputText value="#{listatudo.nome}" />
+                        </p:column>
+                      
+                        <p:column headerText="Total" sortBy="#{listatudo.data}" style="width: 23%">
+                            <h:outputText value="#{listatudo.total}" >
+
+                            </h:outputText>
+                        </p:column>
+
+
+                    </p:dataTable>
+                </p:panel>
+                  
+                   <p:panel>
+                    <p:dataTable var="listatudo" value="#{estatisticaBean.listaatendimentosmes}"
+                                 paginator="true" rows="33" style="font-size: 1.25em">
+                        <f:facet name="header">
+                           TOTAIS POR MÊS E STATUS 
+                           
+                        </f:facet>
+                          <p:column headerText="Ano"  style="width: 20%">
+                            <h:outputText value="#{listatudo.corretor}" />
+                        </p:column>
+                        
+                        <p:column headerText="Mes"  style="width: 25%">
+                            <h:outputText value="#{listatudo.nome}" />
+                        </p:column>
+                        
+                        
+                        <p:column headerText="STATUS"  style="width: 40%">
+                            <h:outputText value="#{listatudo.status}" />
+                        </p:column>
+
+                       
+
+                        <p:column headerText="Total" sortBy="#{listatudo.data}" style="width: 18%">
+                            <h:outputText value="#{listatudo.total}" >
+
+                            </h:outputText>
+                        </p:column>
+                    
+                     
+
+                    </p:dataTable>
+                       
+                     
+                       
+                </p:panel>
+                  
+                    
+                  
+            </div>
+            
+            
+            
+            <div class="ui-g-12 ui-lg-8 chat">
+                
+                  <p:dataTable var="listatudo" value="#{estatisticaBean.listatotalnegocios}"
+                                 paginator="true" rows="33" style="font-size: 1.25em">
+                        <f:facet name="header">
+                           TOTAL POR TIPO DE NEGÓCIOS
+                         </f:facet>
+                       <p:column headerText="Mes"  style="width: 35%">
+                            <h:outputText value="#{listatudo.nome}" />
+                        </p:column>
+                       
+                        
+                       
+                          <p:column headerText="Ano"  style="width: 55%">
+                            <h:outputText value="#{listatudo.negocio}" />
+                        </p:column>
+                        
+                        
+                        
+                        
+                        <p:column headerText="Media Aluguel"  style="width: 40%">
+                            <h:outputText value="#{listatudo.corretor}" />
+                        </p:column>
+
+                             
+                        <p:column headerText="Media Venda"  style="width: 40%">
+                            <h:outputText value="#{listatudo.msg}" />
+                        </p:column>
+                       
+
+                        <p:column headerText="Total" sortBy="#{listatudo.data}" style="width: 18%">
+                            <h:outputText value="#{listatudo.total}" >
+
+                            </h:outputText>
+                        </p:column>
+                    
+                     
+
+                    </p:dataTable>
+                       
+                
+            </div>
+            
+            
+            
+        </div>
+    </div>
+
+</h:form>
+
+</ui:composition>
