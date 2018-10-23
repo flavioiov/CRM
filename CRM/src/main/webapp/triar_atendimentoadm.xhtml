@@ -57,7 +57,7 @@
                                                     <h:outputText value="Email :" style="color: red;"/><h:outputText value="#{admBean.atdEscolhido.email}" style="color:blue;"/> 
                                                     <h:outputText value="Corretor :" style="color: red;"/>
 
-                                                    <h:outputText value="#{usuarioManagedBean.usuario.nome}" style="color:blue;font-size: 1.3em"/>
+                                                    <h:outputText value="#{admBean.atdEscolhido.corretor}" style="color:blue;font-size: 1.3em"/>
 
                                                     <h:outputText value="Deseja :" style="color: red;"/><h:outputText value="#{admBean.atdEscolhido.euquero}" style="color:blue;"/> 
 
@@ -78,88 +78,57 @@
                                         
                                         
                                         <div class="ui-g-12 ui-lg-6 stats" style="size:  70px; height:370px;">
-                                            <p:panel>
-                                                <f:facet name="header">
-                                                    Outros Atendimentos para Um cliente com esse Telefone ou Email
+                                           
+                                             <p:panel header="ATIVIDADES REALIZADAS OU A REALIZAR COM O CLIENTE" style="text-align: center; font-size: 0.8em">
+                <h:form id="formabriratividade">
+                    
+               
+                    <p:dataTable scrollable="true" id="dadosatividade" var="listatudo" value="#{admBean.listaAtividades}" rows="10" paginator="true" reflow="true">
 
-                                                </f:facet>
-                                                <p:dataTable value="#{admBean.listaAtendimentosMesmoCliente}" var="car"  reflow="true"
-                                                             rowKey="#{car.id}" paginator="true" rows="4" >
-                                                  
-                                                    
-                                                    <p:column headerText="Data" sortBy="#{car.dataatendimento}">
-                                                   
-                                                    <h:outputText value="#{car.dataatendimento}">
-                                                        <f:convertDateTime type="both" pattern="dd/MM/yyyy"/>
-                                                    </h:outputText>
-                                                        
-                                                    </p:column> 
-                                                    <p:column headerText="Corretor" sortBy="#{car.corretor}">
-                                                        <h:outputText value="#{car.corretor}" />
-                                                    </p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{listatudo.data}" />
+                    </f:facet>
 
-                                                    <p:column headerText="Status" sortBy="#{car.corretor}">
-                                                        <h:outputText value="#{car.status}" />
-                                                    </p:column>
+                    <p:column headerText="Data" sortBy="#{listatudo.data}" style="width: 10%">
+                        <h:outputText value="#{listatudo.data}" >
+                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00"/>
+                        </h:outputText>
+                    </p:column>
 
-                                                     
-                                                    <p:column headerText="Abrir">          
-                                                        <h:form>
-                                                            <p:commandButton id="carBtn" value="Saber Mais" type="button" />
-                                                            <p:overlayPanel id="carPanel" for="carBtn" hideEffect="clip" dynamic="true" style="width:85%" dismissable="true" showCloseIcon="true">
-                                                                <p:dataTable scrollable="true" var="listatudo" value="#{admBean.listaAtendimentosMesmoCliente}" rows="5" paginator="true" reflow="true">
-                                                                   
-                                                                     <f:facet name="header">
-                                                                         <h:outputText value="#{listatudo.email}" />
-                                                                        </f:facet>
-                                                                    
-                                                                    <p:column headerText="Data">
-                                                                        <h:outputText value="#{listatudo.dataatendimento}" />
-                                                                    </p:column>
-                                                                    <p:column headerText="Hora">
-                                                                        <h:outputText value="#{listatudo.horaatendimento}" />
-                                                                    </p:column>
-                                                                    <p:column headerText="Corretor">
-                                                                        <h:outputText value="#{listatudo.corretor}" />
-                                                                    </p:column>
-                                                                    
-                                                                    <p:column headerText="Queria">
-                                                                        <h:outputText value="#{listatudo.euquero}" />
-                                                                    </p:column>
-                                                                    
-                                                                    <p:column headerText="Status">
-                                                                        <h:outputText value="#{listatudo.status}" />
-                                                                    </p:column>
-                                                                    
-                                                                     <p:column headerText="Negocio">
-                                                                         <h:outputText value="#{listatudo.negocio}" />
-                                                                    </p:column>
-                                                                    
-                                                                     <p:column headerText="Tipo Imóvel">
-                                                                         <h:outputText value="#{listatudo.tipoimovel}" />
-                                                                    </p:column>
-                                                                    
-                                                                     <p:column headerText="Bairros">
-                                                                         <h:outputText value="#{listatudo.bairros}" />
-                                                                    </p:column>
-                                                                    
-                                                                     <p:column headerText="Negocio">
-                                                                         <h:outputText value="#{listatudo.negocioArray}" />
-                                                                    </p:column>
-                                                                    
-                                                                    
-                                                                    
-                                                                </p:dataTable>
-                                                            </p:overlayPanel>
+                    <p:column headerText="Hora" sortBy="#{listatudo.data}" style="width: 10%">
+                        <h:outputText value="#{listatudo.data}">
+                            <f:convertDateTime pattern="HH:mm" timeZone="GMT-03:00"/>
+                        </h:outputText>
+                    </p:column>
 
 
-                                                        </h:form>
+                    <p:column headerText="Atividade"  style="width: 15%">
+                        <h:outputText value="#{listatudo.evento}" />
+                    </p:column>
+                    <p:column headerText="Status"  style="width: 15%" sortBy="#{listatudo.status}">
+                        <h:outputText value="#{listatudo.status}" />
+                    </p:column>
+                    <p:column headerText="Observação">
+                        <h:outputText value="#{listatudo.obs}" />
+                    </p:column>
 
-                                                    </p:column>
+                    <p:column>
 
-                                                  
-                                                </p:dataTable>
-                                                </p:panel>
+                        <p:commandButton value="Atividade" 
+                                         action="#{atendimentoBean.abrirAtividade(listatudo.id)}"
+                                         style="font-size: 1em; font-weight: bold" 
+                                         styleClass="butn"
+                                         rendered="#{mostra}"
+                                         >
+                            <!--<f:ajax execute="@form" render="form_atividade" />-->
+                        </p:commandButton>
+                    </p:column>
+
+
+                </p:dataTable>
+                    
+                     </h:form>
+            </p:panel>
                                         
                                         </div>
 
@@ -567,56 +536,7 @@
                         
                         
                          <div class="ui-g-12">
-            <p:panel header="ATIVIDADES REALIZADAS OU A REALIZAR COM O CLIENTE" style="text-align: center; font-size: 1.3em">
-                <h:form id="formabriratividade">
-                    
-               
-                    <p:dataTable scrollable="true" id="dadosatividade" var="listatudo" value="#{admBean.listaAtividades}" rows="10" paginator="true" reflow="true">
-
-                    <f:facet name="header">
-                        <h:outputText value="#{listatudo.data}" />
-                    </f:facet>
-
-                    <p:column headerText="Data" sortBy="#{listatudo.data}" style="width: 10%">
-                        <h:outputText value="#{listatudo.data}" >
-                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00"/>
-                        </h:outputText>
-                    </p:column>
-
-                    <p:column headerText="Hora" sortBy="#{listatudo.data}" style="width: 10%">
-                        <h:outputText value="#{listatudo.data}">
-                            <f:convertDateTime pattern="HH:mm" timeZone="GMT-03:00"/>
-                        </h:outputText>
-                    </p:column>
-
-
-                    <p:column headerText="Atividade"  style="width: 15%">
-                        <h:outputText value="#{listatudo.evento}" />
-                    </p:column>
-                    <p:column headerText="Status"  style="width: 15%" sortBy="#{listatudo.status}">
-                        <h:outputText value="#{listatudo.status}" />
-                    </p:column>
-                    <p:column headerText="Observação">
-                        <h:outputText value="#{listatudo.obs}" />
-                    </p:column>
-
-                    <p:column>
-
-                        <p:commandButton value="Atividade" 
-                                         action="#{atendimentoBean.abrirAtividade(listatudo.id)}"
-                                         style="font-size: 1em; font-weight: bold" 
-                                         styleClass="butn"
-                                         rendered="#{mostra}"
-                                         >
-                            <!--<f:ajax execute="@form" render="form_atividade" />-->
-                        </p:commandButton>
-                    </p:column>
-
-
-                </p:dataTable>
-                    
-                     </h:form>
-            </p:panel>
+           
         </div> 
                                             
                     </h:form>

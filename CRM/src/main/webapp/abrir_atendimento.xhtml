@@ -48,7 +48,7 @@
                                         <f:selectItem itemValue="Imobiliária"/>
                                         <f:selectItem itemValue="Placa Imóvel"/>
                                         <f:selectItem itemValue="Indicação"/>
-                                        <f:selectItem itemValue="Fachada"/>
+                                        <f:selectItem itemValue="WhatsApp"/>
                                         <f:selectItem itemValue="Facebook"/>
                                         <f:selectItem itemValue="Evento"/>
                                         <f:selectItem itemValue="Plantão"/>
@@ -160,6 +160,15 @@
                                     </p:inputTextarea>
 
 
+                                    <h3  style="color:red">Direcionar Atendimento ? </h3> 
+                                    <h:selectOneMenu id="combobox" style="font-size: 1em" value="#{atendimentoBean.atd.corretor}">      
+                                         <f:selectItem itemLabel="" itemValue="1" />
+                                          <f:selectItems value="#{atendimentoBean.listacorretores}" var="act" itemLabel="#{act.nome}" itemValue="#{act.nome}"/>
+
+                                     </h:selectOneMenu>
+
+                                    
+                                    
                                     <div id="alinha" style="text-align: center">
 
                                         <h:panelGrid columns="1" >

@@ -498,11 +498,10 @@ public Integer alteraDadosTabela(String Tabela,Object obj,int idx) //A fazer nes
     }
 	
         objeto_inserido=this.proximo_valor("id", nome_tabela);
-        
-                 
-	return this.objeto_inserido;
+    	return this.objeto_inserido;
 	
 }
+
 
 
 public void pegaAtendimento(String usuario,Integer cod)
@@ -570,6 +569,70 @@ throws SQLException
     }
 
 
+
+public void fechaAtividades(Integer cod)
+throws SQLException
+{
+            
+        Conexao conf = new Conexao();
+        Connection connection;
+        connection = conf.getDatabaseConnection();
+
+        PreparedStatement prepared_statement;
+        String sql;
+
+        try {
+
+            sql = "update crm.agenda set status='Realizado' where idatendimento=" + cod;
+
+            System.out.println(sql);
+            st = connection.createStatement();
+            st.executeUpdate(sql);
+            
+            
+            connection.close();
+
+        } catch (Exception e2) {
+
+            System.out.println(e2.getMessage());
+            this.setErro(e2.getMessage());
+            e2.printStackTrace();
+        }
+
+    }
+
+
+
+public void updatevalor(String tabela,String campo,String valor,Integer chave)
+throws SQLException
+{
+            
+        Conexao conf = new Conexao();
+        Connection connection;
+        connection = conf.getDatabaseConnection();
+
+        PreparedStatement prepared_statement;
+        String sql;
+
+        try {
+
+            sql = "update "+tabela+" set "+campo+"='"+valor+"' where id=" + chave;
+
+            System.out.println(sql);
+            st = connection.createStatement();
+            st.executeUpdate(sql);
+            
+            
+            connection.close();
+
+        } catch (Exception e2) {
+
+            System.out.println(e2.getMessage());
+            this.setErro(e2.getMessage());
+            e2.printStackTrace();
+        }
+
+    }
 
 
 

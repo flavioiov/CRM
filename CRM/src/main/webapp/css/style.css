@@ -37,7 +37,9 @@ h3 a { font-size: 1em; }
 
 #content { height: auto; width: auto; margin: 0 auto; padding: 20px 0 0 0; }
 
-
+.semBorda tr, .semBorda td {
+	border: none !important;
+}
 
 .filtro{
     color: #AA0001;

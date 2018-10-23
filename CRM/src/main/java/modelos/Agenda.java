@@ -80,6 +80,11 @@ public class Agenda implements Serializable {
        @Size(max = 45)
     @Column(name = "horaagendada")
     private String horaagendada;
+       
+       
+       @Column(name = "total")
+    private Integer total;
+    @Size(max = 5)
 
     public Agenda() {
     }
@@ -90,6 +95,14 @@ public class Agenda implements Serializable {
 
     public void setHoraagendada(String horaagendada) {
         this.horaagendada = horaagendada;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
     }
 
     

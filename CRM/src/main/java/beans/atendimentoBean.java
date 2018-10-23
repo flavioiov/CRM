@@ -29,6 +29,7 @@ import javax.servlet.http.HttpSession;
 import modelos.Atendimento;
 import modelos.Agenda;
 import modelos.Acoes;
+import modelos.Usuarios;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
@@ -74,6 +75,9 @@ public class atendimentoBean {
      public List<Agenda> listatodasatividades;
     
     public List<Acoes> listaacoes;
+    
+    public List<Usuarios> listacorretores;
+    
 
     public List<Agenda> getListatodasatividades() {
         return listatodasatividades;
@@ -81,6 +85,14 @@ public class atendimentoBean {
 
     public void setListatodasatividades(List<Agenda> listatodasatividades) {
         this.listatodasatividades = listatodasatividades;
+    }
+
+    public List<Usuarios> getListacorretores() {
+        return listacorretores;
+    }
+
+    public void setListacorretores(List<Usuarios> listacorretores) {
+        this.listacorretores = listacorretores;
     }
 
     
@@ -295,13 +307,15 @@ public class atendimentoBean {
      */
     
     
-    public void carregaSistema(){
+    public void carregaSistema() throws SQLException{
         
         
             FacesContext context2 = FacesContext.getCurrentInstance();
             HttpSession session = (HttpSession) context2.getExternalContext().getSession(true);
             session.setAttribute("user",null);
             session.setAttribute("mostralogin","true");
+            
+            this.carregaComboCorretores();
         
     }
     
@@ -325,12 +339,11 @@ public class atendimentoBean {
         permissao="vazia";
         
          permissao=(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("permission");
-         
          usuarioLogado = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
          
-         if(permissao.equals("CORRETOR")){
-              atd.setCorretor(usuarioLogado);
-         }
+        // if(permissao.equals("CORRETOR")){
+         //     atd.setCorretor(usuarioLogado);
+         //}
          
         
          
@@ -363,7 +376,7 @@ public class atendimentoBean {
             volta="sim";
         }
 
-        
+       
         
         
         atd.setStatus("ABERTO");
@@ -378,8 +391,18 @@ public class atendimentoBean {
         atd.setNegocio("[]");
        
         
+         if (atd.getEuquero().equals("Évora")) {
+            
+            atd.setNegocio("[Comprar]");
+            atd.setTipoimovel("[Apartamento]");
+            atd.setBairros("Britânia");
+            atd.setCaracteristicas("[Churrasqueira, Varanda Gourmet, 2 Quartos, 1 Vaga, Financiamento, 2 Banheiros]");
+            
+           }
+        
+        
+        
         Classe_Geral cg = new Classe_Geral("atendimento");
-
         int inserido = cg.inserirDadosTabela("atendimento", atd); //PEGA VALOR CHAVE INSERIDO NA TABELA ATENDIMENTO
 
         //Teste de inserção de um campo em branco na tabela detalhe atendimento
@@ -403,14 +426,11 @@ public class atendimentoBean {
             } else{
                 FacesContext.getCurrentInstance().getExternalContext().redirect("triar_atendimento.jsf");
             }
-             
-           
-            
         }
 
          atd = new Atendimento(); //limpaAtendimentos
         
-        
+        this.buscaAgenda(atdEscolhido.getId());
         
         
     }
@@ -418,8 +438,13 @@ public class atendimentoBean {
     
     //Método utilizado no Botao ATENDER do DashBoard
     public void listaDetalheAtendimento(int cadastro) throws SQLException, IOException {
-
-        //  arrumar isso.....
+   
+       
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form_atividademain");
+        
+        
         
         System.out.println("Id do contrato :"+cadastro);
         atdEscolhido = buscaAtendimento(cadastro); //esse metodo retornar o atendimento selecionado.
@@ -487,12 +512,29 @@ public class atendimentoBean {
               cg.pegaAtendimento(usuarioLogado, atdEscolhido.getId()); //nesse metodo seta o corretor logo que ele clica em Atender.
          }
          
+         agenda=new Agenda(); //zera atividade
+      
+         RequestContext.getCurrentInstance().update("form_atividademain");
         
-        
+      
         
     }
 
     
+    public void validaCampos() throws IOException, SQLException, ParseException{
+        
+        
+        if (listaAtividades.isEmpty()){
+            
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Sem ATIVIDADES ?","..."));
+              
+        }
+              
+        this.gravarAtividades();
+        
+        
+        
+    }
     
     public void gravadetalheAtendimento() throws SQLException, IOException { //metodo utilizado para gravar detalhe atendimento quando o usuário não esta logado.
 
@@ -508,9 +550,34 @@ public class atendimentoBean {
 
     }
       
+    
+    public void atualizarDadosAtendimento() throws SQLException, IOException, ParseException { //metodo utilizado no botão pagina triar_atendimento.jsr botao Atualizar dados aTendimento
 
-    public void atualizarDadosAtendimento() throws SQLException, IOException { //metodo utilizado no botão pagina triar_atendimento.jsr botao Atualizar dados aTendimento
-
+        
+      
+         String grava="sim";
+        
+        if (atdEscolhido.getNegocio().contains("Alugar")){
+            if(atdEscolhido.getValormaxaluguel()!=null){
+             
+         }else{
+                 
+              FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "VALORES!", "Preencha o valor Máximo de Aluguel"));
+             
+         }
+        }
+        
+        if (atdEscolhido.getNegocio().contains("Comprar")){
+         if(atdEscolhido.getValormaxvenda()!=null){
+             
+         }else{
+              FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "VALORES!", "Preencha o valor Máximo de Compra"));
+             
+         }
+        }
+        
+        
+        
         java.util.Date d = new java.util.Date(); //quando trabalhar com data é necessário coverter de UTIL PARA SQL
         java.sql.Date dt = new java.sql.Date(d.getTime()); // quando trabalhar com DATA é necessário converter
 
@@ -551,9 +618,17 @@ public class atendimentoBean {
         
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Obrigado :-)", "Seu Atendimento Foi Gravado com Sucesso !"));
-        RequestContext.getCurrentInstance().update("msg");
+        //RequestContext.getCurrentInstance().update("msg");
         
         this.atividadesRevisar();
+        
+        
+        if(listaAtividades.isEmpty()){
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ATVIIDADES!", "PREENCHA ATIVIDADES"));
+             
+            
+        }
+        
 
     }
    
@@ -561,7 +636,10 @@ public class atendimentoBean {
     public void finalizarAtendimento() throws SQLException, IOException, NoSuchFieldException {
 
         
-          RequestContext.getCurrentInstance().execute("PF('dlg5').show();");
+        
+          System.out.println("entrou no método para mostrar o dialog");
+        
+            RequestContext.getCurrentInstance().execute("PF('dlg5').show();");
        
           
 
@@ -569,9 +647,7 @@ public class atendimentoBean {
     
     public void confirmafinalizarAtendimento() throws SQLException, IOException {
         
-        
          
-        
         System.out.println("Motivo Finalinzou :"+atdEscolhido.getMotivofinalizou());
         
         atdEscolhido.setNegocio(Arrays.toString(atdEscolhido.getNegocioArray()));
@@ -582,10 +658,13 @@ public class atendimentoBean {
    
         Classe_Geral alt = new Classe_Geral("atendimento");
         alt.alteraDadosTabela("atendimento", atdEscolhido, atdEscolhido.getId());
+        
+        alt.fechaAtividades(atdEscolhido.getId());
 
         FacesContext.getCurrentInstance().getExternalContext().redirect("dashboardcrm.jsf");
         
         RequestContext.getCurrentInstance().execute("PF('dlg5').hide();");
+        
       
     }
     
@@ -619,12 +698,7 @@ public class atendimentoBean {
         
         
         FacesContext.getCurrentInstance().getExternalContext().redirect("dashboardcrm.jsf");
-        
-        
-        
-        
-
-    }
+     }
 
 
     public Atendimento buscaAtendimento(int cadastro) throws SQLException, IOException {
@@ -700,7 +774,7 @@ public class atendimentoBean {
    
     
     public void buscaAgenda(int Cadastro) throws SQLException{ //busca atividades relacionadas ao atendimento utilizado no triarAtendimento
-        String sql7 = "SELECT * FROM crm.agenda where idatendimento='"+atdEscolhido.getId()+"'";
+        String sql7 = "SELECT * FROM crm.agenda where idatendimento='"+atdEscolhido.getId()+"' order by data desc";
         ResultSetHandler<List<Agenda>> h7 = new BeanListHandler<Agenda>(Agenda.class);
         QueryRunner QR7 = new QueryRunner(CustomDataSource.getInstance());
         listaAtividades = QR7.query(sql7, h7);
@@ -718,6 +792,7 @@ public class atendimentoBean {
            
     }
     
+    
     public void carregaCombobox() throws SQLException{ //busca clientes do corretor agrupados
         String sql177 = "SELECT acao from crm.acoes";
         ResultSetHandler<List<Acoes>> h7 = new BeanListHandler<Acoes>(Acoes.class);
@@ -725,6 +800,16 @@ public class atendimentoBean {
         listaacoes = QR7.query(sql177, h7);
             
     }
+    
+    
+      public void carregaComboCorretores() throws SQLException{ //busca clientes do corretor agrupados
+        String sql177 = "SELECT nome FROM crm.usuarios where tipo='CORRETOR'";
+        ResultSetHandler<List<Usuarios>> h7 = new BeanListHandler<Usuarios>(Usuarios.class);
+        QueryRunner QR7 = new QueryRunner(CustomDataSource.getInstance());
+        listacorretores = QR7.query(sql177, h7);
+            
+    }
+    
     
    
     public Agenda buscaAtividade(int cadastro) throws SQLException, IOException {
@@ -745,10 +830,13 @@ public class atendimentoBean {
         return new java.sql.Timestamp(calendarDate.getTime());
     }
     
+
+    
+    
+    
     
     public void gravarAtividades() throws IOException, SQLException, ParseException{
-         
-        if(agenda.getData()!=null){
+          if(agenda.getData()!=null){
            
            Timestamp a=testaTMS(agenda.getData());
 
@@ -760,7 +848,7 @@ public class atendimentoBean {
          Classe_Geral cg = new Classe_Geral("agenda");
          int inserido = cg.inserirDadosTabela("agenda", agenda); //PEGA VALOR CHAVE INSERIDO NA TABELA AGENDA
          
-         
+         agenda = new Agenda();//limpar valores
          
          this.buscaAgenda(atdEscolhido.getId());
         
@@ -770,25 +858,31 @@ public class atendimentoBean {
         
         //FacesContext.getCurrentInstance().getExternalContext().redirect("triar_atendimento.jsf");
          
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Obrigado :-)", "Atividade Agendada com Sucesso !"));
+        RequestContext.getCurrentInstance().update("msg");
+        RequestContext.getCurrentInstance().update("form_atividade2");
+         RequestContext.getCurrentInstance().update("atendimento:form_atividademain");
+        
         RequestContext.getCurrentInstance().update("formabriratividade");
+        
+        
             
             
         }else{
            FacesContext context = FacesContext.getCurrentInstance();
         //context.addMessage(null, new FacesMessage("DATA :-)", "SELECIONE UMA DATA POR FAVOR !"));
           RequestContext.getCurrentInstance().update("form_atividade2");
-          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "OPS!", "SELECIONE UMA DATA POR FAVOR !! ;-("));  
+          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "OPS!", "Selecione uma Data para Sua Atividade"));  
         
         }
         
-    
+        this.atualizarDadosAtendimento();
     }
    
-    
-    
-      public void listarMinhaAgenda() throws SQLException { //busca atividades relacionadas ao atendimento utilizado no triarAtendimento
+    public void listarMinhaAgenda() throws SQLException { //busca atividades relacionadas ao atendimento utilizado no triarAtendimento
 
-        String sql7 = "SELECT atendimento.nome as cliente,concat(atendimento.ddd,'-',atendimento.telefone) as telefone,agenda.id,agenda.idatendimento,agenda.evento,agenda.data,agenda.obs,agenda.corretor,agenda.status FROM crm.agenda,crm.atendimento where atendimento.id=agenda.idatendimento and atendimento.corretor='" + usuarioLogado + "' and agenda.status='ABERTO'";
+        String sql7 = "SELECT atendimento.nome as cliente,concat(atendimento.ddd,'-',atendimento.telefone) as telefone,agenda.id,agenda.idatendimento,agenda.evento,agenda.data,agenda.obs,agenda.corretor,agenda.status,(agenda.data<curdate()) as total FROM crm.agenda,crm.atendimento where atendimento.id=agenda.idatendimento and atendimento.corretor='" + usuarioLogado + "' and agenda.status='ABERTO' order by agenda.data asc";
 
         //  String sql7 = "SELECT * FROM crm.agenda where corretor='" + usuarioLogado + "' AND status ='Aberto'";
         ResultSetHandler<List<Agenda>> h7 = new BeanListHandler<Agenda>(Agenda.class);
@@ -810,7 +904,7 @@ public class atendimentoBean {
     }
 
     
-    public void novaAtividade() throws SQLException, IOException {
+    public void novaAtividade() throws SQLException, IOException, ParseException {
 
         this.atualizarDadosAtendimento();
 
@@ -824,6 +918,10 @@ public class atendimentoBean {
     
     public void novaAtividade2() throws SQLException, IOException {
 
+        
+        
+        
+        
         if (agenda.getData() != null) {
 
             Timestamp a = testaTMS(agenda.getData());
@@ -853,8 +951,9 @@ public class atendimentoBean {
 
 
     }
+    
 
-public void atividadesRevisar() throws SQLException {
+    public void atividadesRevisar() throws SQLException {
 
 String sql7 = "SELECT id,nome,dataatendimento,status,corretor FROM crm.atendimento where "
         + "(id not in ( select idatendimento from crm.agenda ) and euquero not like 'Falar%' and corretor='"+ usuarioLogado+"')";

@@ -80,60 +80,19 @@
                                         
                                         </div>
                                         
-                                        <div class="ui-g-12 ui-lg-6 stats" >
-                                           
+                                        <div class="ui-g-12 ui-lg-6 stats" style="size:  auto; height:auto;">
+                                            <p:panel header="DETALHES DO ATENDIMENTO">
                                                
-                                            <p:panel header="ATIVIDADES REALIZADAS OU A REALIZAR COM O CLIENTE" style="height:auto; min-height: 250px;">
-                                                <h:form id="formabriratividade">
-
-
-                                                    <p:dataTable scrollable="true" id="dadosatividade" var="listatudo" value="#{atendimentoBean.listaAtividades}" 
-                                                                 rows="10" style="width: 100%; display: inline-block" paginator="true" reflow="true">
-
-                                                        <f:facet name="header">
-                                                            <h:outputText value="#{listatudo.data}" />
-                                                        </f:facet>
-
-                                                        <p:column headerText="Data" sortBy="#{listatudo.data}" style="width: 10%">
-                                                            <h:outputText value="#{listatudo.data}" >
-                                                                <f:convertDateTime pattern="dd/MM/yy" timeZone="GMT-03:00"/>
-                                                            </h:outputText>
-                                                        </p:column>
-
-                                                        <p:column headerText="Hora" sortBy="#{listatudo.data}" style="width: 8%">
-                                                            <h:outputText value="#{listatudo.horaagendada}">
-                                                                <f:convertDateTime pattern="HH:mm" timeZone="GMT-03:00"/>
-                                                            </h:outputText>
-                                                        </p:column>
-
-
-                                                        <p:column headerText="Atividade"  style="width: 15%">
-                                                            <h:outputText value="#{listatudo.evento}" />
-                                                        </p:column>
-                                                        <p:column headerText="Status"  style="width: 15%" sortBy="#{listatudo.status}">
-                                                            <h:outputText value="#{listatudo.status}" />
-                                                        </p:column>
-                                                        <p:column headerText="Observação" style="width: 35%">
-                                                            <h:outputText value="#{listatudo.obs}" />
-                                                        </p:column>
-
-                                                        <p:column>
-
-                                                            <p:commandButton value="Ver Atividade" 
-                                                                             action="#{atendimentoBean.abrirAtividade(listatudo.id)}"
-                                                                             style="font-size: 1em; font-weight: bold" 
-                                                                             styleClass="butn"
-                                                                             rendered="#{mostra}"
-                                                                             >
-                                                                <!--<f:ajax execute="@form" render="form_atividade" />-->
-                                                            </p:commandButton>
-                                                        </p:column>
-
-
-                                                    </p:dataTable>
-
-                     </h:form>
-         
+                                                <h:inputTextarea  styleClass="campoInputText"
+                                                                  title="Digite sua mensagem por favor" 
+                                                                  style="width: 85%; height: 200px; font-size: 1.1em;" 
+                                                                  required="false"
+                                                                  
+                                                                  requiredMessage="Por favor, digite uma mensagem." 
+                                                                  value="#{atendimentoBean.atdEscolhido.msg}" 
+                                                                  validatorMessage="Escreva uma mensagem maior por favor" > 
+                                                    <f:validateLength minimum="0" />
+                                                </h:inputTextarea>
                                                
                           
                                                 </p:panel>
@@ -179,7 +138,9 @@
 
                                             </p:column>
 
-                                       
+                                        </p:panel>
+
+                                         <p:panel header="CARACTERÍSTICAS DO IMÓVEL">
                                                   <p:column id="coluna3">
 
                                                 <h3  style="color:red">Quais Bairros São Buscados ? </h3>
@@ -211,7 +172,12 @@
 
                                                 </h:panelGrid>
                                                </p:column>
+                                          </p:panel>
+                                          
                                         
+                
+                                   
+                                   <p:panel header="VALORES DA NEGOCIAÇÃO" style="text-align: center"> <!--valores da negociacao-->
                                        <p:panelGrid columns="3" styleClass="semBorda" style="display: inline-block">
 
                                                 <p:column id="aaa">
@@ -402,16 +368,7 @@
                                         </p:column>
 
            
-<h:inputTextarea  styleClass="campoInputText"
-                                                                  title="Digite sua mensagem por favor" 
-                                                                  style="width: 85%; height: 200px; font-size: 1.1em;" 
-                                                                  required="false"
-                                                                  
-                                                                  requiredMessage="Por favor, digite uma mensagem." 
-                                                                  value="#{atendimentoBean.atdEscolhido.msg}" 
-                                                                  validatorMessage="Escreva uma mensagem maior por favor" > 
-                                                    <f:validateLength minimum="0" />
-                                                </h:inputTextarea>
+
                                        
 
                                     </p:panel>
@@ -474,7 +431,7 @@
                                                              <br></br><br></br>
                                                              <p:commandButton value="Gravar Atividade" 
 
-                                                                              action="#{atendimentoBean.gravarAtividades()}"
+                                                                              actionListener="#{atendimentoBean.gravarAtividades()}"
                                                                               style="font-size: 1em; font-weight: bold;"
                                                                               update="growl2"
                                                                               styleClass="butn"
@@ -496,7 +453,7 @@
 
                                      
          <div class="ui-g-12 ui-md-6 ui-lg-4 task-list"> <!-- BOTOES DE AÇÃO-->
-             <p:panel rendered="true">
+             <p:panel header="Ações" rendered="true">
                            
                                             
                                         <div id="menuSup2">
@@ -549,7 +506,57 @@
         
 
         <div class="ui-g-12"> 
-            
+            <p:panel header="ATIVIDADES REALIZADAS OU A REALIZAR COM O CLIENTE" style="text-align: center; font-size: 1.2em">
+                <h:form id="formabriratividade">
+                    
+               
+                <p:dataTable scrollable="true" id="dadosatividade" var="listatudo" value="#{atendimentoBean.listaAtividades}" 
+                             rows="10" style="width: 75%; display: inline-block" paginator="true" reflow="true">
+
+                    <f:facet name="header">
+                        <h:outputText value="#{listatudo.data}" />
+                    </f:facet>
+
+                    <p:column headerText="Data" sortBy="#{listatudo.data}" style="width: 10%">
+                        <h:outputText value="#{listatudo.data}" >
+                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Hora" sortBy="#{listatudo.data}" style="width: 8%">
+                        <h:outputText value="#{listatudo.horaagendada}">
+                            <f:convertDateTime pattern="HH:mm" timeZone="GMT-03:00"/>
+                        </h:outputText>
+                    </p:column>
+
+
+                    <p:column headerText="Atividade"  style="width: 15%">
+                        <h:outputText value="#{listatudo.evento}" />
+                    </p:column>
+                    <p:column headerText="Status"  style="width: 15%" sortBy="#{listatudo.status}">
+                        <h:outputText value="#{listatudo.status}" />
+                    </p:column>
+                    <p:column headerText="Observação" style="width: 35%">
+                        <h:outputText value="#{listatudo.obs}" />
+                    </p:column>
+
+                    <p:column>
+
+                        <p:commandButton value="Ver Atividade" 
+                                         action="#{atendimentoBean.abrirAtividade(listatudo.id)}"
+                                         style="font-size: 1em; font-weight: bold" 
+                                         styleClass="butn"
+                                         rendered="#{mostra}"
+                                         >
+                            <!--<f:ajax execute="@form" render="form_atividade" />-->
+                        </p:commandButton>
+                    </p:column>
+
+
+                </p:dataTable>
+                    
+                     </h:form>
+            </p:panel>
         </div> 
 
           

@@ -320,9 +320,6 @@ public class admBean {
        
 
         this.atdEscolhido=buscaAtendimento(inserido);
-      
-        
-       
         
         if ( (atd.getCorretor())==null) {
         
@@ -352,11 +349,32 @@ public class admBean {
          atd = new Atendimento(); //limpaAtendimentos
         
         
-        
-        
     }
 
   
+    
+    public void qualidade(int cadastro) throws SQLException{
+        
+       
+        Classe_Geral muda_agenda = new Classe_Geral("agenda");
+        muda_agenda.alteraCorretorAgenda("qualidade", cadastro);
+        
+        
+        Classe_Geral muda_atendimento= new Classe_Geral("atendimento");
+        muda_atendimento.pegaAtendimento("Qualidade", cadastro);
+        
+        muda_atendimento.updatevalor("atendimento", "status","ABERTO",cadastro);
+  
+
+        RequestContext.getCurrentInstance().update("fomrularioDashBoardadm");
+        
+        
+        
+    }
+    
+    
+    
+    
     
     
     //Método utilizado no Botao ATENDER do DashBoard
@@ -441,7 +459,7 @@ public class admBean {
     
     public void listarMinhaAgenda() throws SQLException { //busca atividades relacionadas ao atendimento utilizado no triarAtendimento
        
-        String sql7="SELECT atendimento.nome as cliente,concat(atendimento.ddd,'-',atendimento.telefone) as telefone,agenda.id,agenda.idatendimento,agenda.evento,agenda.data,agenda.obs,agenda.corretor,agenda.status FROM crm.agenda,crm.atendimento where atendimento.id=agenda.idatendimento and agenda.status='ABERTO'";
+        String sql7="SELECT atendimento.nome as cliente,concat(atendimento.ddd,'-',atendimento.telefone) as telefone,agenda.id,agenda.idatendimento,agenda.evento,agenda.data,agenda.obs,agenda.corretor,agenda.status,(agenda.data<curdate()) as total FROM crm.agenda,crm.atendimento where atendimento.id=agenda.idatendimento and agenda.status='ABERTO'";
             
             
           //  String sql7 = "SELECT * FROM crm.agenda where corretor='" + usuarioLogado + "' AND status ='Aberto'";

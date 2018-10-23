@@ -49,7 +49,7 @@
                     <p:dataTable var="listatudo" value="#{estatisticaBean.listaatendimentostotalcorretor}"
                                  paginator="true" rows="33" style="font-size: 1.25em">
                         <f:facet name="header">
-                           TOTAIS GERIS POR CORRETOR
+                           TOTAIS GERAIS POR CORRETOR
                         </f:facet>
                        
                         <p:column headerText="CORRETOR"  style="width: 40%">
@@ -63,7 +63,42 @@
 
                     </p:dataTable>
                 </p:panel>
+                 
+                
             </div>
+            
+            
+             <div class="ui-g-12 ui-lg-4">
+                <p:panel>
+                    <p:dataTable var="listatudo" value="#{estatisticaBean.listatotalcomochegou}"
+                                 paginator="true" rows="33" style="font-size: 1.25em">
+                        
+                         <f:facet name="header">
+                           TOTAIS POR CANAL DE ENTRADA
+                        </f:facet>
+
+                       
+                        
+                        <p:column headerText="CANAL DE ENTRADA"  style="width: 40%">
+                            <h:outputText value="#{listatudo.comochegou}" />
+                        </p:column>
+
+                       
+
+                        <p:column headerText="Total" sortBy="#{listatudo.data}" style="width: 13%">
+                            <h:outputText value="#{listatudo.total}" >
+
+                            </h:outputText>
+                        </p:column>
+              
+                    </p:dataTable>
+                </p:panel>
+                
+                
+                
+            </div>
+            
+            
             
               <div class="ui-g-12 ui-lg-4">
                
@@ -94,7 +129,7 @@
                 </p:panel>
                   
                    <p:panel>
-                    <p:dataTable var="listatudo" value="#{estatisticaBean.listaatendimentosmes}"
+                  <p:dataTable var="listatudo" value="#{estatisticaBean.listaatendimentosmes}"
                                  paginator="true" rows="33" style="font-size: 1.25em">
                         <f:facet name="header">
                            TOTAIS POR MÊS E STATUS 
@@ -103,7 +138,10 @@
                           <p:column headerText="Ano"  style="width: 20%">
                             <h:outputText value="#{listatudo.corretor}" />
                         </p:column>
+                     
+                            
                         
+                      
                         <p:column headerText="Mes"  style="width: 25%">
                             <h:outputText value="#{listatudo.nome}" />
                         </p:column>
@@ -120,8 +158,8 @@
 
                             </h:outputText>
                         </p:column>
-                    
-                     
+                   
+                      
 
                     </p:dataTable>
                        
@@ -142,35 +180,37 @@
                         <f:facet name="header">
                            TOTAL POR TIPO DE NEGÓCIOS
                          </f:facet>
-                       <p:column headerText="Mes"  style="width: 35%">
+                       <p:column headerText="Mes"  style="width: 10%">
                             <h:outputText value="#{listatudo.nome}" />
                         </p:column>
-                       
                         
-                       
-                          <p:column headerText="Ano"  style="width: 55%">
+                          <p:column headerText="Ano"  style="width: 20%">
                             <h:outputText value="#{listatudo.negocio}" />
                         </p:column>
                         
+                      <p:column headerText="Media Aluguel"  style="width: 7%">
+                          <h:outputText value="#{listatudo.tipoimovel}" />
+                        </p:column>
                         
-                        
-                        
-                        <p:column headerText="Media Aluguel"  style="width: 40%">
+                        <p:column headerText="Media Aluguel"  style="width: 7%">
                             <h:outputText value="#{listatudo.corretor}" />
                         </p:column>
 
                              
-                        <p:column headerText="Media Venda"  style="width: 40%">
+                        <p:column headerText="Media Venda"  style="width: 7%">
                             <h:outputText value="#{listatudo.msg}" />
                         </p:column>
                        
 
-                        <p:column headerText="Total" sortBy="#{listatudo.data}" style="width: 18%">
+                        <p:column headerText="Total" sortBy="#{listatudo.total}" style="width: 3%">
                             <h:outputText value="#{listatudo.total}" >
 
                             </h:outputText>
                         </p:column>
                     
+                      <p:column headerText="Abrir" style="width:7%;">
+                          <p:commandButton action="#{estatisticaBean.detalhar(listatudo.nome,listatudo.negocio)}"  style="font-size: 1em;" value="DETALHAR"/>
+                        </p:column>
                      
 
                     </p:dataTable>

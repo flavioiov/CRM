@@ -130,7 +130,7 @@ private Usuarios usuario = new Usuarios();
             session.setAttribute("configura","false");
             session.setAttribute("mostralogin","true");
             session.setAttribute("fotouser",null);
-            FacesContext.getCurrentInstance().getExternalContext().redirect("abrir_atendimento.jsf");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("maincrm.jsf");
             
             session.setAttribute("mostramenuentrarcrm", "true");
         

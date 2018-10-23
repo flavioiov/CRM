@@ -34,10 +34,7 @@
             <version>7.0</version>
             <type>jar</type>
         </dependency>
-        
-        
-        
-        
+         
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
