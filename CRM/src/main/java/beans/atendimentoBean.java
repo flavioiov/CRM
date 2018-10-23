@@ -391,14 +391,15 @@ public class atendimentoBean {
         atd.setNegocio("[]");
        
         
-         if (atd.getEuquero().equals("Évora")) {
+         if (atd.getEuquero().equals("Évora")) { //quando for Ed. Evora da um tratamento especial aos dados deste atendimento
             
             atd.setNegocio("[Comprar]");
             atd.setTipoimovel("[Apartamento]");
-            atd.setBairros("Britânia");
+            atd.setBairros("[Britânia]");
             atd.setCaracteristicas("[Churrasqueira, Varanda Gourmet, 2 Quartos, 1 Vaga, Financiamento, 2 Banheiros]");
+              
             
-           }
+     }
         
         
         
@@ -412,6 +413,51 @@ public class atendimentoBean {
        
 
         this.atdEscolhido=buscaAtendimento(inserido);
+        
+        if (atdEscolhido.getCaracteristicas().equals("[]")) {
+
+        } else {
+
+            String caracstring = atdEscolhido.getCaracteristicas().replace("[", ""); //substitui [ do valor trazido do banco.
+            caracstring = caracstring.replace("]", "");//substitui [ do valor trazido do banco.
+            caracstring = caracstring.replace(", ", ","); //substitui espaços do inicio de cada valor
+            atdEscolhido.setCaracteristicasArray(caracstring.split(",")); //transforma a String em Array usando sepador dos campos a Virgula
+        }
+
+        if (atdEscolhido.getNegocio().equals("[]")) {
+
+        } else {
+            String negociostring = atdEscolhido.getNegocio().replace("[", ""); //substitui [ do valor trazido do banco.
+            negociostring = negociostring.replace("]", "");//substitui [ do valor trazido do banco.
+            negociostring = negociostring.replace(", ", ","); //substitui espaços.
+            atdEscolhido.setNegocioArray(negociostring.split(","));
+
+        }
+
+        if (atdEscolhido.getBairros().equals("[]")) {
+
+        } else {
+            String bairrostring = atdEscolhido.getBairros().replace("[", ""); //substitui [ do valor trazido do banco.
+            bairrostring = bairrostring.replace("]", "");//substitui [ do valor trazido do banco.
+            bairrostring = bairrostring.replace(", ", ","); //substitui espaços.
+            atdEscolhido.setBairrosArray(bairrostring.split(","));
+        }
+
+        if (atdEscolhido.getTipoimovel().equals("[]")) {
+
+        } else {
+            String tipoimovelstring = atdEscolhido.getTipoimovel().replace("[", ""); //substitui [ do valor trazido do banco.
+            tipoimovelstring = tipoimovelstring.replace("]", "");//substitui [ do valor trazido do banco.
+            tipoimovelstring = tipoimovelstring.replace(", ", ","); //substitui espaços.
+            atdEscolhido.setImovelArray(tipoimovelstring.split(","));
+
+        }
+            
+        
+        
+        
+        
+        
          
         if ( (atd.getCorretor())==null) {
         

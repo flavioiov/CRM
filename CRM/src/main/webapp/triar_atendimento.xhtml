@@ -17,7 +17,7 @@
                 <div class="card" style="font-size: 1.3em">
 
                     <h:form id="atendimento" >  
-                        
+
                         <p:growl id="growl" showDetail="true" sticky="true"/>
 
                         <div id="div_atende">
@@ -29,35 +29,51 @@
 
                                         <div class="ui-g-12 ui-lg-6 global-sales">
                                             <p:panel header="Detalhes do Atendimento Atual" style="height:250px;">
-                                               
+
 
 
                                                 <p:panel id="av" style="font-size: 1em">
 
 
                                                     <h:outputText value="Cliente :" style="color: red;margin-right:10px"/>
-                                                    <p:inputText value="#{atendimentoBean.atdEscolhido.nome}" style="color:blue; width:300px; margin-right: 10px;font-size: 1em"/> 
-
-
+                                                    <p:inplace>
+                                                        <p:inputText value="#{atendimentoBean.atdEscolhido.nome}" style="color:blue; width:300px; margin-right: 10px;font-size: 1em"/> 
+                                                    </p:inplace>
+                                                    <br></br>
                                                     <h:outputText value="DDD : " style="color: red;"/>
-                                                    <p:inputText value="#{atendimentoBean.atdEscolhido.ddd}" style="color:blue;width: 20px; margin-right: 10px;font-size: 1em"/>
+                                                    <p:inplace>
+                                                        <p:inputText value="#{atendimentoBean.atdEscolhido.ddd}" style="color:blue;width: 20px; margin-right: 10px;font-size: 1em"/>
+                                                    </p:inplace>
 
                                                     <h:outputText value="Telefone : " style="color: red;"/>
-                                                    <p:inputText value="#{atendimentoBean.atdEscolhido.telefone}" style="color:blue; font-size: 1em"/><br></br><br></br>
+                                                    <p:inplace>
+
+                                                        <p:inputText value="#{atendimentoBean.atdEscolhido.telefone}" style="color:blue; font-size: 1em"/><br></br><br></br>
+                                                    </p:inplace>
+                                                    <br></br>
                                                     <h:outputText value="Email : " style="color: red; margin-right: 14px"/>
-                                                    <p:inputText value="#{atendimentoBean.atdEscolhido.email}" style="color:blue; width: 220px; ;font-size: 1em"/> <br></br>
+                                                    <p:inplace>
+                                                        <p:inputText value="#{atendimentoBean.atdEscolhido.email}" style="color:blue; width: 220px; ;font-size: 1em"/> <br></br>
+                                                    </p:inplace>
 
 
 
                                                     <br></br>
                                                     <h:outputText value="    Origem : " style="color:red; width:  130px"/>
+                                                    <p:inplace>
+                                                        <p:inputText value="#{atendimentoBean.atdEscolhido.comochegou}" />
+                                                    </p:inplace>
+
+
+
+
                                                     <h:outputText value="#{atendimentoBean.atdEscolhido.comochegou} " style="color:blue;margin-right: 10px"/> 
 
                                                     <h:outputText value="Atendente :" style="color:red; width:  130px"/> 
                                                     <h:outputText value="#{atendimentoBean.atdEscolhido.atendente} " style="color:blue;margin-right: 10px"/> 
 
                                                     <br></br> <h:outputText value="Deseja :" style="color: red;"/><h:outputText value="#{atendimentoBean.atdEscolhido.euquero}" style="color:blue;"/> 
-                                                    <br></br>
+                                                    
                                                     <h:outputText value="Data :" style="color: red;"/>   <h:outputText value="#{atendimentoBean.atdEscolhido.dataatendimento}" style="margin-right: 10px">
                                                         <f:convertDateTime type="both" pattern="dd/MM/yyyy"/>
                                                     </h:outputText>
@@ -67,22 +83,40 @@
                                                     <h:outputText value="Corretor :" style="color: red;"/>
 
                                                     <h:outputText value="#{usuarioManagedBean.usuario.nome}" style="color:blue;font-size: 1.3em"/>
+                                                    
+                                                     <br></br>
+                                                      <h:outputText value="Mensagem :" style="color: red;"/>
+                                                    <p:inplace>
+                                                        <h:inputTextarea  styleClass="campoInputText"
+                                                                      title="Por favor, digite as referências dos imóveis mostrados" 
+                                                                      style="font-size: 1.3em;" 
+                                                                    
 
-
+                                                                      requiredMessage="Por favor, digite as referências dos imóveis mostrados" 
+                                                                      value="#{atendimentoBean.atdEscolhido.msg}" 
+                                                                      validatorMessage="Escreva uma mensagem maior por favor" > 
+                                                        <f:validateLength minimum="0" />
+                                                    </h:inputTextarea>
+                                                        
+                                                    </p:inplace>    
+                                                        
+                                                    
+                                                    
+                                                    
 
                                                 </p:panel>
-                                                
+
                                             </p:panel>
-                                       
-                                        
-                                        
-                                        
-                                        
+
+
+
+
+
                                         </div>
-                                        
+
                                         <div class="ui-g-12 ui-lg-6 stats" >
-                                           
-                                               
+
+
                                             <p:panel header="ATIVIDADES REALIZADAS OU A REALIZAR COM O CLIENTE" style="height:auto; min-height: 250px;">
                                                 <h:form id="formabriratividade">
 
@@ -132,15 +166,15 @@
 
                                                     </p:dataTable>
 
-                     </h:form>
-         
-                                               
-                          
-                                                </p:panel>
+                                                </h:form>
+
+
+
+                                            </p:panel>
                                         </div>
                                     </div>
 
-            
+
                                     <div class="ui-g-12 ui-md-6 ui-lg-4 task-list" >
                                         <br></br>
                                         <p:panel header="TIPO DO NEGÓCIO BUSCADO" style="color: blue" >
@@ -159,12 +193,12 @@
                                                     <f:selectItems value="#{listaNegocio.cars}" />
                                                 </p:selectCheckboxMenu>
 
-                                                 <h3  style="color:red">Qual o Tipo de Imóvel buscado ? </h3>
+                                                <h3  style="color:red">Qual o Tipo de Imóvel buscado ? </h3>
 
                                                 <p:selectCheckboxMenu id="tipoImovel" label="Cars" 
                                                                       value="#{atendimentoBean.atdEscolhido.imovelArray}"
-                                                                       required="true" 
-                                                                       requiredMessage="Por favor, Selecione o tipo de Imóvel" 
+                                                                      required="true" 
+                                                                      requiredMessage="Por favor, Selecione o tipo de Imóvel" 
                                                                       multiple="true"
                                                                       filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
                                                     <f:selectItems value="#{listaTipoImovel.cars}" />
@@ -172,15 +206,9 @@
                                             </p:column>
 
 
-                                            <p:column id="coluna2">
-                                               
 
-                                                <br></br>
 
-                                            </p:column>
-
-                                       
-                                                  <p:column id="coluna3">
+                                            <p:column id="coluna3">
 
                                                 <h3  style="color:red">Quais Bairros São Buscados ? </h3>
                                                 <p:selectCheckboxMenu id="grouped"  multiple="true"
@@ -191,31 +219,31 @@
 
                                                 <br></br>
                                             </p:column>
-                                                  <p:column id="coluna6">
-                                               
+                                            <p:column id="coluna6">
+
                                                 <h3  style="color:red">Quais as Característiscas Necessárias em seu Imóvel ?</h3>
-                                           
+
                                                 <p:selectCheckboxMenu id="groupedimovel" label="Cars" multiple="true"
                                                                       value="#{atendimentoBean.atdEscolhido.caracteristicasArray}"
                                                                       filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
                                                     <f:selectItems value="#{listaCaracteristicas.cars}" />
                                                 </p:selectCheckboxMenu>
                                             </p:column>
-                                                  <p:column id="coluna7">
+                                            <p:column id="coluna7">
 
                                                 <h3  style="color:red">Qual o tamanho Mínimo para seu Imóvel ? M2</h3>
-                                            
+
                                                 <h:panelGrid columns="2" cellpadding="5" style="align-content: center">
                                                     <h:outputLabel for="groupedw" value="Digite o Tamanho :" />
                                                     <p:inputText value="#{atendimentoBean.atdEscolhido.tamanho}" style="color:blue; width:70px; margin-right: 10px;font-size: 1em"/> 
 
                                                 </h:panelGrid>
-                                               </p:column>
-                                        
-                                       <p:panelGrid columns="3" styleClass="semBorda" style="display: inline-block">
+                                            </p:column>
+
+                                            <p:panelGrid columns="3" styleClass="semBorda" style="display: inline-block">
 
                                                 <p:column id="aaa">
-                                                   <p:panelGrid columns="1" styleClass="semBorda">
+                                                    <p:panelGrid columns="1" styleClass="semBorda">
                                                         <h3 style="color:red">Valor Mínimo Venda</h3>
 
                                                         <p:inputNumber id="nmb1" value="#{atendimentoBean.atdEscolhido.valorminvenda}" symbol=" R$ " >
@@ -233,327 +261,314 @@
                                                     </p:panelGrid>    
 
                                                 </p:column>
-                                              
+
                                                 <p:column id="bbb">
-                                              
+
                                                     <p:panelGrid columns="1" style="border: none">
                                                         <h3 style="color:green">Valor Mínimo Locação</h3>
 
-                                                        <p:inputNumber id="nmb3" value="#{atendimentoBean.atdEscolhido.valorminaluguel}" symbol=" R$ ">
+                                                        <p:inputNumber id="nmb3" value="#{atendimentoBean.atdEscolhido.valorminaluguel}"
+                                                                       symbol=" R$ " 
+                                                                       >
                                                             <p:ajax process="@this"/>
                                                         </p:inputNumber>
                                                         <p:slider for="nmb3" maxValue="30000" minValue="500" step="250" />
 
 
                                                         <h3 style="color:green">Valor Máximo Locação</h3>
-                                                       
+
                                                         <p:inputNumber id="nmb4" value="#{atendimentoBean.atdEscolhido.valormaxaluguel}" 
-                                                                       
+
                                                                        symbol=" R$ " >
                                                             <p:ajax process="@this" />
-                                                            
+
                                                         </p:inputNumber>
                                                         <p:slider for="nmb4" maxValue="30000" minValue="500" step="250" />
                                                     </p:panelGrid>
                                                 </p:column>  
                                             </p:panelGrid>
-                                       </p:panel> 
-                          
-                                        
-                                        
+                                        </p:panel> 
+
+
+
                                     </div>
 
-                                    
-                                    
-                                    
-                                    
-                                    
-       
-                             <div class="ui-g-12 ui-lg-8 chat">
-                                         <br></br>
-                                  
-                                         
-                                  <div class="ui-g-12 ui-md-6 ui-lg-4 task-list" ><!-- Entendendo o cliente -->
-                                    <p:panel header="Entendendo o Cliente" >
-                                        
-                                        <p:column id="colunaxx">
-                                            <h3  style="color:red">Em quanto tempo o Cliente deseja se Mudar? </h3>
-                                            <h:selectOneMenu id="temponegocio" style="font-size: 1em" value="#{atendimentoBean.atdEscolhido.tempoparamudar}">
-                                                <f:selectItem itemValue="" itemLabel=""/>
-                                                <f:selectItem itemValue="10" itemLabel="5 a 10 dias"/>
-                                                <f:selectItem itemValue="30" itemLabel="10 a 30 dias"/>
-                                                <f:selectItem itemValue="90" itemLabel="1 a 3 meses"/>
-                                                <f:selectItem itemValue="180" itemLabel="3 a 6 meses"/>
-                                                <f:selectItem itemValue="360" itemLabel="6 a 12 meses"/>
 
 
-                                            </h:selectOneMenu>
-
-                                            <br></br>
-                                        </p:column>
-                                        
-                                        
-                                        
-                                        
-                                        <p:column id="colx1" >
-
-                                            <h3  style="color:red">Motivação para o negócio ?</h3>
-
-                                            <h:selectOneMenu id="motivonegocio" style="font-size: 1em" value="#{atendimentoBean.atdEscolhido.motivomudanca}">
-                                                <f:selectItem itemValue="" itemLabel=""/>
-                                                  <f:selectItem itemLabel="Veraneio" itemValue="Veraneio" />
-                                                  <f:selectItem itemLabel="Mudar de Imóvel" itemValue="Mudar de Imóvel" />
-                                                <f:selectItem itemLabel="Mudança de Cidade" itemValue="Mudança de Cidade" />
-                                                <f:selectItem itemLabel="Mudança a Trabalho Definitivo" itemValue="Mudança a Trabalho Definitivo" />
-                                                <f:selectItem itemLabel="Mudança a Trabalho Temporário" itemValue="Mudança a Trabalho Temporário" />
-                                                <f:selectItem itemLabel="Investimento" itemValue="Investimento" />
-                                                <f:selectItem itemLabel="Permutar por outro Imóvel" itemValue="Permutar por outro Imóvel" />
-
-                                            </h:selectOneMenu>    
 
 
-                                        </p:column>
-
-                                        <p:column id="colunax">
-                                            <h3  style="color:red">Possui Alugma condição especial para Negócio ?</h3>
-
-                                            <h:selectOneMenu id="condicao" style="font-size: 1em" value="#{atendimentoBean.atdEscolhido.condicaoparamudar}">
-                                                <f:selectItem itemValue="" itemLabel=""/>
-                                              
-                                                <f:selectItem itemLabel="Não" itemValue="nao" />
-                                                <f:selectItem itemLabel="Sim, Financiamento" itemValue="financiamento" />
-                                                <f:selectItem itemLabel="Sim, Vender outro Imóvel" itemValue="vender outro imovel" />
-                                                <f:selectItem itemLabel="Sim, Outros" itemValue="outro motivo" />
-                                              
-                                            </h:selectOneMenu>
 
 
-                                            <br></br>
+                                    <div class="ui-g-12 ui-lg-8 chat">
+                                        <br></br>
 
-                                        </p:column>
-                                       
-                                        <p:column id="outrasmsg">
-                                            <h3  style="color:red">Digite outros detalhes da negociação </h3>
-                                            <h:inputTextarea  styleClass="campoInputText"
-                                                              title="Por favor, digite outros detalhes do Atendimento." 
-                                                              style="width: 85%; height: 200px; font-size: 1.1em;" 
-                                                              required="false"
-                                                              
 
-                                                              requiredMessage="Por favor, digite outros detalhes do Atendimento." 
-                                                              value="#{atendimentoBean.atdEscolhido.detalhemsg}"> 
-                                                              
-                                                <f:validateLength minimum="0" />
-                                            </h:inputTextarea>
+                                        <div class="ui-g-12 ui-md-6 ui-lg-4 task-list" ><!-- Entendendo o cliente -->
+                                            <p:panel header="Entendendo o Cliente" >
 
-                                            <br></br>
-                                        </p:column>
-          
+                                                <p:column id="colunaxx">
+                                                    <h3  style="color:red">Em quanto tempo o Cliente deseja se Mudar? </h3>
+                                                    <h:selectOneMenu id="temponegocio" style="font-size: 1em" value="#{atendimentoBean.atdEscolhido.tempoparamudar}">
+                                                        <f:selectItem itemValue="" itemLabel=""/>
+                                                        <f:selectItem itemValue="10" itemLabel="5 a 10 dias"/>
+                                                        <f:selectItem itemValue="30" itemLabel="10 a 30 dias"/>
+                                                        <f:selectItem itemValue="90" itemLabel="1 a 3 meses"/>
+                                                        <f:selectItem itemValue="180" itemLabel="3 a 6 meses"/>
+                                                        <f:selectItem itemValue="360" itemLabel="6 a 12 meses"/>
+
+
+                                                    </h:selectOneMenu>
+
+                                                    <br></br>
+                                                </p:column>
+
+
+
+
+                                                <p:column id="colx1" >
+
+                                                    <h3  style="color:red">Motivação para o negócio ?</h3>
+
+                                                    <h:selectOneMenu id="motivonegocio" style="font-size: 1em" value="#{atendimentoBean.atdEscolhido.motivomudanca}">
+                                                        <f:selectItem itemValue="" itemLabel=""/>
+                                                        <f:selectItem itemLabel="Veraneio" itemValue="Veraneio" />
+                                                        <f:selectItem itemLabel="Mudar de Imóvel" itemValue="Mudar de Imóvel" />
+                                                        <f:selectItem itemLabel="Mudança de Cidade" itemValue="Mudança de Cidade" />
+                                                        <f:selectItem itemLabel="Mudança a Trabalho Definitivo" itemValue="Mudança a Trabalho Definitivo" />
+                                                        <f:selectItem itemLabel="Mudança a Trabalho Temporário" itemValue="Mudança a Trabalho Temporário" />
+                                                        <f:selectItem itemLabel="Investimento" itemValue="Investimento" />
+                                                        <f:selectItem itemLabel="Permutar por outro Imóvel" itemValue="Permutar por outro Imóvel" />
+
+                                                    </h:selectOneMenu>    
+
+
+                                                </p:column>
+
+                                                <p:column id="colunax">
+                                                    <h3  style="color:red">Possui Alugma condição especial para Negócio ?</h3>
+
+                                                    <h:selectOneMenu id="condicao" style="font-size: 1em" value="#{atendimentoBean.atdEscolhido.condicaoparamudar}">
+                                                        <f:selectItem itemValue="" itemLabel=""/>
+
+                                                        <f:selectItem itemLabel="Não" itemValue="nao" />
+                                                        <f:selectItem itemLabel="Sim, Financiamento" itemValue="financiamento" />
+                                                        <f:selectItem itemLabel="Sim, Vender outro Imóvel" itemValue="vender outro imovel" />
+                                                        <f:selectItem itemLabel="Sim, Outros" itemValue="outro motivo" />
+
+                                                    </h:selectOneMenu>
+
+
+                                                    <br></br>
+
+                                                </p:column>
+
+                                                <p:column id="outrasmsg">
+                                                    <h3  style="color:red">Digite outros detalhes da negociação </h3>
+                                                    <h:inputTextarea  styleClass="campoInputText"
+                                                                      title="Por favor, digite outros detalhes do Atendimento." 
+                                                                      style="width: 85%; height: 200px; font-size: 1.1em;" 
+                                                                      required="false"
+
+
+                                                                      requiredMessage="Por favor, digite outros detalhes do Atendimento." 
+                                                                      value="#{atendimentoBean.atdEscolhido.detalhemsg}"> 
+
+                                                        <f:validateLength minimum="0" />
+                                                    </h:inputTextarea>
+
+                                                    <br></br>
+                                                </p:column>
+
+                                            </p:panel>
+                                        </div>        
+
+
+                                        <div class="ui-g-12 ui-md-6 ui-lg-4 task-list" > <!-- triando o atendimento-->
+                                            <p:panel header="Triando o Atendimento" >
+
+                                                <p:column id="colunax23">
+                                                    <h3  style="color:red">Classifique o Interesse do Cliente ? </h3>
+                                                    <h:selectOneMenu id="classificacliente" style="font-size: 1em" value="#{atendimentoBean.atdEscolhido.interesse}">
+                                                        <f:selectItem itemValue="" itemLabel=""/>
+                                                        <f:selectItem itemValue="Alto" itemLabel="Alto"/>
+                                                        <f:selectItem itemValue="Médio" itemLabel="Medio"/>
+                                                        <f:selectItem itemValue="Baixo" itemLabel="Baixo"/>
+
+
+
+                                                    </h:selectOneMenu>
+
+                                                    <br></br>
+                                                </p:column>
+
+                                                <p:column id="colxx1" >
+
+                                                    <h3  style="color:red">Temos o Produto para Oferecer ?</h3>
+
+                                                    <h:selectOneMenu id="temproduto" style="font-size: 1em" value="#{atendimentoBean.atdEscolhido.temproduto}">
+                                                        <f:selectItem itemValue="" itemLabel=""/>
+                                                        <f:selectItem itemValue="sim" itemLabel="Sim Temos"/>
+                                                        <f:selectItem itemValue="nao" itemLabel="Não Temos"/>
+                                                    </h:selectOneMenu>
+
+                                                </p:column>
+
+
+
+                                                <p:column id="colunaOFERTA">
+                                                    <h3  style="color:red">Imóveis Oferecidos </h3>
+                                                    <h:inputTextarea  styleClass="campoInputText"
+                                                                      title="Por favor, digite as referências dos imóveis mostrados" 
+                                                                      style="width: 85%; height: 200px; font-size: 1.3em;" 
+                                                                      required="false"
+
+                                                                      requiredMessage="Por favor, digite as referências dos imóveis mostrados" 
+                                                                      value="#{atendimentoBean.atdEscolhido.produtooferecido}" 
+                                                                      validatorMessage="Escreva uma mensagem maior por favor" > 
+                                                        <f:validateLength minimum="0" />
+                                                    </h:inputTextarea>
+
+                                                    <br></br>
+                                                </p:column>
+
+
+                                                
+                                            </p:panel>
+                                        </div>
+
+                                        <div class="ui-g-12 ui-md-6 ui-lg-4 task-list"> <!-- AGENDAMENTO DE ATIVIDADE-->
+                                            <p:panel header="AGENDAMENTO DE ATIVIDADE" style="text-align: center;"> <!--valores da negociacao-->
+                                                <div class="principal" style="font-size: 1em">
+
+                                                    <h:form id="form_atividademain">
+
+                                                        <p:growl id="growl2"/>
+
+
+                                                        <p:column id="calen1">
+                                                            <h3  style="color:red">Qual Atividade Faremos ? </h3> 
+                                                            <h:selectOneMenu id="combobox" style="font-size: 1em" value="#{atendimentoBean.agenda.evento}">      
+                                                                <f:selectItems value="#{atendimentoBean.listaacoes}" var="act" itemLabel="#{act.acao}" itemValue="#{act.acao}"/>
+
+                                                            </h:selectOneMenu>
+
+
+
+                                                            <h3  style="color:red">Qual Data da Atividade? </h3> 
+                                                            <p:calendar id="popup" value="#{atendimentoBean.agenda.data}" pattern="dd/MM/yyyy" 
+                                                                        timeZone="America/Sao_Paulo" mask="true" 
+
+                                                                        locale="pt_BR" style="display: inline-block;font-size: 1.2em"/>   
+
+                                                            <h3  style="color:red">A que horas </h3>
+                                                            <p:inputMask id="date" value="#{atendimentoBean.agenda.horaagendada}" mask="99:99" style="font-size: 1.2em; width:70px"/>
+
+                                                        </p:column>
+
+
+
+                                                        <p:column id="colunaobsatividade">
+
+                                                            <h3  style="color:red">Observação </h3>
+                                                            <h:inputTextarea  styleClass="campoInputText"
+                                                                              title="Por favor, digite os detalhes da atividade" 
+                                                                              style="width: 300px; height: 150px; font-size: 1.3em;" 
+                                                                              required="false"
+
+
+                                                                              value="#{atendimentoBean.agenda.obs}" 
+                                                                              validatorMessage="Escreva uma mensagem maior por favor" > 
+                                                                <f:validateLength minimum="0" />
+                                                            </h:inputTextarea>
+                                                        </p:column>
+                                                        <br></br>
+
+                                                        <p:column id="colunaobsatividade2">
+                                                            <h3  style="color:red">Status </h3>
+
+                                                            <h:selectOneMenu id="statusatividade" style="font-size: 1em" value="#{atendimentoBean.agenda.status}">
+                                                                <f:selectItem itemValue="Aberto" itemLabel="Aberto"/>
+                                                                <f:selectItem itemValue="Realizado" itemLabel="Realizado"/>
+                                                            </h:selectOneMenu>
+                                                            <br></br><br></br>
+                                                            <p:commandButton value="Gravar Atividade" 
+
+                                                                             action="#{atendimentoBean.gravarAtividades()}"
+                                                                             style="font-size: 1em; font-weight: bold;"
+                                                                             update="growl2"
+                                                                             styleClass="butn"
+                                                                             rendered="#{mostra}"
+                                                                             />
+
+                                                        </p:column>
+
+                                                    </h:form> 
+                                                </div> 
+                                            </p:panel> 
+                                        </div>
+
+
+
+
+
+                                    </div>
+
+
+                                    <div class="ui-g-12 ui-md-6 ui-lg-4 task-list"> <!-- BOTOES DE AÇÃO-->
+                                        <p:panel rendered="true">
+
+
+                                            <div id="menuSup2">
+                                                <p:commandButton value="Gravar Dados do Atendimento" 
+
+                                                                 style="font-size: 1em; font-weight: bold; float: left; margin-right: 10px; margin-top: 30px;" 
+                                                                 styleClass="butn"
+                                                                 rendered="#{mostra}"
+                                                                 actionListener="#{atendimentoBean.atualizarDadosAtendimento()}" 
+                                                                 update="growl"
+                                                                 />
+                                            </div>
+
+                                            <p:commandButton value="Finalizar Atendimento" id="BOTAOLOCO" 
+                                                             style="font-size: 1em;margin-top:30px;float: left;font-weight: bold;" 
+                                                             rendered="#{mostra}" 
+                                                             styleClass="butn"
+                                                             actionListener="#{atendimentoBean.finalizarAtendimento()}"
+                                                             update="growl"/>  
+
+
                                         </p:panel>
-                                    </div>        
-                                         
-
-                                <div class="ui-g-12 ui-md-6 ui-lg-4 task-list" > <!-- triando o atendimento-->
-                                    <p:panel header="Triando o Atendimento" >
-                                        
-                                          <p:column id="colunax23">
-                                            <h3  style="color:red">Classifique o Interesse do Cliente ? </h3>
-                                            <h:selectOneMenu id="classificacliente" style="font-size: 1em" value="#{atendimentoBean.atdEscolhido.interesse}">
-                                                <f:selectItem itemValue="" itemLabel=""/>
-                                                <f:selectItem itemValue="Alto" itemLabel="Alto"/>
-                                                <f:selectItem itemValue="Médio" itemLabel="Medio"/>
-                                                <f:selectItem itemValue="Baixo" itemLabel="Baixo"/>
-                                                
-                                                
-                                                
-                                            </h:selectOneMenu>
-
-                                            <br></br>
-                                        </p:column>
-                                        
-                                        <p:column id="colxx1" >
-
-                                            <h3  style="color:red">Temos o Produto para Oferecer ?</h3>
-
-                                            <h:selectOneMenu id="temproduto" style="font-size: 1em" value="#{atendimentoBean.atdEscolhido.temproduto}">
-                                                <f:selectItem itemValue="" itemLabel=""/>
-                                                <f:selectItem itemValue="sim" itemLabel="Sim Temos"/>
-                                                <f:selectItem itemValue="nao" itemLabel="Não Temos"/>
-                                            </h:selectOneMenu>
-
-                                        </p:column>
-
-                                        
-
-                                        <p:column id="colunaOFERTA">
-                                            <h3  style="color:red">Imóveis Oferecidos </h3>
-                                            <h:inputTextarea  styleClass="campoInputText"
-                                                              title="Por favor, digite as referências dos imóveis mostrados" 
-                                                              style="width: 85%; height: 200px; font-size: 1.3em;" 
-                                                              required="false"
-
-                                                              requiredMessage="Por favor, digite as referências dos imóveis mostrados" 
-                                                              value="#{atendimentoBean.atdEscolhido.produtooferecido}" 
-                                                              validatorMessage="Escreva uma mensagem maior por favor" > 
-                                                <f:validateLength minimum="0" />
-                                            </h:inputTextarea>
-
-                                            <br></br>
-                                        </p:column>
-
-           
-<h:inputTextarea  styleClass="campoInputText"
-                                                                  title="Digite sua mensagem por favor" 
-                                                                  style="width: 85%; height: 200px; font-size: 1.1em;" 
-                                                                  required="false"
-                                                                  
-                                                                  requiredMessage="Por favor, digite uma mensagem." 
-                                                                  value="#{atendimentoBean.atdEscolhido.msg}" 
-                                                                  validatorMessage="Escreva uma mensagem maior por favor" > 
-                                                    <f:validateLength minimum="0" />
-                                                </h:inputTextarea>
-                                       
-
-                                    </p:panel>
-                                </div>
-
-                                         <div class="ui-g-12 ui-md-6 ui-lg-4 task-list"> <!-- AGENDAMENTO DE ATIVIDADE-->
-                                             <p:panel header="AGENDAMENTO DE ATIVIDADE" style="text-align: center;"> <!--valores da negociacao-->
-                                                 <div class="principal" style="font-size: 1em">
-
-                                                     <h:form id="form_atividademain">
-
-                                                         <p:growl id="growl2"/>
-                                                          
-
-                                                         <p:column id="calen1">
-                                                             <h3  style="color:red">Qual Atividade Faremos ? </h3> 
-                                                             <h:selectOneMenu id="combobox" style="font-size: 1em" value="#{atendimentoBean.agenda.evento}">      
-                                                                 <f:selectItems value="#{atendimentoBean.listaacoes}" var="act" itemLabel="#{act.acao}" itemValue="#{act.acao}"/>
-
-                                                             </h:selectOneMenu>
 
 
-
-                                                             <h3  style="color:red">Qual Data da Atividade? </h3> 
-                                                             <p:calendar id="popup" value="#{atendimentoBean.agenda.data}" pattern="dd/MM/yyyy" 
-                                                                         timeZone="America/Sao_Paulo" mask="true" 
-
-                                                                         locale="pt_BR" style="display: inline-block;font-size: 1.2em"/>   
-
-                                                             <h3  style="color:red">A que horas </h3>
-                                                             <p:inputMask id="date" value="#{atendimentoBean.agenda.horaagendada}" mask="99:99" style="font-size: 1.2em; width:70px"/>
-
-                                                         </p:column>
-
-
-
-                                                         <p:column id="colunaobsatividade">
-
-                                                             <h3  style="color:red">Observação </h3>
-                                                             <h:inputTextarea  styleClass="campoInputText"
-                                                                               title="Por favor, digite os detalhes da atividade" 
-                                                                               style="width: 300px; height: 150px; font-size: 1.3em;" 
-                                                                               required="false"
-
-
-                                                                               value="#{atendimentoBean.agenda.obs}" 
-                                                                               validatorMessage="Escreva uma mensagem maior por favor" > 
-                                                                 <f:validateLength minimum="0" />
-                                                             </h:inputTextarea>
-                                                         </p:column>
-                                                         <br></br>
-
-                                                         <p:column id="colunaobsatividade2">
-                                                             <h3  style="color:red">Status </h3>
-
-                                                             <h:selectOneMenu id="statusatividade" style="font-size: 1em" value="#{atendimentoBean.agenda.status}">
-                                                                 <f:selectItem itemValue="Aberto" itemLabel="Aberto"/>
-                                                                 <f:selectItem itemValue="Realizado" itemLabel="Realizado"/>
-                                                             </h:selectOneMenu>
-                                                             <br></br><br></br>
-                                                             <p:commandButton value="Gravar Atividade" 
-
-                                                                              action="#{atendimentoBean.gravarAtividades()}"
-                                                                              style="font-size: 1em; font-weight: bold;"
-                                                                              update="growl2"
-                                                                              styleClass="butn"
-                                                                              rendered="#{mostra}"
-                                                                              />
-
-                                                         </p:column>
-
-                                                     </h:form> 
-                                                 </div> 
-                                             </p:panel> 
-                                         </div>
-                                               
-                              
-                              
-                                  
-                                         
-                                     </div>
-
-                                     
-         <div class="ui-g-12 ui-md-6 ui-lg-4 task-list"> <!-- BOTOES DE AÇÃO-->
-             <p:panel rendered="true">
-                           
-                                            
-                                        <div id="menuSup2">
-                                                     <p:commandButton value="Gravar Dados do Atendimento" 
-                                                                      
-                                                                      style="font-size: 1em; font-weight: bold; float: left; margin-right: 10px; margin-top: 30px;" 
-                                                                      styleClass="butn"
-                                                                      rendered="#{mostra}"
-                                                                      actionListener="#{atendimentoBean.atualizarDadosAtendimento()}" 
-                                                                      update="growl"
-                                                                      />
-                                                 </div>
-                       
-                                                     <p:commandButton value="Finalizar Atendimento" id="BOTAOLOCO" 
-                                                                      style="font-size: 1em;margin-top:30px;float: left;font-weight: bold;" 
-                                                                       rendered="#{mostra}" 
-                                                                       styleClass="butn"
-                                                                      actionListener="#{atendimentoBean.finalizarAtendimento()}"
-                                                                       update="growl"/>  
-                                               
-
-                                    </p:panel>
-                                    
-                                  
-                                </div>
+                                    </div>
 
                                 </div> 
 
 
                             </div>
-                            
-                            
+
+
                         </div>
-
-
-                                   
-
-                    </h:form>
+                 </h:form>
 
                 </div>
             </div>
-            
-         
-            
+
+
+
         </div>
 
-        
-      
 
-        
+
+
+
 
         <div class="ui-g-12"> 
-            
+
         </div> 
 
-          
-        
+
+
         <!-- INICIO DOS DIALOG ABRIR ATIVIDADE-->
 
         <p:dialog header="REALIZAR ATIVIDADE" widgetVar="dlg3" showEffect="explode"
@@ -576,24 +591,24 @@
                                 <f:selectItems value="#{atendimentoBean.listaacoes}" var="act" itemLabel="#{act.acao}" itemValue="#{act.acao}"/>
 
                             </h:selectOneMenu>
-              
+
                             <br></br><br/>
 
                             <p:calendar value="#{atendimentoBean.agenda.data}" pattern="dd/MM/yyyy" 
                                         mode="inline" timeZone="America/Sao_Paulo" mask="true" 
                                         locale="pt_BR" style="display: inline-block"
-                                         
+
                                         />
-                             
+
                         </p:column>
                         <p:column id="hora">
                             <h3  style="color:red">A que horas </h3>
-                            
+
                             <p:inputMask id="date" value="#{atendimentoBean.agenda.horaagendada}" mask="99:99"/>
 
                         </p:column>
-                        
-                        
+
+
                     </div>
 
                     <div id='parte2' style=" width: 500px; float: left">
@@ -606,7 +621,7 @@
                                               style="width: 300px; height: 150px; font-size: 1.3em;" 
                                               required="false"
 
-                                             
+
                                               value="#{atendimentoBean.agenda.obs}" 
                                               validatorMessage="Escreva uma mensagem maior por favor" > 
                                 <f:validateLength minimum="0" />
@@ -620,12 +635,12 @@
                             <h:selectOneMenu id="statusatividade" style="font-size: 1em" value="#{atendimentoBean.agenda.status}">
                                 <f:selectItem itemValue="Aberto" itemLabel="Aberto"/>
                                 <f:selectItem itemValue="Realizado" itemLabel="Realizado"/>
-                          </h:selectOneMenu>
+                            </h:selectOneMenu>
                             <br></br><br></br>
                             <p:commandButton value="Gravar Atividade" 
 
                                              actionListener="#{atendimentoBean.gravarAtividades()}"
-                                             
+
                                              styleClass="butn"
                                              rendered="#{mostra}"/>
 
@@ -675,16 +690,16 @@
                             <br></br>
 
 
-                              <p:calendar value="#{atendimentoBean.agenda.data}" pattern="dd/MM/yyyy" 
+                            <p:calendar value="#{atendimentoBean.agenda.data}" pattern="dd/MM/yyyy" 
                                         mode="inline" timeZone="America/Sao_Paulo" mask="true" 
                                         locale="pt_BR" style="display: inline-block"
-                                         
+
                                         />
-                             
+
                         </p:column>
                         <p:column id="hora">
                             <h3  style="color:red">A que horas </h3>
-                            
+
                             <p:inputMask id="date" value="#{atendimentoBean.agenda.horaagendada}" mask="99:99" style="font-size: 1.25em"/>
 
                         </p:column>
@@ -728,10 +743,10 @@
                                              styleClass="butn"
                                              rendered="#{mostra}"
                                              />
-                              <br></br>
+                            <br></br>
 
                         </p:column>
-                </div>
+                    </div>
 
 
 
@@ -739,8 +754,8 @@
             </div> 
         </p:dialog>
 
-        
-         
+
+
         <!--DIALOG FINALIZA ATIVIDADE -->
         <p:dialog header="Você tem Certeza de que deseja Finalizar esta Atividade ?" widgetVar="dlg5" showEffect="explode"
                   hideEffect="clip" 
@@ -751,32 +766,32 @@
             <div class="principal" style="font-size: 1.3em">
                 <h:form id="formfinaliza">
 
-                     
-                                                        <h3  style="color:red">Selecione o Motivo para Fechar o Atendimento ? </h3>
-                                                        <h:selectOneMenu id="motivofinalizacao" style="font-size: 1em" value="#{atendimentoBean.atdEscolhido.motivofinalizou}">
-                                                            
-                                                              <f:selectItem itemValue="Venda Realizada" itemLabel="Venda Realizada"/>
-                                                              <f:selectItem itemValue="Locação Realizada" itemLabel="Locação Realizada"/>
-                                                              <f:selectItem itemValue="Retornei Ligação" itemLabel="Retornei Ligação"/>
-                                                              <f:selectItem itemValue="Não temos imóvel" itemLabel="Não temos imóvel"/>
-                                                              <f:selectItem itemValue="Já fez Negócio" itemLabel="Já fez Negócio"/>
-                                                              <f:selectItem itemValue="Fora do Valor buscado" itemLabel="Fora do Valor buscado"/>
-                                                              <f:selectItem itemValue="Cliente vai Esperar" itemLabel="Cliente vai Esperar"/>
-                                                               
-                                                         </h:selectOneMenu>
-                                                         <h3  style="color:red">Detalhes do Fechamento ? </h3>
-                                                         <p:inputTextarea id="motivofinal"  value="#{atendimentoBean.atdEscolhido.detalhefinalizou}" style="width: 550px; height: 200px; font-size: 1em" />
-                                                         
-                                                         
-                                                         <br></br>
-                                                         
-                                                         <p:commandButton value="SIM, FINALIZE" style="font-size: 0.8em; font-weight: bold" rendered="#{mostra}" actionListener="#{atendimentoBean.confirmafinalizarAtendimento()}"/>  <br/>
-                                                         <br></br> <p:commandButton value="NÃO, CANCELE" style="font-size: 0.8em; font-weight: bold" onclick="dlg5.hide()"/>  
-                                                         
 
-                                                        
-                                                    
-                                                     
+                    <h3  style="color:red">Selecione o Motivo para Fechar o Atendimento ? </h3>
+                    <h:selectOneMenu id="motivofinalizacao" style="font-size: 1em" value="#{atendimentoBean.atdEscolhido.motivofinalizou}">
+
+                        <f:selectItem itemValue="Venda Realizada" itemLabel="Venda Realizada"/>
+                        <f:selectItem itemValue="Locação Realizada" itemLabel="Locação Realizada"/>
+                        <f:selectItem itemValue="Retornei Ligação" itemLabel="Retornei Ligação"/>
+                        <f:selectItem itemValue="Não temos imóvel" itemLabel="Não temos imóvel"/>
+                        <f:selectItem itemValue="Já fez Negócio" itemLabel="Já fez Negócio"/>
+                        <f:selectItem itemValue="Fora do Valor buscado" itemLabel="Fora do Valor buscado"/>
+                        <f:selectItem itemValue="Cliente vai Esperar" itemLabel="Cliente vai Esperar"/>
+
+                    </h:selectOneMenu>
+                    <h3  style="color:red">Detalhes do Fechamento ? </h3>
+                    <p:inputTextarea id="motivofinal"  value="#{atendimentoBean.atdEscolhido.detalhefinalizou}" style="width: 550px; height: 200px; font-size: 1em" />
+
+
+                    <br></br>
+
+                    <p:commandButton value="SIM, FINALIZE" style="font-size: 0.8em; font-weight: bold" rendered="#{mostra}" actionListener="#{atendimentoBean.confirmafinalizarAtendimento()}"/>  <br/>
+                    <br></br> <p:commandButton value="NÃO, CANCELE" style="font-size: 0.8em; font-weight: bold" onclick="dlg5.hide()"/>  
+
+
+
+
+
 
 
 
@@ -785,7 +800,7 @@
             </div> 
         </p:dialog>
 
-        
+
     </ui:define>
 
 </ui:composition>
