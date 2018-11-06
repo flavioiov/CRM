@@ -36,7 +36,7 @@
                           <h:outputText value="#{listatudo.corretor}" />
                         </p:column>
                     
-                     <p:column headerText="Status" sortBy="#{listatudo.status}" style="width:70px; font-size: 0.95em">
+                     <p:column headerText="Status" sortBy="#{listatudo.status}" style="width:3%; font-size: 0.95em">
                             <h:outputText value="#{listatudo.status}"  style="color: red;" rendered="#{listatudo.status=='ABERTO'}"/>  
                             <h:outputText value="#{listatudo.status}"  style="color: blue; font-size: 0.8em" rendered="#{listatudo.status=='EM ATENDIMENTO'}"/>
                             <h:outputText value="#{listatudo.status}"  style="color: green;" rendered="#{listatudo.status=='Finalizado'}"/>
@@ -52,13 +52,11 @@
                             </h:outputText>
                          </p:column>    
                     
-                          <p:column headerText="CLIENTE" sortBy="#{listatudo.nome}" style="width: 20%">
+                          <p:column headerText="CLIENTE" sortBy="#{listatudo.nome}" style="width: 7%">
                             <h:outputText value="#{listatudo.nome}" />
                         </p:column>
                         
-                      
-                        
-                        <p:column headerText="NEGOCIO" sortBy="#{listatudo.negocio}" style="width: 7%">
+                         <p:column headerText="NEGOCIO" sortBy="#{listatudo.negocio}" style="width: 5%">
                             <h:outputText value="#{listatudo.negocio}" />
                         </p:column>
                     

@@ -33,8 +33,10 @@
 
 
                                                 <p:panel id="av" style="font-size: 1em">
-
-
+                                                    
+                                                    <h:outputText value="ID Atendimento :" style="color:red; width:  130px"/> 
+                                                    <h:outputText value="#{atendimentoBean.atdEscolhido.id} " style="color:blue;margin-right: 10px"/> 
+                                                                
                                                     <h:outputText value="Cliente :" style="color: red;margin-right:10px"/>
                                                     <p:inplace>
                                                         <p:inputText value="#{atendimentoBean.atdEscolhido.nome}" style="color:blue; width:300px; margin-right: 10px;font-size: 1em"/> 
@@ -241,23 +243,39 @@
                                             </p:column>
 
                                             <p:panelGrid columns="3" styleClass="semBorda" style="display: inline-block">
-
+                                                
                                                 <p:column id="aaa">
                                                     <p:panelGrid columns="1" styleClass="semBorda">
+                                                        
+                                                        
+
+                                                       
+
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        <h3 style="color:red">Valor Máximo Venda</h3>
+
+                                                        <p:inputNumber id="nmb2" value="#{atendimentoBean.atdEscolhido.valormaxvenda}"  valueChangeListener="#{atendimentoBean.onInputChangedvenda}" symbol=" R$ " >
+                                                                <p:ajax process="@this"/>
+                                                            
+                                                                <f:ajax execute ="nameInputId" render="nmb1"/>
+                                                           
+
+                                                        </p:inputNumber>
+                                                        <p:slider for="nmb2" maxValue="1500000" minValue="500" step="1000" />
+                                                        
                                                         <h3 style="color:red">Valor Mínimo Venda</h3>
 
                                                         <p:inputNumber id="nmb1" value="#{atendimentoBean.atdEscolhido.valorminvenda}" symbol=" R$ " >
-                                                            <p:ajax process="@this" />
+                                                            <p:ajax process="@this" update="growl"/>
                                                         </p:inputNumber>
                                                         <p:slider for="nmb1" maxValue="1500000" minValue="500" step="1000" />
 
 
-                                                        <h3 style="color:red">Valor Máximo Venda</h3>
-
-                                                        <p:inputNumber id="nmb2" value="#{atendimentoBean.atdEscolhido.valormaxvenda}" symbol=" R$ " >
-                                                            <p:ajax process="@this" />
-                                                        </p:inputNumber>
-                                                        <p:slider for="nmb2" maxValue="1500000" minValue="500" step="1000" />
+                                                        
                                                     </p:panelGrid>    
 
                                                 </p:column>
@@ -265,7 +283,22 @@
                                                 <p:column id="bbb">
 
                                                     <p:panelGrid columns="1" style="border: none">
-                                                        <h3 style="color:green">Valor Mínimo Locação</h3>
+                                                       
+
+
+                                                        <h3 style="color:green">Valor Máximo Locação</h3>
+
+                                                        <p:inputNumber id="nmb4" value="#{atendimentoBean.atdEscolhido.valormaxaluguel}"  
+                                                                       valueChangeListener="#{atendimentoBean.onInputChanged}"
+                                                             symbol=" R$ " >
+                                                            <p:ajax process="@this"/>
+                                                            <f:ajax execute ="nameInputId" render="nmb3"/>
+                                                       </p:inputNumber>
+                                                        <p:slider for="nmb4" maxValue="30000" minValue="500" step="250" />
+                                                        
+                                                        
+                                                        
+                                                         <h3 style="color:green">Valor Mínimo Locação</h3>
 
                                                         <p:inputNumber id="nmb3" value="#{atendimentoBean.atdEscolhido.valorminaluguel}"
                                                                        symbol=" R$ " 
@@ -273,17 +306,6 @@
                                                             <p:ajax process="@this"/>
                                                         </p:inputNumber>
                                                         <p:slider for="nmb3" maxValue="30000" minValue="500" step="250" />
-
-
-                                                        <h3 style="color:green">Valor Máximo Locação</h3>
-
-                                                        <p:inputNumber id="nmb4" value="#{atendimentoBean.atdEscolhido.valormaxaluguel}" 
-
-                                                                       symbol=" R$ " >
-                                                            <p:ajax process="@this" />
-
-                                                        </p:inputNumber>
-                                                        <p:slider for="nmb4" maxValue="30000" minValue="500" step="250" />
                                                     </p:panelGrid>
                                                 </p:column>  
                                             </p:panelGrid>
@@ -437,10 +459,12 @@
                                         </div>
 
                                         <div class="ui-g-12 ui-md-6 ui-lg-4 task-list"> <!-- AGENDAMENTO DE ATIVIDADE-->
-                                            <p:panel header="AGENDAMENTO DE ATIVIDADE" style="text-align: center;"> <!--valores da negociacao-->
-                                                <div class="principal" style="font-size: 1em">
+                                            
 
-                                                    <h:form id="form_atividademain">
+                                                <p:panel header="AGENDAMENTO DE ATIVIDADE" style="text-align: center;"> <!--valores da negociacao-->
+                                                    <div class="principal" style="font-size: 1em">
+
+
 
                                                         <p:growl id="growl2"/>
 
@@ -493,32 +517,33 @@
                                                             <br></br><br></br>
                                                             <p:commandButton value="Gravar Atividade" 
 
-                                                                             action="#{atendimentoBean.gravarAtividades()}"
+                                                                             actionListener="#{atendimentoBean.gravarAtividades()}"
                                                                              style="font-size: 1em; font-weight: bold;"
-                                                                             update="growl2"
+                                                                             update="atendimento:formabriratividade,growl"
                                                                              styleClass="butn"
                                                                              rendered="#{mostra}"
-                                                                             />
+                                                                             >
+                                                                <f:ajax/>
+                                                            </p:commandButton>
+
+
+                                                            
+                                                            
+                                           
+                                                            
 
                                                         </p:column>
-
-                                                    </h:form> 
-                                                </div> 
-                                            </p:panel> 
-                                        </div>
-
-
-
-
-
-                                    </div>
+                                                                        
+                                                   
+                                                    </div> 
+                                                </p:panel> 
+                                           
+                                            
+                                            
+                                            <p:panel rendered="#{atendimentoBean.acessaAcoes}">
 
 
-                                    <div class="ui-g-12 ui-md-6 ui-lg-4 task-list"> <!-- BOTOES DE AÇÃO-->
-                                        <p:panel rendered="true">
-
-
-                                            <div id="menuSup2">
+                                            <div id="menuSup2" >
                                                 <p:commandButton value="Gravar Dados do Atendimento" 
 
                                                                  style="font-size: 1em; font-weight: bold; float: left; margin-right: 10px; margin-top: 30px;" 
@@ -540,8 +565,24 @@
                                         </p:panel>
 
 
+                                  
+
+                                            
+                                            
+                                            
+                                            
+                                            
+                                        </div>
+
+                                    
+                                    
+                                    
+                                    
+                                    
                                     </div>
 
+
+                                   
                                 </div> 
 
 
@@ -772,12 +813,15 @@
 
                         <f:selectItem itemValue="Venda Realizada" itemLabel="Venda Realizada"/>
                         <f:selectItem itemValue="Locação Realizada" itemLabel="Locação Realizada"/>
+                        <f:selectItem itemValue="Captação Realizada" itemLabel="Captação Realizada"/>                        
                         <f:selectItem itemValue="Retornei Ligação" itemLabel="Retornei Ligação"/>
                         <f:selectItem itemValue="Não temos imóvel" itemLabel="Não temos imóvel"/>
                         <f:selectItem itemValue="Já fez Negócio" itemLabel="Já fez Negócio"/>
                         <f:selectItem itemValue="Fora do Valor buscado" itemLabel="Fora do Valor buscado"/>
                         <f:selectItem itemValue="Cliente vai Esperar" itemLabel="Cliente vai Esperar"/>
-
+                        <f:selectItem itemValue="Imóvel Temporada" itemLabel="Imóvel Temporada"/>
+                        
+                        
                     </h:selectOneMenu>
                     <h3  style="color:red">Detalhes do Fechamento ? </h3>
                     <p:inputTextarea id="motivofinal"  value="#{atendimentoBean.atdEscolhido.detalhefinalizou}" style="width: 550px; height: 200px; font-size: 1em" />

@@ -363,10 +363,14 @@ public class admBean {
         Classe_Geral muda_atendimento= new Classe_Geral("atendimento");
         muda_atendimento.pegaAtendimento("Qualidade", cadastro);
         
-        muda_atendimento.updatevalor("atendimento", "status","ABERTO",cadastro);
+        muda_atendimento.updatevalor("atendimento", "status","QUALIDADE",cadastro);
   
-
-        RequestContext.getCurrentInstance().update("fomrularioDashBoardadm");
+        //precisa atualizar a lista 
+        this.listar_meusAtendimentos();
+        
+        
+        
+        RequestContext.getCurrentInstance().update("tableAtendimento2");
         
         
         
@@ -452,6 +456,7 @@ public class admBean {
          Classe_Geral alt = new Classe_Geral("atendimento");
         alt.alteraDadosTabela("atendimento", atdEscolhido, atdEscolhido.getId());
 
+        
         FacesContext.getCurrentInstance().getExternalContext().redirect("abrir_atendimento.jsf");
         
     }
@@ -561,6 +566,15 @@ public class admBean {
         
     }
 
+    
+   
+    
+    
+    
+    
+    
+    
+    
     
         public void listar_minhasLigacoes() throws SQLException {
             

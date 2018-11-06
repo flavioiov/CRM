@@ -29,22 +29,46 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 
-public class estatisticaBean {
+public class relatoriosBean {
  
     public List<Atendimento> listaatendimentostotal;
     public List<Atendimento> listaatendimentostotalcorretor;
     
     public List<Atendimento> listatotalporano;
-
-     public List<Atendimento> listaatendimentosfechados;
     
     public List<Atendimento> listatotalnegocios;
     
     public List<Atendimento> listaatendimentosmes;
     
-    public List<Atendimento> listadetalhada;
+    public List<Atendimento> listaatendimentoscorretor;
     
-    public List<Atendimento> listadetalhadafechamento;
+    public List<Atendimento> listaatendimentoscorretorEvora;
+    
+    public List<Atendimento> listaatendimentoscorretorLocacao;
+
+    public List<Atendimento> getListaatendimentoscorretorLocacao() {
+        return listaatendimentoscorretorLocacao;
+    }
+
+    public void setListaatendimentoscorretorLocacao(List<Atendimento> listaatendimentoscorretorLocacao) {
+        this.listaatendimentoscorretorLocacao = listaatendimentoscorretorLocacao;
+    }
+    
+    
+    
+
+    public List<Atendimento> getListaatendimentoscorretorEvora() {
+        return listaatendimentoscorretorEvora;
+    }
+
+    public void setListaatendimentoscorretorEvora(List<Atendimento> listaatendimentoscorretorEvora) {
+        this.listaatendimentoscorretorEvora = listaatendimentoscorretorEvora;
+    }
+    
+    
+    
+    
+    public List<Atendimento> listadetalhada;
     
      public List<Atendimento> listatotalcomochegou;
 
@@ -52,26 +76,18 @@ public class estatisticaBean {
         return listatotalcomochegou;
     }
 
-    public List<Atendimento> getListaatendimentosfechados() {
-        return listaatendimentosfechados;
-    }
-
-    public void setListaatendimentosfechados(List<Atendimento> listaatendimentosfechados) {
-        this.listaatendimentosfechados = listaatendimentosfechados;
-    }
-
-    public List<Atendimento> getListadetalhadafechamento() {
-        return listadetalhadafechamento;
-    }
-
-    public void setListadetalhadafechamento(List<Atendimento> listadetalhadafechamento) {
-        this.listadetalhadafechamento = listadetalhadafechamento;
-    }
-
-    
     public void setListatotalcomochegou(List<Atendimento> listatotalcomochegou) {
         this.listatotalcomochegou = listatotalcomochegou;
     }
+
+    public List<Atendimento> getListaatendimentoscorretor() {
+        return listaatendimentoscorretor;
+    }
+
+    public void setListaatendimentoscorretor(List<Atendimento> listaatendimentoscorretor) {
+        this.listaatendimentoscorretor = listaatendimentoscorretor;
+    }
+    
     
     public List<Atendimento> getListaatendimentostotalcorretor() {
         return listaatendimentostotalcorretor;
@@ -121,7 +137,32 @@ public class estatisticaBean {
         this.listadetalhada = listadetalhada;
     }
 
+    
+    
+    public void carregaRelariosBean() throws SQLException{
+        
+        this.listar_todasCompras();
+        this.listarEstatisticas();
+        this.listar_meusAtendimentos();
+        this.lista_meusAtendimentosLocacao();
+        this.lista_meusAtendimentosEvora();
        
+    }
+       
+    
+     public void listar_todasCompras() throws SQLException {
+
+       
+
+        String sql = "SELECT * FROM crm.atendimento  where euquero not like '%falar%' and euquero not like 'Evora' and negocio like '%comprar%'\n" +
+"order by id ";
+
+        ResultSetHandler<List<Atendimento>> h = new BeanListHandler<Atendimento>(Atendimento.class);
+        QueryRunner run = new QueryRunner(CustomDataSource.getInstance());
+        listadetalhada = run.query(sql, h);
+        
+        
+    }
 
    
     public void listarEstatisticas() throws SQLException {
@@ -158,18 +199,7 @@ public class estatisticaBean {
         ResultSetHandler<List<Atendimento>> h7 = new BeanListHandler<Atendimento>(Atendimento.class);
         QueryRunner QR7 = new QueryRunner(CustomDataSource.getInstance());
         listatotalcomochegou = QR7.query(sql7, h7);
-          
-               String sql8 = "SELECT monthname(dataatendimento) as nome, year(dataatendimento) as tipoimovel,corretor,status,motivofinalizou,count(*) as total,SUM(valormaxaluguel) as valormaxaluguel,SUM(valormaxvenda) valormaxvenda\n"
-                + "FROM crm.atendimento\n"
-                + "where motivofinalizou like '%realizada%'\n"
-                + "group by 1,2,3,4,5\n"
-                + "order by 1 desc";
-
-        ResultSetHandler<List<Atendimento>> h8 = new BeanListHandler<Atendimento>(Atendimento.class);
-        QueryRunner QR8 = new QueryRunner(CustomDataSource.getInstance());
-        listaatendimentosfechados = QR8.query(sql8, h8);
-        
-        
+           
         
         
     }
@@ -192,20 +222,51 @@ public class estatisticaBean {
     }
     
     
-     public void detalharfechamento(String mes, String ano,String corretor,String motivofinalizou) throws SQLException, IOException {
-        
-       
-         String sql10 = "select * from crm.atendimento where monthname(dataatendimento)='"+mes+"' \n" +
-"and year(dataatendimento)='"+ano+"' and corretor like '"+corretor+"' and motivofinalizou like '"+motivofinalizou+"'";
-        ResultSetHandler<List<Atendimento>> h10 = new BeanListHandler<Atendimento>(Atendimento.class);
-        QueryRunner QR10 = new QueryRunner(CustomDataSource.getInstance());
-        listadetalhadafechamento = QR10.query(sql10, h10);
-        
-        String url="estatistica_fechamento.jsf";
-         //FacesContext.getCurrentInstance().getExternalContext().redirect("estatistica_detalhada.jsf");
-        
-        RequestContext.getCurrentInstance().execute("window.open('"+url+"')");
+  
+    
+    
+    public void listar_meusAtendimentos() throws SQLException {
+
+      String  usuarioLogado = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
+     
+            String sql = "SELECT * FROM crm.atendimento where euquero NOT LIKE '%falar%' AND corretor='" + usuarioLogado + "' and negocio like '%comprar%' and euquero not like '%evora%'"; 
+         
+        ResultSetHandler<List<Atendimento>> h = new BeanListHandler<Atendimento>(Atendimento.class);
+        QueryRunner run = new QueryRunner(CustomDataSource.getInstance());
+         listaatendimentoscorretor = run.query(sql, h);
+         
+    
+         
     }
+    
+    public void lista_meusAtendimentosEvora() throws SQLException {
+
+      String  usuarioLogado = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
+     
+            String sql = "SELECT * FROM crm.atendimento where euquero NOT LIKE '%falar%' AND corretor='" + usuarioLogado + "' and negocio like '%comprar%' and euquero like '%evora%'"; 
+         
+        ResultSetHandler<List<Atendimento>> h = new BeanListHandler<Atendimento>(Atendimento.class);
+        QueryRunner run = new QueryRunner(CustomDataSource.getInstance());
+         listaatendimentoscorretorEvora = run.query(sql, h);
+         
+    
+         
+    }
+    
+    public void lista_meusAtendimentosLocacao() throws SQLException {
+
+      String  usuarioLogado = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
+     
+            String sql = "SELECT * FROM crm.atendimento where euquero NOT LIKE '%falar%' AND corretor='" + usuarioLogado + "' and negocio like '%Alugar%' and euquero not like '%evora%'"; 
+         
+        ResultSetHandler<List<Atendimento>> h = new BeanListHandler<Atendimento>(Atendimento.class);
+        QueryRunner run = new QueryRunner(CustomDataSource.getInstance());
+         listaatendimentoscorretorLocacao = run.query(sql, h);
+         
+    
+         
+    }
+    
     
     
     

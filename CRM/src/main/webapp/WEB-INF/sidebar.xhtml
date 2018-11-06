@@ -24,6 +24,9 @@
                          
                          <p:menuitem id="novoatend" value="Novo Atendimento" rendered="#{mostra}" icon="fa fa-tty" outcome="/abrir_atendimento.xhtml" />
                          <p:menuitem id="pm_dashboard" rendered="#{mostra}" value="DashBoard" icon="fa fa-home" outcome="/dashboardcrm.xhtml" />
+                          <p:menuitem id="pm_results" rendered="#{mostra}" value="Meus Resultados" icon="fa fa-home" outcome="/relatorios/estatistica_corretores.xhtml" />
+                          <p:menuitem id="pm_negocios" rendered="#{mostra}" value="Meus Negocios" icon="fa fa-home" outcome="/relatorios/estatisticas_1.xhtml" />
+                          
                          <p:menuitem id="pm_clientes" rendered="false" value="Meus Clientes" icon="fa fa-home" outcome="/clientes.xhtml" />
                          <p:menuitem id="pm_dashboarda" rendered="#{configura}" value="DashBoard" icon="fa fa-home" outcome="/dashboardadm.xhtml" />
                          <p:menuitem id="pm_buynow" value="Entrar no CRM" rendered="#{mostralogin}" icon="fa fa-diamond" url="logar.jsf"/>

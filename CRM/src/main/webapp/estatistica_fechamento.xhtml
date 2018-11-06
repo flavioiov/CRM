@@ -13,8 +13,6 @@
     <ui:define name="title">Relatório Detalhado</ui:define>
       <ui:define name="content">
     <h:form id="formstat">
-        
-    
    
    
     <div class="ui-g">
@@ -23,10 +21,10 @@
            
             <div class="ui-g-12">
                 
-                <p:dataTable var="listatudo" value="#{relatoriosBean.listadetalhada}"
+                <p:dataTable var="listatudo" value="#{estatisticaBean.listadetalhadafechamento}"
                                  paginator="true" rows="33" style="font-size: 1.25em">
                         <f:facet name="header">
-                           LISTA DOS NEGÓCIOS NO MES SELECIONADO
+                          ESTATISTICAS DE FECHAMENTO
                          </f:facet>
                        <p:column headerText="ID" sortBy="#{listatudo.id}" style="width: 3%">
                             <h:outputText value="#{listatudo.id}" />
@@ -36,7 +34,7 @@
                           <h:outputText value="#{listatudo.corretor}" />
                         </p:column>
                     
-                     <p:column headerText="Status" sortBy="#{listatudo.status}" style="width:70px; font-size: 0.95em">
+                     <p:column headerText="Status" sortBy="#{listatudo.status}" style="width:3%; font-size: 0.95em">
                             <h:outputText value="#{listatudo.status}"  style="color: red;" rendered="#{listatudo.status=='ABERTO'}"/>  
                             <h:outputText value="#{listatudo.status}"  style="color: blue; font-size: 0.8em" rendered="#{listatudo.status=='EM ATENDIMENTO'}"/>
                             <h:outputText value="#{listatudo.status}"  style="color: green;" rendered="#{listatudo.status=='Finalizado'}"/>
@@ -46,13 +44,13 @@
                           <h:outputText value="#{listatudo.motivofinalizou}" />
                         </p:column>
                     
-                    <p:column headerText="Data" sortBy="#{listatudo.dataatendimento}" width="3%">
+                    <p:column headerText="Data" sortBy="#{listatudo.dataatendimento}" style="width:3%">
                             <h:outputText value="#{listatudo.dataatendimento}">
                                 <f:convertDateTime type="both" pattern="dd/MM/yy"/>
                             </h:outputText>
                          </p:column>    
                     
-                          <p:column headerText="CLIENTE" sortBy="#{listatudo.nome}" style="width: 20%">
+                          <p:column headerText="CLIENTE" sortBy="#{listatudo.nome}" style="width: 7%">
                             <h:outputText value="#{listatudo.nome}" />
                         </p:column>
                         
@@ -61,21 +59,20 @@
                         <p:column headerText="NEGOCIO" sortBy="#{listatudo.negocio}" style="width: 7%">
                             <h:outputText value="#{listatudo.negocio}" />
                         </p:column>
-                    
-                      
-                    
-                    
-                    
+                       
                     
                     <p:column headerText="IMOVEL" sortBy="#{listatudo.tipoimovel}" style="width: 7%">
                         <h:outputText value="#{listatudo.tipoimovel}" />
                         </p:column>
 
                              
-                        <p:column headerText="MEDIA VENDA" sortBy="#{listatudo.msg}" style="width: 4%">
-                            <h:outputText value="#{listatudo.msg}" />
+                    <p:column headerText="VALOR ALUGUEL" sortBy="#{listatudo.valormaxaluguel}" style="width: 4%">
+                        <h:outputText value="#{listatudo.valormaxaluguel}" />
                         </p:column>
                        
+                     <p:column headerText="VALOR VENDA" sortBy="#{listatudo.valormaxaluguel}" style="width: 4%">
+                         <h:outputText value="#{listatudo.valormaxvenda}" />
+                        </p:column>
 
                         <p:column headerText="MEDIA ALUGUEL" sortBy="#{listatudo.interesse}" style="width: 3%">
                             <h:outputText value="#{listatudo.interesse}" >

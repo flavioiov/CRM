@@ -55,8 +55,7 @@
        
         <h:form id="formularioDashBoard">
             
-             <p:poll interval="60" update="formularioDashBoard" />
-        
+             
         
              <f:metadata>
               <f:viewAction action="#{atendimentoBean.listar_minhasLigacoes()}" />
@@ -64,6 +63,15 @@
                  <f:viewAction action="#{atendimentoBean.listarMeusClientes()}" />
                  <f:viewAction action="#{atendimentoBean.carregaCombobox()}" />
                  <f:viewAction action="#{atendimentoBean.listarMinhaAgenda()}" />
+                 
+               
+                
+                <f:viewAction action="#{estatisticaBean.listarEstatisticas()}" />
+                
+                <f:viewAction action="#{relatoriosBean.carregaRelariosBean()}" />
+                  
+                 
+                  
              </f:metadata> 
 
         
@@ -167,6 +175,8 @@
 
                              <p:column headerText="Status" sortBy="#{atend1.status}" style="width:100px; font-size: 0.95em">
                                  <h:outputText value="#{atend1.status}"  style="color: red;" rendered="#{atend1.status=='ABERTO'}"/>  
+                                  <h:outputText value="#{atend1.status}"  style="color: red;" rendered="#{atend1.status=='DIRECIONADO'}"/> 
+                                  <h:outputText value="#{atend1.status}"  style="color: red;" rendered="#{atend1.status=='QUALIDADE'}"/> 
                                  <h:outputText value="#{atend1.status}"  style="color: blue; font-size: 0.8em" rendered="#{atend1.status=='EM ATENDIMENTO'}"/>
                                  <h:outputText value="#{atend1.status}"  style="color: green;" rendered="#{atend1.status=='Finalizado'}"/>
                              </p:column>    
@@ -175,17 +185,22 @@
                                  <h:outputText value="#{atend1.motivofinalizou}" />
                              </p:column>
 
+                             
 
-
-                             <p:column headerText="Atender" style="width:75px;">
+                             <p:column headerText="Atender" style="width:70px; font-size: 1em">
                                  <p:commandButton action="#{atendimentoBean.listaDetalheAtendimento(atend1.id)}"  style="font-size: 0.8em;" value="Atender"/>
                              </p:column>
 
 
-                             <p:column headerText="Devolver" style="width:75px">
-                                 <p:commandButton action="#{atendimentoBean.devolverAtendimento(atend1.id)}"  value="Devolver"/>
+                             <p:column headerText="Devolver" style="width:70px;  font-size: 1em">
+                                 <p:commandButton action="#{atendimentoBean.devolverAtendimento(atend1.id)}" style="font-size: 0.8em" value="Devolver"/>
                              </p:column>
 
+                             <p:column headerText="Refazer" style="width:70px;  font-size: 1em">
+                                 <p:commandButton action="#{atendimentoBean.qualidade(atend1.id)}" value="Descartar" style="font-size: 0.8em;" update="formularioDashBoard"/>
+                             </p:column>
+                             
+                             
                          </p:dataTable>
                      </p:panel>
 
@@ -238,11 +253,11 @@
                                  <h:outputText value="#{car.id}" />
                              </p:column>`
 
-                             <p:column headerText="Cliente" sortBy="#{car.nome}" width="15%">
+                             <p:column headerText="Cliente" sortBy="#{car.nome}" width="10%">
                                  <h:outputText value="#{car.nome}" />
                              </p:column>
 
-                             <p:column headerText="Data" sortBy="#{car.dataatendimento}" width="8%">
+                             <p:column headerText="Data" sortBy="#{car.dataatendimento}" width="5%">
                                  <h:outputText value="#{car.dataatendimento}">
                                      <f:convertDateTime type="both" pattern="dd/MM/yy"/>
                                  </h:outputText>
@@ -250,15 +265,15 @@
 
                              </p:column>
 
-                             <p:column headerText="Status" sortBy="#{car.status}" style="width:70px; font-size: 0.95em">
+                             <p:column headerText="Status" sortBy="#{car.status}" width="5%" style="font-size: 0.95em">
                                  <h:outputText value="#{car.status}"  style="color: red;" rendered="#{car.status=='ABERTO'}"/>  
                                  <h:outputText value="#{car.status}"  style="color: blue; font-size: 0.8em" rendered="#{car.status=='EM ATENDIMENTO'}"/>
                                  <h:outputText value="#{car.status}"  style="color: green;" rendered="#{car.status=='Finalizado'}"/>
                              </p:column>    
 
 
-                             <p:column headerText="Atender" style="width:35px;">
-                                 <p:commandButton action="#{atendimentoBean.listaDetalheAtendimento(car.id)}"  style="font-size: 0.8em;" value="Atender"/>
+                             <p:column headerText="Atender"  width="7%" >
+                                 <p:commandButton action="#{atendimentoBean.listaDetalheAtendimento(car.id)}"  style="font-size: 1em;" value="Atender"/>
                              </p:column>
 
 
@@ -324,9 +339,6 @@
                              <p:column headerText="Status"  style="width: 5%">
                                  <h:outputText value="#{listatudo.status}" />
                              </p:column>
-
-
-
 
                              <p:column headerText="Observação">
                                  <h:outputText value="#{listatudo.obs}" />

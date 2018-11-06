@@ -3,14 +3,11 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                 
+                template="/WEB-INF/template.xhtml"
                 >
                 
-    <ui:define name="title">Empty Page</ui:define>
+    <ui:define name="content">
     <h:form id="formstat">
-        
-    
-   
    
     <div class="ui-g">
         <div class="ui-g-12">
@@ -258,23 +255,14 @@
                             </h:outputText>
                         </p:column>
                     
-                      <p:column headerText="Abrir" style="width:7%;">
-                          <p:commandButton action="#{estatisticaBean.detalhar(listatudo.nome,listatudo.negocio)}"  style="font-size: 1em;" value="DETALHAR"/>
-                        </p:column>
+                       <!--<p:column headerText="Abrir" style="width:7%;">
+                         <p:commandButton action="#{estatisticaBean.detalhar(listatudo.nome,listatudo.negocio)}"  style="font-size: 1em;" value="DETALHAR"/>
+                        </p:column>-->
                      
 
                     </p:dataTable>
                        
-                
-                
-                       
-                
-                
-                
-                
-                
-                
-                
+                     
                 
             </div>
             
@@ -284,5 +272,7 @@
     </div>
 
 </h:form>
+        
+    </ui:define>  
 
 </ui:composition>

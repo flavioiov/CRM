@@ -53,255 +53,251 @@
     <ui:define id="content" name="content">
         
         <h:form id="fomrularioDashBoardadm">
+
+
+
+            <f:metadata>
+                <f:viewAction action="#{guestPreferences.setTheme('green-purple')}" />
+                <f:viewAction action="#{admBean.listar_minhasLigacoes()}" />
+                <f:viewAction action="#{admBean.listar_meusAtendimentos()}" />
+                <f:viewAction action="#{admBean.listarMinhaAgenda()}" />
+
+
+                <f:viewAction action="#{relatoriosBean.listarEstatisticas()}" />
+                
+                <f:viewAction action="#{estatisticaBean.listarEstatisticas()}" />
+                
+                  <f:viewAction action="#{relatoriosBean.listar_todasCompras()}" />
+
+            </f:metadata> 
+
+
+
+
+            <div class="ui-g dashboard">
+                <div class="ui-g-12 ui-lg-6 ui-xl-3">
+                    <div class="ui-g overview-box overview-box-1">
+                        <div class="overview-box-icon">
+                            <i class="fa fa-inbox" />
+                        </div>
+                        <div class="overview-box-content">
+                            <div class="overview-box-title">ATENDIMENTOS EM ABERTO</div>
+                            <div class="overview-box-stats">#{admBean.listaAbertos.size()}</div>
+                            <div class="overview-box-details">Clientes que ainda não foram atendidos</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-lg-6 ui-xl-3">
+                    <div class="ui-g overview-box overview-box-2">
+                        <div class="overview-box-icon">
+                            <i class="fa fa-map-marker" />
+                        </div>
+                        <div class="overview-box-content">
+                            <div class="overview-box-title">TOTAL ATENDIMENTOS</div>
+                            <div class="overview-box-stats">#{admBean.listaMeusAtendimentos.size()}</div>
+                            <div class="overview-box-details">Meus atendimentos em andamento</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-lg-6 ui-xl-3">
+                    <div class="ui-g overview-box overview-box-3">
+                        <div class="overview-box-icon">
+                            <i class="fa fa-folder" />
+                        </div>
+                        <div class="overview-box-content">
+                            <div class="overview-box-title">ATIVIDADES HOJE</div>
+                            <div class="overview-box-stats">25</div>
+                            <div class="overview-box-details">Atividades que preciso fazer hoje</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-lg-6 ui-xl-3">
+                    <div class="ui-g overview-box overview-box-4">
+                        <div class="overview-box-icon">
+                            <i class="fa fa-user" />
+                        </div>
+                        <div class="overview-box-content">
+                            <div class="overview-box-title">LIGAÇÕES A RETORNAR</div>
+                            <div class="overview-box-stats">#{admBean.listarminhasligacoes.size()}</div>
+
+                            <div class="overview-box-details">Ligações a Retornar</div>
+                        </div>
+                    </div>
+                </div>
+
             
-        
-        
-        <f:metadata>
-           <!-- <f:viewAction action="#{guestPreferences.setTheme('green-purple')}" />-->
-            <f:viewAction action="#{admBean.listar_minhasLigacoes()}" />
-              <f:viewAction action="#{admBean.listar_meusAtendimentos()}" />
-              <f:viewAction action="#{admBean.listarMinhaAgenda()}" />
-              
-           
-          <f:viewAction action="#{estatisticaBean.listarEstatisticas()}" />
-  
-              
-        </f:metadata> 
-            
+                <br/><br/>
+                <p:tabView style="margin-top: 20px; margin-bottom: 20px">
+                    <p:tab title="ATENDIMENTOS" >
+                        <br></br>
 
-        
-
-        <div class="ui-g dashboard">
-            <div class="ui-g-12 ui-lg-6 ui-xl-3">
-                <div class="ui-g overview-box overview-box-1">
-                    <div class="overview-box-icon">
-                         <i class="fa fa-inbox" />
-                    </div>
-                    <div class="overview-box-content">
-                        <div class="overview-box-title">ATENDIMENTOS EM ABERTO</div>
-                        <div class="overview-box-stats">#{admBean.listaAbertos.size()}</div>
-                        <div class="overview-box-details">Clientes que ainda não foram atendidos</div>
-                    </div>
-                </div>
-            </div>
-            <div class="ui-g-12 ui-lg-6 ui-xl-3">
-                <div class="ui-g overview-box overview-box-2">
-                    <div class="overview-box-icon">
-                         <i class="fa fa-map-marker" />
-                    </div>
-                    <div class="overview-box-content">
-                        <div class="overview-box-title">TOTAL ATENDIMENTOS</div>
-                        <div class="overview-box-stats">#{admBean.listaMeusAtendimentos.size()}</div>
-                        <div class="overview-box-details">Meus atendimentos em andamento</div>
-                    </div>
-                </div>
-            </div>
-            <div class="ui-g-12 ui-lg-6 ui-xl-3">
-                <div class="ui-g overview-box overview-box-3">
-                    <div class="overview-box-icon">
-                         <i class="fa fa-folder" />
-                    </div>
-                    <div class="overview-box-content">
-                        <div class="overview-box-title">ATIVIDADES HOJE</div>
-                        <div class="overview-box-stats">25</div>
-                        <div class="overview-box-details">Atividades que preciso fazer hoje</div>
-                    </div>
-                </div>
-            </div>
-            <div class="ui-g-12 ui-lg-6 ui-xl-3">
-                <div class="ui-g overview-box overview-box-4">
-                    <div class="overview-box-icon">
-                         <i class="fa fa-user" />
-                    </div>
-                    <div class="overview-box-content">
-                        <div class="overview-box-title">LIGAÇÕES A RETORNAR</div>
-                        <div class="overview-box-stats">#{admBean.listarminhasligacoes.size()}</div>
-                     
-                        <div class="overview-box-details">Ligações a Retornar</div>
-                    </div>
-                </div>
-            </div>
-
-            
-            <br/><br/>
-            <p:tabView style="margin-top: 20px; margin-bottom: 20px">
-                <p:tab title="ATENDIMENTOS" >
-                    <br></br>
-              
-
-
-                <f:facet name="header">
-                    ATENDIMENTOS EM ANDAMENTO
-                    <span class="header-helper">Last Update: 21m</span>
-                </f:facet>
-
-
-                <p:panel header="ATENDIMENTOS" id="painel2" >
-
-
-
-                    <p:dataTable var="atend1" value="#{admBean.listaMeusAtendimentos}" selectionMode="single" reflow="true"
-                                 id="tableAtendimento2" rowKey="#{atend1.id}"  style="font-size:1.2em"
-                                 paginator="true" 
-                                 rows="50">
                         <f:facet name="header">
-                            ATENDIMENTOS EM ABERTO E ANDAMENTO
+                            ATENDIMENTOS EM ANDAMENTO
+                            <span class="header-helper">Last Update: 21m</span>
                         </f:facet>
-                        
-                        <p:column headerText="Id" sortBy="#{atend1.id}" style="width: 4%">
-                            <h:outputText value="#{atend1.id}" />
+
+
+                        <p:panel header="ATENDIMENTOS" id="painel2" >
+
+                            <p:dataTable var="atend1" value="#{admBean.listaMeusAtendimentos}" selectionMode="single" reflow="true"
+                                         id="tableAtendimento2" rowKey="#{atend1.id}"  style="font-size:1.2em"
+                                         paginator="true" 
+                                         rows="50">
+                                <f:facet name="header">
+                                    ATENDIMENTOS EM ABERTO E ANDAMENTO
+                                </f:facet>
+
+                                <p:column headerText="Id" sortBy="#{atend1.id}" style="width: 4%">
+                                    <h:outputText value="#{atend1.id}" />
+                                </p:column>
+
+                                <p:column headerText="Data" sortBy="#{atend1.dataatendimento}" style="width:6%"> 
+                                    <h:outputText value="#{atend1.dataatendimento}">
+                                        <f:convertDateTime type="both" pattern="dd/MM/yy"/>
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column headerText="Hora" sortBy="#{atend1.horaatendimento}"  style="width:4%">
+                                    <h:outputText value="#{atend1.horaatendimento.substring(0, 5)}" />
+                                </p:column>
+
+                                <p:column filterBy="#{atend1.nome}" headerText="Cliente" sortBy="#{atend1.nome}" footerText="contains"  width="15%" filterMatchMode="contains">
+                                    <h:outputText value="#{atend1.nome}" />
+                                </p:column>
+
+                                <p:column headerText="Como Chegou" sortBy="#{atend1.comochegou}" style="width:5%">
+                                    <h:outputText value="#{atend1.comochegou}"/>
+                                </p:column>
+
+                                <p:column headerText="Assunto" sortBy="#{atend1.negocio}">
+                                    <h:outputText value="#{atend1.negocio}"/>
+                                </p:column>
+
+                                <p:column headerText="Assunto" sortBy="#{atend1.motivofinalizou}">
+                                    <h:outputText value="#{atend1.motivofinalizou}"/>
+                                </p:column>
+
+                                <p:column headerText="Grau Interesse" sortBy="#{atend1.interesse}"  style="width:5%">
+                                    <h:outputText value="#{atend1.interesse}" />
+                                </p:column>
+
+                                <p:column headerText="Tipo " sortBy="#{atend1.tipoimovel}" style="width:5%">
+                                    <h:outputText value="#{atend1.tipoimovel}" />
+                                </p:column>
+
+
+                                <p:column headerText="R$ Max Aluguel" sortBy="#{atend1.valormaxaluguel}" style="width:5%">
+                                    <h:outputText value="#{atend1.valormaxaluguel}">
+                                        <f:convertNumber type="currency" currencySymbol=""/>
+                                    </h:outputText>    
+                                </p:column>
+
+
+                                <p:column headerText="R$ Max Venda" sortBy="#{atend1.valormaxvenda}" style="width:5%">
+
+                                    <h:outputText value="#{atend1.valormaxvenda}">
+                                        <f:convertNumber type="currency" currencySymbol=""/>
+
+                                    </h:outputText>
+                                </p:column>
+
+
+                                <p:column headerText="VER" style="width:6%">
+
+                                    <p:commandButton action="#{admBean.listaDetalheAtendimento(atend1.id)}" style="font-size: 1em; font-weight: bold" value="Ver +"/>
+                                </p:column>
+
+
+
+
+                                <p:column headerText="Status" sortBy="#{atend1.status}" style="width:70px; font-size: 0.95em">
+                                    <h:outputText value="#{atend1.status}"  style="color: red;" rendered="#{atend1.status=='ABERTO'}"/>  
+                                    <h:outputText value="#{atend1.status}"  style="color: blue; font-size: 0.8em" rendered="#{atend1.status=='EM ATENDIMENTO'}"/>
+                                    <h:outputText value="#{atend1.status}"  style="color: green;" rendered="#{atend1.status=='Finalizado'}"/>
+                                    <h:outputText value="#{atend1.status}"  style="color: RED;" rendered="#{atend1.status=='QUALIDADE'}"/>
+                                    <h:outputText value="#{atend1.status}"  style="color: green;" rendered="#{atend1.status=='DIRECIONADO'}"/>
+                                </p:column>
+
+                                <p:column headerText="Refazer" style="width:7%">
+
+                                    <p:commandButton action="#{admBean.qualidade(atend1.id)}" value="Qualidade" update="fomrularioDashBoardadm"/>
+
+
                         </p:column>
                         
-                        <p:column headerText="Data" sortBy="#{atend1.dataatendimento}" style="width:6%"> 
-                            <h:outputText value="#{atend1.dataatendimento}">
-                                <f:convertDateTime type="both" pattern="dd/MM/yy"/>
-                            </h:outputText>
-                        </p:column>
-
-                        <p:column headerText="Hora" sortBy="#{atend1.horaatendimento}"  style="width:4%">
-                            <h:outputText value="#{atend1.horaatendimento.substring(0, 5)}" />
-                        </p:column>
-
-
-
-                         <p:column filterBy="#{atend1.nome}" headerText="Cliente" sortBy="#{atend1.nome}" footerText="contains"  width="15%" filterMatchMode="contains">
-                            <h:outputText value="#{atend1.nome}" />
-                        </p:column>
-
-                        <p:column headerText="Como Chegou" sortBy="#{atend1.comochegou}" style="width:5%">
-                            <h:outputText value="#{atend1.comochegou}"/>
-                        </p:column>
                         
-                        <p:column headerText="Assunto" sortBy="#{atend1.negocio}">
-                            <h:outputText value="#{atend1.negocio}"/>
-                        </p:column>
-
-
-
-                        <p:column headerText="Grau Interesse" sortBy="#{atend1.interesse}"  style="width:5%">
-                            <h:outputText value="#{atend1.interesse}" />
-                        </p:column>
-
-
-
-                      
-
-
-                        <p:column headerText="Tipo " sortBy="#{atend1.tipoimovel}" style="width:5%">
-                            <h:outputText value="#{atend1.tipoimovel}" />
-                        </p:column>
-
-
-                        <p:column headerText="R$ Max Aluguel" sortBy="#{atend1.valormaxaluguel}" style="width:5%">
-                            <h:outputText value="#{atend1.valormaxaluguel}">
-                                <f:convertNumber type="currency" currencySymbol=""/>
-                            </h:outputText>    
-                        </p:column>
-
-
-                        <p:column headerText="R$ Max Venda" sortBy="#{atend1.valormaxvenda}" style="width:5%">
-
-                            <h:outputText value="#{atend1.valormaxvenda}">
-                                <f:convertNumber type="currency" currencySymbol=""/>
-
-                            </h:outputText>
-                        </p:column>
-
-
-                        <p:column headerText="VER" style="width:6%">
-
-                            <p:commandButton action="#{admBean.listaDetalheAtendimento(atend1.id)}" style="font-size: 1em; font-weight: bold" value="Ver +"/>
-                        </p:column>
-
-
-
-
-                        <p:column headerText="Status" sortBy="#{atend1.status}" style="width:70px; font-size: 0.95em">
-                            <h:outputText value="#{atend1.status}"  style="color: red;" rendered="#{atend1.status=='ABERTO'}"/>  
-                            <h:outputText value="#{atend1.status}"  style="color: blue; font-size: 0.8em" rendered="#{atend1.status=='EM ATENDIMENTO'}"/>
-                            <h:outputText value="#{atend1.status}"  style="color: green;" rendered="#{atend1.status=='Finalizado'}"/>
-                        </p:column>
                         
-                         <p:column headerText="Refazer" style="width:7%">
-
-                            <p:commandButton action="#{admBean.qualidade(atend1.id)}" style="font-size: 1em; font-weight: bold" value="Qualidade"/>
+                        <p:column headerText="Devolver" style="width:75px">
+                                 <p:commandButton action="#{atendimentoBean.devolverAtendimento(atend1.id)}"  value="Devolver"/>
                         </p:column>
 
 
-                        <p:column headerText="Corretor" sortBy="#{atend1.corretor}" style="width:5%">
-                            <h:outputText value="#{atend1.corretor}" />
-                        </p:column>    
+                                <p:column headerText="Corretor" sortBy="#{atend1.corretor}" style="width:5%">
+                                    <h:outputText value="#{atend1.corretor}" />
+                                </p:column>    
 
-                        <p:column headerText="Apagar" style="width:5%">
-                            <p:commandButton value="Apagar" style="font-size: 1em; font-weight: bold" rendered="#{configura}" 
-                                             update="tableAtendimento2"
-                                             actionListener="#{atendimentoBean.apagarAtendimento(atend1.id)}">  
+                                <p:column headerText="Apagar" style="width:5%">
+                                    <p:commandButton value="Apagar" style="font-size: 1em; font-weight: bold" rendered="#{configura}" 
+                                                     update="tableAtendimento2"
+                                                     actionListener="#{atendimentoBean.apagarAtendimento(atend1.id)}">  
 
-                                <p:confirm header="Confirmação" message="Você tem Certeza que deseja APAGAR ESTE ATENDIMENTO  ?" icon="ui-icon-alert" />
-                            </p:commandButton>
+                                        <p:confirm header="Confirmação" message="Você tem Certeza que deseja APAGAR ESTE ATENDIMENTO  ?" icon="ui-icon-alert" />
+                                    </p:commandButton>
 
-                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                <p:commandButton value="SIM" type="button"  styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                                <p:commandButton value="NÃO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                            </p:confirmDialog>
-                        </p:column>
-                    </p:dataTable>
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                        <p:commandButton value="SIM" type="button"  styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                        <p:commandButton value="NÃO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                    </p:confirmDialog>
+                                </p:column>
+                            </p:dataTable>
 
-                </p:panel>
-
-
-                </p:tab>
-                <p:tab title="O QUE OS CORRETORES PRECISAM FAZER">
-                     
-                    <p:panel header="LIGAÇÕES / RECADOS">
-                    <p:dataTable var="car" value="#{admBean.listarminhasligacoes}" selectionMode="single" reflow="true"
-                                 rowKey="#{car.id}" paginator="true" rows="10" style="font-size:1.25em">
-                        <f:facet name="header">
-                            LIGAÇÕES A RETORNAR
-                        </f:facet>
-                        <p:column headerText="Falar Com" sortBy="#{car.euquero}">
-                            <h:outputText value="#{car.euquero}" />
-                        </p:column>
-
-                        <p:column headerText="Cliente" sortBy="#{car.atendente}">
-                            <h:outputText value="#{car.nome}" />
-                        </p:column>
-
-                        <p:column headerText="Data" sortBy="#{car.dataatendimento}">
-                            <h:outputText value="#{car.dataatendimento}">
-                                <f:convertDateTime type="both" pattern="dd/MM/yyyy"/>
-                            </h:outputText>
-                        </p:column>
+                        </p:panel>
 
 
-                        <p:column headerText="Hora">
-                            <h:outputText value="#{car.horaatendimento.substring(0, 5)}" />
-                        </p:column>
+                    </p:tab>
+                    <p:tab title="O QUE OS CORRETORES PRECISAM FAZER">
 
-                        <p:column headerText="Retornar">
+                        <p:panel header="LIGAÇÕES / RECADOS">
+                            <p:dataTable var="car" value="#{admBean.listarminhasligacoes}" selectionMode="single" reflow="true"
+                                         rowKey="#{car.id}" paginator="true" rows="10" style="font-size:1.25em">
+                                <f:facet name="header">
+                                    LIGAÇÕES A RETORNAR
+                                </f:facet>
+                                <p:column headerText="Falar Com" sortBy="#{car.euquero}">
+                                    <h:outputText value="#{car.euquero}" />
+                                </p:column>
 
-                            <p:commandButton action="#{admBean.listaDetalheAtendimento(car.id)}"  value="DAR RETORNO"/>
-                        </p:column>
+                                <p:column headerText="Cliente" sortBy="#{car.atendente}">
+                                    <h:outputText value="#{car.nome}" />
+                                </p:column>
 
-                        
-                        <p:column headerText="Apagar">
-                            <p:commandButton value="Apagar" style="font-size: 1em; font-weight: bold" 
-                                          
-                                             actionListener="#{atendimentoBean.apagarAtendimento(car.id)}">  
+                                <p:column headerText="Data" sortBy="#{car.dataatendimento}">
+                                    <h:outputText value="#{car.dataatendimento}">
+                                        <f:convertDateTime type="both" pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                </p:column>
 
-                                
-                            </p:commandButton>
+                                <p:column headerText="Hora">
+                                    <h:outputText value="#{car.horaatendimento.substring(0, 5)}" />
+                                </p:column>
 
-                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                <p:commandButton value="SIM" type="button"  styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                                <p:commandButton value="NÃO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                            </p:confirmDialog>
-                        </p:column>
+                                <p:column headerText="Retornar">
 
-                        
+                                    <p:commandButton action="#{admBean.listaDetalheAtendimento(car.id)}"  value="DAR RETORNO"/>
+                                </p:column>
 
-                    </p:dataTable>
-                </p:panel>
+                                <p:column headerText="Apagar">
+                                    <p:commandButton value="Apagar" style="font-size: 1em; font-weight: bold" 
+                                                     actionListener="#{atendimentoBean.apagarAtendimento(car.id)}">  
+                                    </p:commandButton>
+
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                        <p:commandButton value="SIM" type="button"  styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                        <p:commandButton value="NÃO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                    </p:confirmDialog>
+                                </p:column>
+                            </p:dataTable>
+                        </p:panel>
                     
                     
                     <p:panel  style="height:50%">
@@ -310,8 +306,6 @@
                     <p:dataTable var="listatudo" value="#{admBean.listatodasatividades}" selectionMode="single" reflow="true"
                                  rowKey="#{listatudo.id}" paginator="true" rows="33" style="font-size: 1.25em">
                     
-                  
-
                         <f:facet name="header">
                             <h:outputText value="#{listatudo.data}" />
                         </f:facet>
@@ -376,7 +370,8 @@
                     <ui:include src="estatisticas.xhtml"/>
                     
                 </p:tab>
-                
+                    
+               
                 
                 <p:tab title="ATENDIMENTOS A REVISAR">
                      <p:panel>
@@ -407,7 +402,9 @@
                         </p:column>
 
                         <p:column headerText="Status" sortBy="#{car.status}" style="width:70px; font-size: 0.95em">
-                            <h:outputText value="#{car.status}"  style="color: red;" rendered="#{car.status=='ABERTO'}"/>  
+                            <h:outputText value="#{car.status}"  style="color: red;" rendered="#{car.status=='ABERTO'}"/> 
+                            <h:outputText value="#{car.status}"  style="color: red;" rendered="#{car.status=='DIRECIONADO'}"/> 
+                            <h:outputText value="#{car.status}"  style="color: red;" rendered="#{car.status=='QUALIDADE'}"/> 
                             <h:outputText value="#{car.status}"  style="color: blue; font-size: 0.8em" rendered="#{car.status=='EM ATENDIMENTO'}"/>
                             <h:outputText value="#{car.status}"  style="color: green;" rendered="#{car.status=='Finalizado'}"/>
                         </p:column>    
@@ -422,13 +419,14 @@
                 </p:panel>
                 </p:tab>
                 
+                <p:tab title="COMPRAS">
+                    
+                    <ui:include src="estatisticas_1.xhtml"/>
+                    
+                </p:tab>
                 
             </p:tabView>
-            
-
-           
-          
-
+        
         </div>
         </h:form>
     </ui:define>

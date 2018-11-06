@@ -8,6 +8,7 @@ package beans;
 import geral.Classe_Geral;
 import geral.CustomDataSource;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 import java.util.List;
 import java.sql.SQLException;
@@ -19,6 +20,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -26,10 +28,13 @@ import javax.servlet.http.HttpSession;
  *
  * @author Flavio
  */
+
+import beans.relatoriosBean;
 import modelos.Atendimento;
 import modelos.Agenda;
 import modelos.Acoes;
 import modelos.Usuarios;
+
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
@@ -252,6 +257,28 @@ public class atendimentoBean {
         this.permissao = permissao;
     }
     
+    private String acessaAcoes;
+
+    public String getAcessaAcoes() {
+        return acessaAcoes;
+    }
+
+    public void setAcessaAcoes(String acessaAcoes) {
+        this.acessaAcoes = acessaAcoes;
+    }
+
+    public String getMostraVermais() {
+        return mostraVermais;
+    }
+
+    public void setMostraVermais(String mostraVermais) {
+        this.mostraVermais = mostraVermais;
+    }
+    
+    
+    
+    private String mostraVermais="nao";
+    
     
 
     private String[] myArray;
@@ -378,8 +405,15 @@ public class atendimentoBean {
 
        
         
+        if (atd.getCorretor()!=null){
+            atd.setStatus("DIRECIONADO");
+            System.out.println("Atendimento direcionado");
+        }else{
+            atd.setStatus("ABERTO");
+        }
         
-        atd.setStatus("ABERTO");
+        
+        
         
         
         //Foi necessário setar o 4 campos abaixo com o valor de chaves sem nada pois 
@@ -397,7 +431,18 @@ public class atendimentoBean {
             atd.setTipoimovel("[Apartamento]");
             atd.setBairros("[Britânia]");
             atd.setCaracteristicas("[Churrasqueira, Varanda Gourmet, 2 Quartos, 1 Vaga, Financiamento, 2 Banheiros]");
-              
+            atd.setTamanho(77);
+            
+            double val = 355000.00;
+             
+
+            BigDecimal.valueOf(val);
+            
+            
+            atd.setValormaxvenda(new BigDecimal(val));
+            atd.setValorminvenda(new BigDecimal(val));
+           
+            //terminar de setar valor para Ed. Evora
             
      }
         
@@ -412,7 +457,7 @@ public class atendimentoBean {
         ///int inser=cg2.inserirDadosTabela("detalheatendimento",dtla); NAO RESOLVEU QUANDO O USUARIO NAO TERMINA O REGISTRO
        
 
-        this.atdEscolhido=buscaAtendimento(inserido);
+        this.atdEscolhido=buscaAtendimento(inserido); //busca o atendimento escolhido
         
         if (atdEscolhido.getCaracteristicas().equals("[]")) {
 
@@ -452,12 +497,6 @@ public class atendimentoBean {
             atdEscolhido.setImovelArray(tipoimovelstring.split(","));
 
         }
-            
-        
-        
-        
-        
-        
          
         if ( (atd.getCorretor())==null) {
         
@@ -478,8 +517,33 @@ public class atendimentoBean {
         
         this.buscaAgenda(atdEscolhido.getId());
         
+        this.setAcessaAcoes("false");
+        
+        if(listaAtividades.isEmpty()){
+             
+             acessaAcoes="false";            
+        } else {
+            this.setAcessaAcoes("true");
+            
+        }
+       
+        
         
     }
+    
+    
+    public void botaoVermais(int cadastro) throws SQLException, IOException{ //botao na tela /relatorios/estatistica_1.xhtml usado para abrir triagem no local certo
+        
+        mostraVermais="sim";
+        this.listaDetalheAtendimento(cadastro);
+        
+        System.out.println("**** clicou botão ver + **** /relatorios/estatistica_1.xhtml");
+        
+    }
+    
+    
+    
+    
    
     
     //Método utilizado no Botao ATENDER do DashBoard
@@ -545,7 +609,15 @@ public class atendimentoBean {
 
         }
 
-        FacesContext.getCurrentInstance().getExternalContext().redirect("triar_atendimento.jsf");
+        
+        if (mostraVermais.equals("sim")){
+            FacesContext.getCurrentInstance().getExternalContext().redirect("../triar_atendimento.jsf");
+            
+        }else{
+            FacesContext.getCurrentInstance().getExternalContext().redirect("triar_atendimento.jsf");
+        }
+        
+        
 
         this.buscaAgenda(atdEscolhido.getId());
         
@@ -564,23 +636,18 @@ public class atendimentoBean {
         
       
         
+        if(listaAtividades.isEmpty()){
+             
+            this.setAcessaAcoes("false");         
+        } else {
+            this.setAcessaAcoes("true");
+            
+        }
+        
     }
 
     
-    public void validaCampos() throws IOException, SQLException, ParseException{
-        
-        
-        if (listaAtividades.isEmpty()){
-            
-             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Sem ATIVIDADES ?","..."));
-              
-        }
-              
-        this.gravarAtividades();
-        
-        
-        
-    }
+  
     
     public void gravadetalheAtendimento() throws SQLException, IOException { //metodo utilizado para gravar detalhe atendimento quando o usuário não esta logado.
 
@@ -745,6 +812,38 @@ public class atendimentoBean {
         
         FacesContext.getCurrentInstance().getExternalContext().redirect("dashboardcrm.jsf");
      }
+     
+     
+     
+     
+     public void qualidade(int cadastro) throws SQLException{
+        
+       
+        Classe_Geral muda_agenda = new Classe_Geral("agenda");
+        muda_agenda.alteraCorretorAgenda("qualidade", cadastro);
+        
+        
+        Classe_Geral muda_atendimento= new Classe_Geral("atendimento");
+        muda_atendimento.pegaAtendimento("Qualidade", cadastro);
+        
+        muda_atendimento.updatevalor("atendimento", "status","QUALIDADE",cadastro);
+        
+        muda_atendimento.updatevalor("atendimento", "atendente",atdEscolhido.getCorretor(), cadastro);
+  
+        //precisa atualizar a lista 
+        this.listar_meusAtendimentos();
+        
+
+        
+        
+        RequestContext.getCurrentInstance().update("tableAtendimento2");
+        
+        System.out.println("****** Atendimento setado para Qualidade ********");
+        
+        
+    }
+     
+     
 
 
     public Atendimento buscaAtendimento(int cadastro) throws SQLException, IOException {
@@ -762,18 +861,30 @@ public class atendimentoBean {
 
         usuarioLogado = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
 
-        String sql = "SELECT * FROM crm.atendimento where (corretor='" + usuarioLogado + "' OR corretor is null OR status='ABERTO') AND (euquero NOT LIKE '%falar%') order by id desc";
-
+        String sql="";
+        if(usuarioLogado.equals("qualidade")){
+            
+         sql = "SELECT * FROM crm.atendimento where (corretor='" + usuarioLogado + "') AND (euquero NOT LIKE '%falar%')  order by id desc";
+        }else {
+            
+         //  sql = "SELECT * FROM crm.atendimento where (corretor='" + usuarioLogado + "' OR corretor is null OR status='ABERTO') AND (euquero NOT LIKE '%falar%') AND " +
+//"id not in ( select id from crm.atendimento where corretor='qualidade') order by id desc";
+           
+            sql = "SELECT * FROM crm.atendimento where (euquero NOT LIKE '%falar%') AND (\n"
+                    + "(corretor='" + usuarioLogado + "' OR corretor is null ) OR (status='ABERTO' AND corretor not like '" + usuarioLogado + "') AND \n"
+                    + "id not in ( select id from crm.atendimento where corretor='qualidade' )) order by id desc";
+             
+        }
+        
+        
+     
         ResultSetHandler<List<Atendimento>> h = new BeanListHandler<Atendimento>(Atendimento.class);
         QueryRunner run = new QueryRunner(CustomDataSource.getInstance());
         listaMeusAtendimentos = run.query(sql, h);
-        
-        
+         
         this.loadStatisticsDashboard();
         this.atividadesRevisar();
-        
-        
-        
+         
     }
 
     
@@ -882,7 +993,11 @@ public class atendimentoBean {
     
     
     public void gravarAtividades() throws IOException, SQLException, ParseException{
-          if(agenda.getData()!=null){
+         
+        System.out.println("Botão Gravar Atividade Pressionado");
+        
+        
+        if(agenda.getData()!=null){
            
            Timestamp a=testaTMS(agenda.getData());
 
@@ -906,11 +1021,9 @@ public class atendimentoBean {
          
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Obrigado :-)", "Atividade Agendada com Sucesso !"));
-        RequestContext.getCurrentInstance().update("msg");
-        RequestContext.getCurrentInstance().update("form_atividade2");
-         RequestContext.getCurrentInstance().update("atendimento:form_atividademain");
         
-        RequestContext.getCurrentInstance().update("formabriratividade");
+        RequestContext.getCurrentInstance().update("form_atividade2");
+        RequestContext.getCurrentInstance().update("atendimento");
         
         
             
@@ -983,9 +1096,10 @@ public class atendimentoBean {
             RequestContext.getCurrentInstance().execute("PF('dlg4').hide();");
 
           
+            agenda = new Agenda();
         
             
-            RequestContext.getCurrentInstance().update("formabriratividade");
+            RequestContext.getCurrentInstance().update("atendimento");
 
         }else{
            FacesContext context = FacesContext.getCurrentInstance();
@@ -1012,6 +1126,62 @@ String sql7 = "SELECT id,nome,dataatendimento,status,corretor FROM crm.atendimen
     }
 
 
+    
+     public void onInputChanged(ValueChangeEvent event) { //calcula valor minimo do aluguel
+         
+        // FacesMessage message = new FacesMessage("Input Changed", "Value: " + event.getNewValue());
+       // FacesContext.getCurrentInstance().addMessage(null, message);
+        
+        String aa = event.getNewValue().toString();
+        
+        
+        BigDecimal valormin= new BigDecimal(aa);
+        
+        BigDecimal menos30= new BigDecimal(0.8);
+        
+        
+        valormin=valormin.multiply(menos30);
+        
+        atdEscolhido.setValorminaluguel(valormin);
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        
+       
+        
+        RequestContext.getCurrentInstance().update("atendimento:nmb3");
+        
+        
+        
+        
+    }
+    
+ public void onInputChangedvenda(ValueChangeEvent event) { //calcula valor minimo do aluguel
+         
+        // FacesMessage message = new FacesMessage("Input Changed", "Value: " + event.getNewValue());
+       // FacesContext.getCurrentInstance().addMessage(null, message);
+        
+        String aa = event.getNewValue().toString();
+        
+        
+        BigDecimal valormin= new BigDecimal(aa);
+        
+        BigDecimal menos30= new BigDecimal(0.8);
+        valormin=valormin.multiply(menos30); //multiplica o valormin por 0.8
+        
+        atdEscolhido.setValorminvenda(valormin);
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        
+        RequestContext.getCurrentInstance().update("atendimento:nmb1");
+        
+        
+        
+        
+    }
+        
+     
+     
+   
 
 }
     
