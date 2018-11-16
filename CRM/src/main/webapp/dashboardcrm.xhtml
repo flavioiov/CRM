@@ -139,7 +139,9 @@
                      </f:facet>
 
 
-                     <p:panel header="MEUS ATENDIMENTOS OU ABERTOS" >
+                     <p:tabView id="tabs">
+                         <p:tab title="EM ANDAMENTO">
+                           
 
                          <p:dataTable var="atend1" value="#{atendimentoBean.listaMeusAtendimentos}" selectionMode="single" reflow="true"
                                       rowKey="#{atend1.id}" paginator="true" id="tabelaAtendimento" rows="20" style="font-size: 1.25em"
@@ -202,7 +204,83 @@
                              
                              
                          </p:dataTable>
-                     </p:panel>
+                     
+                     </p:tab>
+                         
+                         <p:tab title="FINALIZADOS">
+                     
+                             <p:dataTable var="atend1" value="#{atendimentoBean.listafinalizados}" selectionMode="single" reflow="true"
+                                      rowKey="#{atend1.id}" paginator="true" id="tabelaFinalizados" rows="20" style="font-size: 1.25em"
+                                      widgetVar="tableFinalizados">
+
+
+
+                             <p:column headerText="ID" style="width:25px">
+                                 <h:outputText value="#{atend1.id}" />
+                             </p:column>
+
+                             <p:column headerText="Data" sortBy="#{atend1.dataatendimento}" style="width:60px">
+                                 <h:outputText value="#{atend1.dataatendimento}">
+                                     <f:convertDateTime type="both" pattern="dd/MM/yy"/>
+                                 </h:outputText>
+                             </p:column>
+
+                             <p:column headerText="Hora" sortBy="#{atend1.horaatendimento}" style="width:40px">
+                                 <h:outputText value="#{atend1.horaatendimento.substring(0, 5)}" />
+                             </p:column>
+
+
+
+
+                             <p:column filterBy="#{atend1.nome}" headerText="Cliente" sortBy="#{atend1.nome}"  style="width:200px" filterMatchMode="contains">
+                                 <h:outputText value="#{atend1.nome}" />
+                             </p:column>
+
+
+                             <p:column headerText="Assunto" sortBy="#{atend1.negocio}" style="width:150px">
+                                 <h:outputText value="#{atend1.negocio}"/>
+                             </p:column>
+
+                             <p:column headerText="Status" sortBy="#{atend1.status}" style="width:100px; font-size: 0.95em">
+                                 <h:outputText value="#{atend1.status}"  style="color: red;" rendered="#{atend1.status=='ABERTO'}"/>  
+                                  <h:outputText value="#{atend1.status}"  style="color: red;" rendered="#{atend1.status=='DIRECIONADO'}"/> 
+                                  <h:outputText value="#{atend1.status}"  style="color: red;" rendered="#{atend1.status=='QUALIDADE'}"/> 
+                                 <h:outputText value="#{atend1.status}"  style="color: blue; font-size: 0.8em" rendered="#{atend1.status=='EM ATENDIMENTO'}"/>
+                                 <h:outputText value="#{atend1.status}"  style="color: green;" rendered="#{atend1.status=='Finalizado'}"/>
+                             </p:column>    
+
+                             <p:column headerText="Situação" sortBy="#{atend1.interesse}" style="width:90px">
+                                 <h:outputText value="#{atend1.motivofinalizou}" />
+                             </p:column>
+
+                             
+
+                             <p:column headerText="Atender" style="width:70px; font-size: 1em">
+                                 <p:commandButton action="#{atendimentoBean.listaDetalheAtendimento(atend1.id)}"  style="font-size: 0.8em;" value="Atender"/>
+                             </p:column>
+
+
+                             <p:column headerText="Devolver" style="width:70px;  font-size: 1em">
+                                 <p:commandButton action="#{atendimentoBean.devolverAtendimento(atend1.id)}" style="font-size: 0.8em" value="Devolver"/>
+                             </p:column>
+
+                             <p:column headerText="Refazer" style="width:70px;  font-size: 1em">
+                                 <p:commandButton action="#{atendimentoBean.qualidade(atend1.id)}" value="Descartar" style="font-size: 0.8em;" update="formularioDashBoard"/>
+                             </p:column>
+                             
+                             
+                         </p:dataTable>
+                             
+                             
+                             
+                             
+                         </p:tab>
+                         
+                         
+                     </p:tabView>
+                     
+                     
+                   
 
 
                  </div>

@@ -73,11 +73,32 @@ public class atendimentoBean {
     public List<Atendimento> listarminhasligacoes;
     
    public List<Atendimento> listaatendimentosrevisar;
+   public List<Atendimento> listafinalizados;
     public List<Atendimento> listaAbertos;
     public List<Atendimento> qtdatendimentoscorretor;
     public List<Agenda> listaAtividades;
     public List<Atendimento> listameusclientes;
-     public List<Agenda> listatodasatividades;
+    public List<Agenda> listatodasatividades;
+    public List<Acoes> listaOrigens;
+
+    public List<Acoes> getListaOrigens() {
+        return listaOrigens;
+    }
+
+    public void setListaOrigens(List<Acoes> listaOrigens) {
+        this.listaOrigens = listaOrigens;
+    }
+
+    public List<Atendimento> getListafinalizados() {
+        return listafinalizados;
+    }
+
+    public void setListafinalizados(List<Atendimento> listafinalizados) {
+        this.listafinalizados = listafinalizados;
+    }
+    
+    
+  
     
     public List<Acoes> listaacoes;
     
@@ -343,6 +364,7 @@ public class atendimentoBean {
             session.setAttribute("mostralogin","true");
             
             this.carregaComboCorretores();
+            this.carregaComboOrigens();
         
     }
     
@@ -501,7 +523,7 @@ public class atendimentoBean {
         if ( (atd.getCorretor())==null) {
         
             
-                FacesContext.getCurrentInstance().getExternalContext().redirect("detalhar_atendimento.jsf");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("triar_atendimento.jsf");
              
             
         } else {
@@ -861,32 +883,65 @@ public class atendimentoBean {
 
         usuarioLogado = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
 
-        String sql="";
-        if(usuarioLogado.equals("qualidade")){
-            
-         sql = "SELECT * FROM crm.atendimento where (corretor='" + usuarioLogado + "') AND (euquero NOT LIKE '%falar%')  order by id desc";
-        }else {
-            
-         //  sql = "SELECT * FROM crm.atendimento where (corretor='" + usuarioLogado + "' OR corretor is null OR status='ABERTO') AND (euquero NOT LIKE '%falar%') AND " +
-//"id not in ( select id from crm.atendimento where corretor='qualidade') order by id desc";
-           
+        String sql = "";
+        if (usuarioLogado.equals("qualidade")) {
+
+            sql = "SELECT * FROM crm.atendimento where (corretor='" + usuarioLogado + "') AND (euquero NOT LIKE '%falar%') AND STATUS not like 'Finalizado' order by id desc";
+        } else {
+
+            //  sql = "SELECT * FROM crm.atendimento where (corretor='" + usuarioLogado + "' OR corretor is null OR status='ABERTO') AND (euquero NOT LIKE '%falar%') AND " +
+            //"id not in ( select id from crm.atendimento where corretor='qualidade') order by id desc";
             sql = "SELECT * FROM crm.atendimento where (euquero NOT LIKE '%falar%') AND (\n"
-                    + "(corretor='" + usuarioLogado + "' OR corretor is null ) OR (status='ABERTO' AND corretor not like '" + usuarioLogado + "') AND \n"
+                    + "(corretor='" + usuarioLogado + "' AND STATUS not like 'Finalizado') OR (status='ABERTO') AND \n"
                     + "id not in ( select id from crm.atendimento where corretor='qualidade' )) order by id desc";
-             
+
         }
-        
-        
-     
+
         ResultSetHandler<List<Atendimento>> h = new BeanListHandler<Atendimento>(Atendimento.class);
         QueryRunner run = new QueryRunner(CustomDataSource.getInstance());
         listaMeusAtendimentos = run.query(sql, h);
-         
+
         this.loadStatisticsDashboard();
         this.atividadesRevisar();
-         
+        
+        this.listarFinalizados();
+
     }
 
+    
+    
+    
+    
+    public void listarFinalizados() throws SQLException{
+        
+        usuarioLogado = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
+
+        String sql = "";
+        if (usuarioLogado.equals("qualidade")) {
+
+            sql = "SELECT * FROM crm.atendimento where (corretor='" + usuarioLogado + "') AND (euquero NOT LIKE '%falar%') AND status like 'Finalizado'  order by id desc";
+        } else {
+
+            //  sql = "SELECT * FROM crm.atendimento where (corretor='" + usuarioLogado + "' OR corretor is null OR status='ABERTO') AND (euquero NOT LIKE '%falar%') AND " +
+            //"id not in ( select id from crm.atendimento where corretor='qualidade') order by id desc";
+            sql = "SELECT * FROM crm.atendimento where (euquero NOT LIKE '%falar%') AND (\n"
+                    + "(corretor='" + usuarioLogado + "' AND STATUS like 'Finalizado') AND \n"
+                    + "id not in ( select id from crm.atendimento where corretor='qualidade' )) order by id desc";
+
+        }
+
+        ResultSetHandler<List<Atendimento>> h = new BeanListHandler<Atendimento>(Atendimento.class);
+        QueryRunner run = new QueryRunner(CustomDataSource.getInstance());
+        listafinalizados = run.query(sql, h);
+
+        this.loadStatisticsDashboard();
+        this.atividadesRevisar();
+
+        
+        
+        
+        
+    }
     
     public void listar_minhasLigacoes() throws SQLException {
             
@@ -966,7 +1021,15 @@ public class atendimentoBean {
         listacorretores = QR7.query(sql177, h7);
             
     }
-    
+      
+      
+   public void carregaComboOrigens() throws SQLException{ //busca clientes do corretor agrupados
+        String sql177 = "SELECT origem as acao FROM crm.origensatendimento order by 1";
+        ResultSetHandler<List<Acoes>> h7 = new BeanListHandler<Acoes>(Acoes.class);
+        QueryRunner QR7 = new QueryRunner(CustomDataSource.getInstance());
+        listaOrigens = QR7.query(sql177, h7);
+            
+    }
     
    
     public Agenda buscaAtividade(int cadastro) throws SQLException, IOException {

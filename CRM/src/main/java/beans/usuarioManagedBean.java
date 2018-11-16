@@ -109,6 +109,13 @@ private Usuarios usuario = new Usuarios();
                     session.setAttribute("permission",listaUsuarios.get(0).getTipo());
                     session.setAttribute("unidade", listaUsuarios.get(0).getUnidade());
                     session.setAttribute("mostramenuentrarcrm", "false");
+                    
+                    
+                    if(listaUsuarios.get(0).getNome().equals("qualidade")){
+                        System.out.println("****** Usuário Qualidade Acionado********");
+                         session.setAttribute("userqualidade","true");
+                    }
+                    
                   
             }
                  
