@@ -193,10 +193,7 @@
                         <h:outputText value="#{listatudo.tipoimovel}" />
                     </p:column>
 
-                    <p:column headerText="Corretor"  style="width: 10%">
-                        <h:outputText value="#{listatudo.corretor}" />
-                    </p:column>
-
+                  
                     <p:column headerText="Negócio Fechado"  style="width: 15%">
                         <h:outputText value="#{listatudo.motivofinalizou}" />
                     </p:column>
@@ -238,10 +235,6 @@
                             <h:outputText value="#{listatudo.negocio}" />
                         </p:column>
                         
-                      <p:column headerText="Media Aluguel"  style="width: 7%">
-                          <h:outputText value="#{listatudo.tipoimovel}" />
-                        </p:column>
-                        
                         <p:column headerText="Media Aluguel"  style="width: 7%">
                             <h:outputText value="#{listatudo.corretor}" />
                         </p:column>
@@ -259,7 +252,7 @@
                         </p:column>
                     
                       <p:column headerText="Abrir" style="width:7%;">
-                          <p:commandButton action="#{estatisticaBean.detalhar(listatudo.nome,listatudo.negocio)}"  style="font-size: 1em;" value="DETALHAR"/>
+                          <p:commandButton action="#{estatisticaBean.detalhar(listatudo.nome,listatudo.negocio,listatudo.tipoimovel)}"  style="font-size: 1em;" value="DETALHAR"/>
                         </p:column>
                      
 

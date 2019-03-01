@@ -3,683 +3,115 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/template.xhtml">
+                >
    
-    <ui:define name="content">
+    
+
+        
         <div class="ui-g">
             <div class="ui-g-12">
-                <div class="card">
-                   
-                    <p:tabView>
+                <div class="ui-g-7">
+              
+  <style type="text/css">
+    .label {
+        width:20%;
+        padding:4px;
+    }
+ 
+    .value {
+        width:80%;
+        padding:4px;
+    }
+ 
+    .grid {
+        width:100%;
+    }
+ 
+    .error {
+        color: red;
+    }
+ 
+    .outputLabel {
+        font-weight: bold;
+    }
+ 
+    .grid {
+        width:33%;
+        padding:4px;
+    }
+</style>
+ 
+                    <script>
+                            function exemplo1(idade) {
+                                alert (idade);
+                                
+                                document.form.corretor.value=idade;
+                               console.log(valor);
+                                document.write(valor);
+                               
+                                
+                                alert(document.form.corretor.value);
+                                
+                                document.form.tempoContrato.value=valor;
+                            }
                          
-                        <p:tab title="LOCATÁRIOS">
-                            <br/><br/>
-                           
-                        <div id="form_formulario" style="font-size: 1.3em">
-
-                           
-                            <h:form id="formulariolocatarios">
-                                <p:growl id="growl" showDetail="true" sticky="true"/>
-
-                                <h:panelGrid columns="2"  cellspacing="10px">
-
-                                     <h:outputText value="CPF" title="Digite seu nome completo por favor" />
-                                    <p:inputText 
-                                        id="cpf"
-
-                                        title="Digite seu CPF  por favor" 
-                                        size="47"
-                                        style="font-size: 1.1em"
-                                        required="true" 
-                                        requiredMessage="Por favor, Preencha seu nome" 
-                                        maxlength="48"  
-                                        value="#{atendimentoBean.atd.nome}" 
-                                       
-                                        validatorMessage="Digite seu nome inteiro por favor"> 
-                                        <f:validateLength minimum="5" />
-                                    </p:inputText>
-                                      <h:outputText value="RG" title="Digite seu nome completo por favor" />
-                                    <p:inputText 
-                                        id="rg"
-
-                                        title="Digite seu nome completo por favor" 
-                                        size="47"
-                                        style="font-size: 1.1em"
-                                        required="true" 
-                                        requiredMessage="Por favor, Preencha seu nome" 
-                                        maxlength="48"  
-                                        value="#{atendimentoBean.atd.nome}" 
-                                       
-                                        validatorMessage="Digite seu nome inteiro por favor"> 
-                                        <f:validateLength minimum="5" />
-                                    </p:inputText>
-
-                                        <h:outputText value="Nacionalidade" title="Digite seu nome completo por favor" />
-                                    <p:inputText 
-                                        id="nacionalidade"
-
-                                        title="Digite seu nome completo por favor" 
-                                        size="47"
-                                        style="font-size: 1.1em"
-                                        required="true" 
-                                        requiredMessage="Por favor, Preencha seu nome" 
-                                        maxlength="48"  
-                                        value="#{atendimentoBean.atd.nome}" 
-                                       
-                                        validatorMessage="Digite seu nome inteiro por favor"> 
-                                        <f:validateLength minimum="5" />
-                                    </p:inputText>
-                                        
-                                            <h:outputText value="EstadoCivil" title="Digite seu nome completo por favor" />
-                                    <p:inputText 
-                                        id="estadocivil"
-
-                                        title="Digite seu nome completo por favor" 
-                                        size="47"
-                                        style="font-size: 1.1em"
-                                        required="true" 
-                                        requiredMessage="Por favor, Preencha seu nome" 
-                                        maxlength="48"  
-                                        value="#{atendimentoBean.atd.nome}" 
-                                       
-                                        validatorMessage="Digite seu nome inteiro por favor"> 
-                                        <f:validateLength minimum="5" />
-                                    </p:inputText>
-                                        
-                                        
-                                        
-                                    
-                                    <h:outputText value="Nome" title="Digite seu nome completo por favor" />
-                                    <p:inputText 
-                                        id="nome"
-
-                                        title="Digite seu nome completo por favor" 
-                                        size="47"
-                                        style="font-size: 1.1em"
-                                        required="true" 
-                                        requiredMessage="Por favor, Preencha seu nome" 
-                                        maxlength="48"  
-                                        value="#{atendimentoBean.atd.nome}" 
-                                       
-                                        validatorMessage="Digite seu nome inteiro por favor"> 
-                                        <f:validateLength minimum="5" />
-                                    </p:inputText>
-
-                                      <h:outputText value="Profissão" title="Digite seu nome completo por favor" />
-                                    <p:inputText 
-                                        id="profissao"
-
-                                        title="Digite seu nome completo por favor" 
-                                        size="47"
-                                        style="font-size: 1.1em"
-                                        required="true" 
-                                        requiredMessage="Por favor, Preencha seu nome" 
-                                        maxlength="48"  
-                                        value="#{atendimentoBean.atd.nome}" 
-                                       
-                                        validatorMessage="Digite seu nome inteiro por favor"> 
-                                        <f:validateLength minimum="5" />
-                                    </p:inputText>
+                    </script>           
+                    
+                    
+                    
 
 
-                                      <h:outputText value="DDD" title="Digite seu DDD por favor" />
-                                     <p:inputText placeholder="ddd"
-                                      
-                                    
-                                        id="ddd"
-                                        title="Digite seu telefone por favor" 
-                                        size="5"
-                                        style="font-size: 1.1em"
-                                        required="false" 
-                                        requiredMessage="Por favor, Preencha seu Telefone" 
-                                        maxlength="5"
-                                        value="#{atendimentoBean.atd.ddd}" 
-                                        validatorMessage="Digite seu DDD"> 
-                                        <f:validateLength minimum="2" />
-
-                                    </p:inputText>
-                                    
-                                    
-
-                                    <h:outputText value="WhatsApp" title="Digite seu Telefone por favor" />
-                                     <p:inputText 
-                                        id="telefone"
-                                        title="Digite seu telefone por favor" 
-                                        size="15"
-                                        style="font-size: 1.1em"
-                                        required="false" 
-                                        requiredMessage="Por favor, Preencha seu Telefone" 
-                                        maxlength="48"
-                                        placeholder="Digite o telefone sem espaços"
-                                        value="#{atendimentoBean.atd.telefone}" 
-                                        validatorMessage="Digite seu telefone"> 
-                                        <f:validateLength minimum="5" />
-
-                                    </p:inputText>
-
-
-
-                                    <h:outputText value="Email" title="Digite seu email por favor"/>        
-
-                                    <p:inputText 
-                                        id="email"
-                                        title="Digite seu email por favor" 
-                                        size="35" 
-                                        
-                                        style="font-size: 1.1em"
-                                 
-                                        maxlength="200" 
-                                        value="#{atendimentoBean.atd.email}" 
-                                        validatorMessage="O e-mail informado não é válido">
-
-                                       
-                                    </p:inputText>
-
-                                    <h:outputLabel value="Eu Quero" />
-                                    <h:selectOneMenu title="Escolha uma das opções da lista" id="euquero" styleClass="campoInputText"
-                                                     value="#{atendimentoBean.atd.euquero}"
-                                                     style="font-size: 1.1em">
-
-                                        <f:selectItem itemValue="Comprar ou Alugar"/>
-                                        <f:selectItem itemValue="Falar com a Sheyla"/>
-                                        <f:selectItem itemValue="Falar com a Mariana"/>
-                                        <f:selectItem itemValue="Falar com a Andrea"/>
-                                        <f:selectItem itemValue="Falar com o Flávio"/>
-                                        <f:selectItem itemValue="Falar com a Administração"/>
-                                        <f:selectItem itemValue="Évora"/>
-                                        
-                                        <f:selectItem itemValue="Deixar imóvel para negociar"/>
-
-
-
-                                    </h:selectOneMenu>
-
-
-                                    <h:outputText value="Mensagem" title="Você pode nos enviar uma mensagem" />
-                                    <p:inputTextarea  
-                                        id="mensagem"
-                                        title="Digite sua mensagem por favor" 
-                                        style="width: 380px; height: 100px; font-size: 1.2em" 
-                                        required="false"
-                                
-                                        requiredMessage="Por favor, digite uma mensagem." 
-                                        value="#{atendimentoBean.atd.msg}" 
-                                        validatorMessage="Escreva uma mensagem maior por favor" > 
-                                        <f:validateLength minimum="0" />
-                                    </p:inputTextarea>
-
-
-                                    <div id="alinha" style="text-align: center">
-
-                                        <h:panelGrid columns="1" >
-                                            <h:panelGrid columns="1" style="alignment-adjust: central">
-                                                <p:commandButton value="Inserir Locatário no Contrato" 
-                                                                 onstart="PF('DialogShow').show();"
-                                                                 style="font-size: 1.1em; font-weight: bold" 
-                                                                 action="#{atendimentoBean.cadastrarAtendimento()}" 
-
-                                                                 oncomplete="handleLoginRequest(xhr, status, args)"
-                                                                 update="growl"/>
-
-
-                                            </h:panelGrid>
-
-
-
-
-                                        </h:panelGrid>
-                                    </div>   
-
-                                </h:panelGrid>
-
-
-
-                            </h:form>
-
-
-                            <br></br>
-
-                        </div>        
-
-      
-                        </p:tab>
-                        <p:tab title="LOCADORES">
-                           
-                           
-                        </p:tab>
-                         <p:tab title="DADOS DO IMÓVEL">
                              
-
-                       
-                        <div id="form_formulario" style="font-size: 1.3em">
-
-                            <br></br>
-                            <h:form id="Formularios">
-                                <p:growl id="growl" showDetail="true" sticky="true"/>
-
-                                <h:panelGrid columns="2"  cellspacing="10px">
-
-                                    
-                                    
-                                    <h:outputText value="Tipo do o imóvel" title="Selecione o tipo do imóvel" id="atendente" />
-                                    <h:selectOneMenu title="Escolha uma das opções da lista"
-                                                     value="#{atendimentoBean.atd.atendente}"
-                                                     style="font-size: 1.1em">
-
-                                       
-                                        <f:selectItem itemValue="Apartamento"/>
-                                        <f:selectItem itemValue="Casa"/>
-                                        <f:selectItem itemValue="Sobrado"/>
-                                        <f:selectItem itemValue="Terreno"/>
-                                        <f:selectItem itemValue="Área"/>
-                                        <f:selectItem itemValue="Ponto Comercial"/>
-                                        <f:selectItem itemValue="Outros"/>
-
-                                    </h:selectOneMenu>
-
-                                    <h:outputText value="Finalidade " title="Selecione uma finalidade"  />
-                                    <h:selectOneMenu title="Escolha uma das opções da lista" id="comochegou"
-                                                     style="font-size: 1.1em"
-                                                     value="#{atendimentoBean.atd.comochegou}">
-
-                                        <f:selectItem itemValue="Residencial"/>
-                                        <f:selectItem itemValue="Comercial"/>
-                                        <f:selectItem itemValue="Temporada"/>
-                                        <f:selectItem itemValue="Comodato"/>
-                                        <f:selectItem itemValue="Empréstimo"/>
-                                       
-                                        
-                                    </h:selectOneMenu>
-
-                                    <h:outputText value="CEP" title="Digite seu nome completo por favor" />
-                                    <p:inputText 
-                                        id="cep"
-
-                                        title="Digite seu nome completo por favor" 
-                                        size="17"
-                                        style="font-size: 1.1em"
-                                        required="true" 
-                                        requiredMessage="Por favor, Preencha seu nome" 
-                                        maxlength="48"  
-                                        value="#{atendimentoBean.atd.nome}" 
-                                       
-                                        validatorMessage="Digite seu nome inteiro por favor"> 
-                                        <f:validateLength minimum="5" />
-                                    </p:inputText>
-
-                                    <h:outputText value="Endereço" title="Digite seu nome completo por favor" />
-                                    <p:inputText 
-                                        id="enderecoimovel"
-
-                                        title="Digite seu nome completo por favor" 
-                                        size="47"
-                                        style="font-size: 1.1em"
-                                        required="true" 
-                                        requiredMessage="Por favor, Preencha seu nome" 
-                                        maxlength="48"  
-                                        value="#{atendimentoBean.atd.nome}" 
-                                       
-                                        validatorMessage="Digite seu nome inteiro por favor"> 
-                                        <f:validateLength minimum="5" />
-                                    </p:inputText>
-                                   
-                                      <h:outputText value="Número" title="Digite seu nome completo por favor" />
-                                    <p:inputText 
-                                        id="numero"
-
-                                        title="Digite seu nome completo por favor" 
-                                        size="17"
-                                        style="font-size: 1.1em"
-                                        required="true" 
-                                        requiredMessage="Por favor, Preencha seu nome" 
-                                        maxlength="48"  
-                                        value="#{atendimentoBean.atd.nome}" 
-                                       
-                                        validatorMessage="Digite seu nome inteiro por favor"> 
-                                        <f:validateLength minimum="5" />
-                                    </p:inputText>
-
-
-                                    <h:outputText value="Cidade" title="Digite seu nome completo por favor" />
-                                    <p:inputText 
-                                        id="cidadeimovel"
-
-                                        title="Digite seu nome completo por favor" 
-                                        size="47"
-                                        style="font-size: 1.1em"
-                                        required="true" 
-                                        requiredMessage="Por favor, Preencha seu nome" 
-                                        maxlength="48"  
-                                        value="#{atendimentoBean.atd.nome}" 
-
-                                        validatorMessage="Digite seu nome inteiro por favor"> 
-                                        <f:validateLength minimum="5" />
-                                    </p:inputText>
-                                  
-   
-                                    <h:outputText value="Estado" title="Selecione o Estado" id="estadoimovel" />
-                                    <h:selectOneMenu title="Escolha uma das opções da lista"
-                                                     value="#{atendimentoBean.atd.atendente}"
-                                                     style="font-size: 1.1em">
-
-                                       
-                                        <f:selectItem itemValue="SP"/>
-                                        <f:selectItem itemValue="RJ"/>
-                                        <f:selectItem itemValue="MG>"/>
-                                        <f:selectItem itemValue="TO"/>
-                                       
-
-                                    </h:selectOneMenu>
-                        
-                                    <h:outputText value="Detalhes" title="Detalhes sobre o imóvel" />
-                                    <p:inputTextarea  
-                                        id="detalhes"
-                                        title="Digite sua mensagem por favor" 
-                                        style="width: 380px; height: 100px; font-size: 1.2em" 
-                                        required="false"
-                                
-                                        requiredMessage="Por favor, digite uma mensagem." 
-                                        value="#{atendimentoBean.atd.msg}" 
-                                        validatorMessage="Escreva uma mensagem maior por favor" > 
-                                        <f:validateLength minimum="0" />
-                                    </p:inputTextarea>
-
-
-                                    <div id="alinha" style="text-align: center">
-
-                                        <h:panelGrid columns="1" >
-                                            <h:panelGrid columns="1" style="alignment-adjust: central">
-                                                <p:commandButton value="Selecionar Imóvel para o Contrato" 
-                                                                 onstart="PF('DialogShow').show();"
-                                                                 style="font-size: 1.1em; font-weight: bold" 
-                                                                 action="#{atendimentoBean.cadastrarAtendimento()}" 
-
-                                                                 oncomplete="handleLoginRequest(xhr, status, args)"
-                                                                 update="growl"/>
-
-
-                                            </h:panelGrid>
-
-
-
-
-                                        </h:panelGrid>
-                                    </div>   
-
-                                </h:panelGrid>
-
-
-
-                            </h:form>
-
-
-                            <br></br>
-
-                        </div>        
-
-         
-                        </p:tab>
-                        
-                         <p:tab title="DADOS DA LOCAÇÃO">
-                           
-                             
-                              <div id="divlocacao" style="font-size: 1.3em">
-
-                            <br></br>
-                            <h:form id="formulariodadoslocacao">
-                                <p:growl id="growl" showDetail="true" sticky="true"/>
-
-                                <h:panelGrid columns="2"  cellspacing="10px">
-
-                                      <h:outputText value="Duração do Contrato Meses" title="Digite seu nome completo por favor" />
-                                    <p:inputText 
-                                        id="duracao"
-
-                                        title="Digite seu nome completo por favor" 
-                                        size="4"
-                                        style="font-size: 1.1em"
-                                        required="true" 
-                                        requiredMessage="Por favor, Preencha seu nome" 
-                                        maxlength="48"  
-                                        value="#{atendimentoBean.atd.nome}" 
-                                       
-                                        validatorMessage="Digite seu nome inteiro por favor"> 
-                                        <f:validateLength minimum="5" />
-                                    </p:inputText>
-                                      
-                                         <h:outputText value="Data inicio do Contrato" title="Digite seu nome completo por favor" />
-                                    <p:inputText 
-                                        id="datainicio"
-
-                                        title="Digite seu nome completo por favor" 
-                                        size="17"
-                                        style="font-size: 1.1em"
-                                        required="true" 
-                                        requiredMessage="Por favor, Preencha seu nome" 
-                                        maxlength="48"  
-                                        value="#{atendimentoBean.atd.nome}" 
-                                       
-                                        validatorMessage="Digite seu nome inteiro por favor"> 
-                                        <f:validateLength minimum="5" />
-                                    </p:inputText>
-                                    
-                                          <h:outputText value="Data Fim do Contrato" title="Digite seu nome completo por favor" />
-                                    <p:inputText 
-                                        id="datafinal"
-
-                                        title="Digite seu nome completo por favor" 
-                                        size="17"
-                                        style="font-size: 1.1em"
-                                        required="true" 
-                                        requiredMessage="Por favor, Preencha seu nome" 
-                                        maxlength="48"  
-                                        value="#{atendimentoBean.atd.nome}" 
-                                       
-                                        validatorMessage="Digite seu nome inteiro por favor"> 
-                                        <f:validateLength minimum="5" />
-                                    </p:inputText>
-                                    
-                                       <h:outputText value="Dia de Vencimento" title="Digite seu nome completo por favor" />
-                                    <p:inputText 
-                                        id="vencimento"
-
-                                        title="Digite seu nome completo por favor" 
-                                        size="4"
-                                        style="font-size: 1.1em"
-                                        required="true" 
-                                        requiredMessage="Por favor, Preencha seu nome" 
-                                        maxlength="48"  
-                                        value="#{atendimentoBean.atd.nome}" 
-                                       
-                                        validatorMessage="Digite seu nome inteiro por favor"> 
-                                        <f:validateLength minimum="5" />
-                                    </p:inputText>
-                                    
-                                    
-                                      <h:outputText value="Valor do Aluguel" title="Digite seu nome completo por favor" />
-                                    <p:inputText 
-                                        id="aluguel"
-
-                                        title="Digite seu nome completo por favor" 
-                                        size="17"
-                                        style="font-size: 1.1em"
-                                        required="true" 
-                                        requiredMessage="Por favor, Preencha seu nome" 
-                                        maxlength="48"  
-                                        value="#{atendimentoBean.atd.nome}" 
-                                       
-                                        validatorMessage="Digite seu nome inteiro por favor"> 
-                                        <f:validateLength minimum="5" />
-                                    </p:inputText>
-                                       <h:outputText value="Incluir no Aluguel" title="Digite seu nome completo por favor" />
-                                       <p:selectCheckboxMenu id="incluirnovalor" label="Cars" 
-                                                                      value="#{atendimentoBean.atdEscolhido.imovelArray}"
-                                                                      multiple="true"
-                                                                      filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
-                                                    <f:selectItems value="Iptu"/>
-                                                   
-                                                    
-                                                    
-                                                    
-                                                </p:selectCheckboxMenu>
-                                      
-                                      <h:outputText value="Valor Condominio" title="Digite seu nome completo por favor" />
-                                    <p:inputText 
-                                        id="condominio"
-
-                                        title="Digite seu nome completo por favor" 
-                                        size="17"
-                                        style="font-size: 1.1em"
-                                        required="true" 
-                                        requiredMessage="Por favor, Preencha seu nome" 
-                                        maxlength="48"  
-                                        value="#{atendimentoBean.atd.nome}" 
-                                       
-                                        validatorMessage="Digite seu nome inteiro por favor"> 
-                                        <f:validateLength minimum="5" />
-                                    </p:inputText>
-                         
-                                      <h:outputText value="Valor IPTU" title="Digite seu nome completo por favor" />
-                                    <p:inputText 
-                                        id="iptu"
-
-                                        title="Digite seu nome completo por favor" 
-                                        size="17"
-                                        style="font-size: 1.1em"
-                                        required="true" 
-                                        requiredMessage="Por favor, Preencha seu nome" 
-                                        maxlength="48"  
-                                        value="#{atendimentoBean.atd.nome}" 
-                                       
-                                        validatorMessage="Digite seu nome inteiro por favor"> 
-                                        <f:validateLength minimum="5" />
-                                    </p:inputText> 
-                                      
-                                        <h:outputText value="Taxa de Administração" title="Digite seu nome completo por favor" />
-                                    <p:inputText 
-                                        id="txadm"
-
-                                        title="Digite seu nome completo por favor" 
-                                        size="17"
-                                        style="font-size: 1.1em"
-                                        required="true" 
-                                        requiredMessage="Por favor, Preencha seu nome" 
-                                        maxlength="48"  
-                                        value="#{atendimentoBean.atd.nome}" 
-                                       
-                                        validatorMessage="Digite seu nome inteiro por favor"> 
-                                        <f:validateLength minimum="5" />
-                                    </p:inputText> 
-                          
-                                    <div id="alinha" style="text-align: center">
-
-                                        <h:panelGrid columns="1" >
-                                            <h:panelGrid columns="1" style="alignment-adjust: central">
-                                                <p:commandButton value="Selecionar Imóvel para o Contrato" 
-                                                                 onstart="PF('DialogShow').show();"
-                                                                 style="font-size: 1.1em; font-weight: bold" 
-                                                                 action="#{atendimentoBean.cadastrarAtendimento()}" 
-
-                                                                 oncomplete="handleLoginRequest(xhr, status, args)"
-                                                                 update="growl"/>
-
-
-                                            </h:panelGrid>
-
-
-
-
-                                        </h:panelGrid>
-                                    </div>   
-
-                                </h:panelGrid>
-
-
-
-                            </h:form>
-
-
-                            <br></br>
-
-                        </div>        
-                             
-                             
-                             
-                        </p:tab>
-                        
-                        <p:tab title="DADOS DA GARANTIA">
-                           <br/>
-                            <p:tabView value="Fiadores">
-                                <p:tab title="Fiadores">
-                                    
-                                    
-                                </p:tab>
-                                
-                                        <p:tab title="Seguro de incendio">
-                                    
-                                    
-                                </p:tab>
-                                
-                            </p:tabView>
-                            
-                            
-                         
-                            
-                            
-                            <h:form id="formulariogarantia">
-                                
-                          
-                            
-                            
-                               <h:outputText value="Tipo da Garantia :" title="Selecione o tipo do imóvel" id="tipogarantia" />
-                                    <h:selectOneMenu title="Escolha uma das opções da lista"
-                                                     value="#{atendimentoBean.atd.atendente}"
-                                                     style="font-size: 1.1em">
-
-                                       
-                                        <f:selectItem itemValue="Fiança"/>
-                                        <f:selectItem itemValue="Caução"/>
-                                        <f:selectItem itemValue="Fiador"/>
-                                        <f:selectItem itemValue="Seguro"/>
-                                        <f:selectItem itemValue="Sem Garantia"/>
-                                       
-
-                                    </h:selectOneMenu>
-                            </h:form>
-                        </p:tab>
-                        
-                        
-                           <p:tab title="CONTRATO DE LOCACAO">
-                           
-                           </p:tab>
-                        
-                           <p:tab title="CONTRATO DE ADMINISTRACAO">
-                           
-                           </p:tab>
-                        
-                           <p:tab title="COMUNICADOS E SOLICITACOES">
-                           
-                           </p:tab>
-                        
-                        <p:tab title="SITUACAO FINANCEIRA">
-                           
-                           </p:tab>
-                        
-                         <p:tab title="VISTORIA E FOTOS">
-                           
-                           </p:tab>
-                        
-                         <p:tab title="RESUMO DO CONTRATO">
-                           
-                           </p:tab>
-                      
-                    </p:tabView>
-  
                   
+<h:form id="form" >
+         
+    <p:growl id="growl" sticky="true" showDetail="true"/>
+ 
+
+        <p:tab id="personal" title="personal">
+            <p:panel header=" Dados principais do contrato">
+                <p:messages />
+                <h:panelGrid columns="2" columnClasses="label, value">
+                    
+                    <h:outputText value="Corretor: *" />
+                    <p:inputText value="#{userWizard.user.firstname}" 
+                                 required="true" label="corretor"
+                                 size="30"
+                                 id="corretor"/>
+                                 
+         
+
+                    <h:outputText value="Tempo de Contrato: *" />
+                    <p:inputText value="#{userWizard.user.age}"
+                                 required="true"
+                                 size="5"
+                                 id="tempoContrato"
+                                 requiredMessage="Tempo de Contrato Obrigatário"
+                                 onchange="Event(exemplo1(123))"
+
+                                 />
+        
+                </h:panelGrid>
+            </p:panel>
+        </p:tab>
+ 
+       
+    <p:commandButton value="Submit" onclick="exemplo1(203)" />
+ 
+      
+
+ 
+</h:form>
+
+                    
+                    
+                    
+                    
                 </div>
             </div>
         </div>
+                          
 
-    </ui:define>
+  
 
 </ui:composition>

@@ -23,25 +23,24 @@
                                 <h:panelGrid columns="2"  cellspacing="10px">
 
                                     <h:outputText value="Atendente" title="Selecione Um Atendente" id="atendente" />
-                                    <h:selectOneMenu title="Escolha uma das opções da lista"
-                                                     value="#{atendimentoBean.atd.atendente}"
-                                                     style="font-size: 1.1em">
+                                   
+                                    <h:selectOneMenu id="comboCorretores" style="font-size: 1.1em" 
+                                                     required="true" 
+                                                     requiredMessage="Por favor, Selecione um atendente" 
+                                                     value="#{atendimentoBean.atd.atendente}"> 
+                                         <f:selectItem itemValue="#{usuarioManagedBean.usuario.nome}"/>
+                                         
+                                         <f:selectItems value="#{atendimentoBean.listacorretores}" var="act" itemLabel="#{act.nome}" itemValue="#{act.nome}"/>
 
-                                        <f:selectItem itemValue="#{usuarioManagedBean.usuario.nome}"/>
-                                        <f:selectItem itemValue="Andrea"/>
-                                        <f:selectItem itemValue="Mary"/>
-                                        <f:selectItem itemValue="Sheyla"/>
-                                        <f:selectItem itemValue="Flávio"/>
-                                        <f:selectItem itemValue="Gi"/>
-                                        <f:selectItem itemValue="Marcelo"/>
-                                        <f:selectItem itemValue="Felipe"/>
-
-                                    </h:selectOneMenu>
-
+                                     </h:selectOneMenu>
+           
                                     
                                     <h:outputText value="Como Chegou até nós ? " title="Selecione como chegou"  />
-                                    <h:selectOneMenu id="comboorigens" style="font-size: 1.1em" value="#{atendimentoBean.atd.comochegou}">      
-                                         <f:selectItem itemLabel="" itemValue="1" />
+                                    <h:selectOneMenu id="comboorigens" style="font-size: 1.1em" 
+                                                     required="true" 
+                                                     requiredMessage="Por favor, Preencha como chegou até nós" 
+                                                     value="#{atendimentoBean.atd.comochegou}">      
+                                         <f:selectItem itemLabel="" itemValue="" />
                                          <f:selectItems value="#{atendimentoBean.listaOrigens}" var="act" itemLabel="#{act.acao}" itemValue="#{act.acao}"/>
 
                                      </h:selectOneMenu>

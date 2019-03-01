@@ -22,78 +22,75 @@
             
            
             <div class="ui-g-12">
-                
-                <p:dataTable var="listatudo" value="#{relatoriosBean.listadetalhada}"
-                                 paginator="true" rows="33" style="font-size: 1.25em">
-                        <f:facet name="header">
-                           LISTA DOS NEGÓCIOS NO MES SELECIONADO
-                         </f:facet>
-                       <p:column headerText="ID" sortBy="#{listatudo.id}" style="width: 3%">
-                            <h:outputText value="#{listatudo.id}" />
-                        </p:column>
-                    
-                        <p:column headerText="CORRETOR" sortBy="#{listatudo.corretor}" style="width: 3%">
-                          <h:outputText value="#{listatudo.corretor}" />
-                        </p:column>
-                    
-                     <p:column headerText="Status" sortBy="#{listatudo.status}" style="width:70px; font-size: 0.95em">
-                            <h:outputText value="#{listatudo.status}"  style="color: red;" rendered="#{listatudo.status=='ABERTO'}"/>  
-                            <h:outputText value="#{listatudo.status}"  style="color: blue; font-size: 0.8em" rendered="#{listatudo.status=='EM ATENDIMENTO'}"/>
-                            <h:outputText value="#{listatudo.status}"  style="color: green;" rendered="#{listatudo.status=='Finalizado'}"/>
-                        </p:column> 
-                    
+
+                <p:dataTable var="listatudo" value="#{estatisticaBean.listadetalhada}"
+                             paginator="true" rows="33" style="font-size: 1.25em">
+                    <f:facet name="header">
+                        LISTA DOS NEGÓCIOS NO MES SELECIONADO
+                    </f:facet>
+                    <p:column headerText="ID" sortBy="#{listatudo.id}" style="width: 3%">
+                        <h:outputText value="#{listatudo.id}" />
+                    </p:column>
+
+                    <p:column headerText="CORRETOR" sortBy="#{listatudo.corretor}" style="width: 3%">
+                        <h:outputText value="#{listatudo.corretor}" />
+                    </p:column>
+
+                    <p:column headerText="Status" sortBy="#{listatudo.status}" style="width:70px; font-size: 0.95em">
+                        <h:outputText value="#{listatudo.status}"  style="color: red;" rendered="#{listatudo.status=='ABERTO'}"/>  
+                        <h:outputText value="#{listatudo.status}"  style="color: blue; font-size: 0.8em" rendered="#{listatudo.status=='EM ATENDIMENTO'}"/>
+                        <h:outputText value="#{listatudo.status}"  style="color: green;" rendered="#{listatudo.status=='Finalizado'}"/>
+                    </p:column> 
+
                     <p:column headerText="Finalizou ?" sortBy="#{listatudo.motivofinalizou}" style="width: 3%">
-                          <h:outputText value="#{listatudo.motivofinalizou}" />
-                        </p:column>
-                    
-                    <p:column headerText="Data" sortBy="#{listatudo.dataatendimento}" width="3%">
-                            <h:outputText value="#{listatudo.dataatendimento}">
-                                <f:convertDateTime type="both" pattern="dd/MM/yy"/>
-                            </h:outputText>
-                         </p:column>    
-                    
-                          <p:column headerText="CLIENTE" sortBy="#{listatudo.nome}" style="width: 20%">
-                            <h:outputText value="#{listatudo.nome}" />
-                        </p:column>
-                        
-                      
-                        
-                        <p:column headerText="NEGOCIO" sortBy="#{listatudo.negocio}" style="width: 7%">
-                            <h:outputText value="#{listatudo.negocio}" />
-                        </p:column>
-                    
-                      
-                    
-                    
-                    
-                    
-                    <p:column headerText="IMOVEL" sortBy="#{listatudo.tipoimovel}" style="width: 7%">
+                        <h:outputText value="#{listatudo.motivofinalizou}" />
+                    </p:column>
+
+                    <p:column headerText="Data" sortBy="#{listatudo.dataatendimento}" style="width:3%">
+                        <h:outputText value="#{listatudo.dataatendimento}">
+                            <f:convertDateTime type="both" pattern="dd/MM/yy"/>
+                        </h:outputText>
+                    </p:column>    
+
+                    <p:column headerText="CLIENTE" sortBy="#{listatudo.nome}" style="width: 5%">
+                        <h:outputText value="#{listatudo.nome}" />
+                    </p:column>
+
+
+
+                    <p:column headerText="NEGOCIO" sortBy="#{listatudo.negocio}" style="width: 3%">
+                        <h:outputText value="#{listatudo.negocio}" />
+                    </p:column>
+
+
+
+                    <p:column headerText="IMOVEL" sortBy="#{listatudo.tipoimovel}" style="width: 3%">
                         <h:outputText value="#{listatudo.tipoimovel}" />
-                        </p:column>
+                    </p:column>
 
-                             
-                        <p:column headerText="MEDIA VENDA" sortBy="#{listatudo.msg}" style="width: 4%">
-                            <h:outputText value="#{listatudo.msg}" />
-                        </p:column>
-                       
 
-                        <p:column headerText="MEDIA ALUGUEL" sortBy="#{listatudo.interesse}" style="width: 3%">
-                            <h:outputText value="#{listatudo.interesse}" >
+                    <p:column headerText="MEDIA VENDA" sortBy="#{listatudo.msg}" style="width: 4%">
+                        <h:outputText value="#{listatudo.msg}" />
+                    </p:column>
 
-                            </h:outputText>
-                        </p:column>
-                    
-                      <p:column headerText="VER" style="width: 3%">
 
-                            <p:commandButton action="#{admBean.listaDetalheAtendimento(listatudo.id)}" style="font-size: 1em;font-weight: bold" value="Detalhe"/>
-                        </p:column>
-                     
+                    <p:column headerText="MEDIA ALUGUEL" sortBy="#{listatudo.interesse}" style="width: 3%">
+                        <h:outputText value="#{listatudo.interesse}" >
 
-                    </p:dataTable>
-                       
-                
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="VER" style="width: 3%">
+
+                        <p:commandButton action="#{admBean.listaDetalheAtendimento(listatudo.id)}" style="font-size: 1em;font-weight: bold" value="Detalhe"/>
+                    </p:column>
+
+
+                </p:dataTable>
+
+
             </div>
-            
+
             
             
         </div>

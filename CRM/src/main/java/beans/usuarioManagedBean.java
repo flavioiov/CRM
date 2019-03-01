@@ -13,6 +13,7 @@ import javax.faces.application.FacesMessage;
 import modelos.Usuarios;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import modelos.Atendimento;
@@ -137,9 +138,27 @@ private Usuarios usuario = new Usuarios();
             session.setAttribute("configura","false");
             session.setAttribute("mostralogin","true");
             session.setAttribute("fotouser",null);
-            FacesContext.getCurrentInstance().getExternalContext().redirect("maincrm.jsf");
-            
             session.setAttribute("mostramenuentrarcrm", "true");
+            
+            
+            String page1="maincrm.jsf";
+           
+            //redireciona independente do caminho!!
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            ec.redirect(ec.getRequestContextPath() + "/" + page1);
+            
+            
+         
+           
+          
+           session.invalidate();
+           
+           
+            
+            
+           
+            
+            
         
     }
     

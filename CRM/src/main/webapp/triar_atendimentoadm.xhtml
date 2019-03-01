@@ -41,7 +41,9 @@
                                             <p:panel id="av">
 
                                                 <p:panelGrid columns="2">
-
+                                                    <h:outputText value="ID ATENDIMENTO :" style="color:red; width:  130px"/> 
+                                                    <h:outputText value="#{admBean.atdEscolhido.id} " style="color:blue;"/>  
+                                                            
                                                     <h:outputText value="Atendente :" style="color:red; width:  130px"/> 
                                                     <h:outputText value="#{admBean.atdEscolhido.atendente} " style="color:blue;"/>
                                                     <h:outputText value="Cliente :" style="color: red;"/>
@@ -484,7 +486,7 @@
                                                                       onstart="PF('DialogShow').show();"
                                                                       style="font-size: 1em; font-weight: bold" 
                                                                       styleClass="butn"
-                                                                      rendered="#{mostra}"
+                                                                      rendered="false"
                                                                       actionListener="#{admBean.atualizarDadosAtendimento()}" 
                                                                       oncomplete="handleLoginRequest(xhr, status, args)"/>
                                                  </div>
@@ -495,7 +497,7 @@
                                                
 
                                                  <div id="menuSup2">
-                                                     <p:commandButton value="Finalizar Atendimento" style="font-size: 1em; font-weight: bold" rendered="#{mostra}" actionListener="#{admBean.finalizarAtendimento()}">  
+                                                     <p:commandButton value="Finalizar Atendimento" style="font-size: 1em; font-weight: bold" rendered="true" actionListener="#{admBean.finalizarAtendimento()}">  
                                                          <p:confirm header="Confirmação" message="Você tem Certeza que deseja finalizar este atendimento ?" icon="ui-icon-alert" />
                                                      </p:commandButton>
 
@@ -512,13 +514,23 @@
                                                      <br></br>
                                                      <br></br>
                                                      
-                                                    
+                                                      
+                                                     <p:column headerText="Devolver" style="width:75px">
+                                                         <p:commandButton action="#{atendimentoBean.devolverAtendimento(admBean.atdEscolhido.id)}"  style="font-size: 1em; font-weight: bold"  value="Devolver"/>
+                                                     </p:column>
+
+
+
+                                                     <p:column headerText="Refazer" style="width:7%">
+                                                         <p:commandButton action="#{admBean.qualidade(admBean.atdEscolhido.id)}" value="Qualidade"  style="font-size: 1em; font-weight: bold" />
+                                                     </p:column>
+                                                     
                                                      
                                                      <p:commandButton value="Agendar Atividade" 
                                                                       onstart="PF('DialogShow').show();"
                                                                       style="font-size: 1em; font-weight: bold" 
                                                                       styleClass="butn"
-                                                                      rendered="#{mostra}"
+                                                                      rendered="false"
                                                                       actionListener="#{admBean.atualizarDadosAtendimento()}" 
                                                                       oncomplete="handleLoginRequest(xhr, status, args)"/>
                        
@@ -534,10 +546,7 @@
                                  
                          </div>
                         
-                        
-                         <div class="ui-g-12">
-           
-        </div> 
+    
                                             
                     </h:form>
                     

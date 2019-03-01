@@ -183,12 +183,6 @@
                                  <h:outputText value="#{atend1.status}"  style="color: green;" rendered="#{atend1.status=='Finalizado'}"/>
                              </p:column>    
 
-                             <p:column headerText="Situação" sortBy="#{atend1.interesse}" style="width:90px">
-                                 <h:outputText value="#{atend1.motivofinalizou}" />
-                             </p:column>
-
-                             
-
                              <p:column headerText="Atender" style="width:70px; font-size: 1em">
                                  <p:commandButton action="#{atendimentoBean.listaDetalheAtendimento(atend1.id)}"  style="font-size: 0.8em;" value="Atender"/>
                              </p:column>

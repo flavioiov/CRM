@@ -198,12 +198,16 @@
                         <h:outputText value="#{listatudo.motivofinalizou}" />
                     </p:column>
 
-                    <p:column headerText="TOTAL Aluguel"  style="width: 7%">
-                        <h:outputText value="#{listatudo.valormaxaluguel}" />
+                    <p:column headerText="TOTAL ALUGUEL"  style="width: 7%">
+                        <h:outputText value="#{listatudo.valormaxaluguel}">
+                            <f:convertNumber type="number" minFractionDigits="0" maxFractionDigits="2"/>
+                        </h:outputText>
                     </p:column>
-
+                    
                     <p:column headerText="TOTAL VENDA"  style="width: 7%">
-                        <h:outputText value="#{listatudo.valormaxvenda}" />
+                        <h:outputText value="#{listatudo.valormaxvenda}">
+                            <f:convertNumber type="number" minFractionDigits="0" maxFractionDigits="2"/>
+                        </h:outputText>
                     </p:column>
 
 
@@ -227,15 +231,15 @@
                         <f:facet name="header">
                            TOTAL POR TIPO DE NEGÓCIOS
                          </f:facet>
-                       <p:column headerText="Mes"  style="width: 10%">
+                       <p:column headerText="Mes"  style="width: 3%">
                             <h:outputText value="#{listatudo.nome}" />
                         </p:column>
                         
-                          <p:column headerText="Ano"  style="width: 20%">
+                          <p:column headerText="Negócio"  style="width: 10%">
                             <h:outputText value="#{listatudo.negocio}" />
                         </p:column>
                         
-                      <p:column headerText="Media Aluguel"  style="width: 7%">
+                      <p:column headerText="Media Tipo Imóvel"  style="width: 10%">
                           <h:outputText value="#{listatudo.tipoimovel}" />
                         </p:column>
                         

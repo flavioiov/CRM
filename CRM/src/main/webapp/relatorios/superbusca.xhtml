@@ -3,20 +3,17 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
+                 template="/WEB-INF/template.xhtml"
                 >
                 
-    <ui:define name="title">Empty Page</ui:define>
+     <ui:define name="content">
     <h:form id="formbuscacompras">
 
    
    
     <div class="ui-g">
         <div class="ui-g-12">
-               <p:tabView style="margin-top: 20px; margin-bottom: 20px">
-                    <p:tab title="ANTENDIMENTOS DE VENDA IMOVEIS EM GERAL" >
-                      
-                        
-                           <p:tab title="ATENDIMENTOS" >
+              
                         <br></br>
 
                         <f:facet name="header">
@@ -27,12 +24,12 @@
 
                         <p:panel header="ATENDIMENTOS" id="painel2" >
 
-                            <p:dataTable var="atend1" value="#{relatoriosBean.listadetalhada}" selectionMode="single"  reflow="true"
+                            <p:dataTable var="atend1" value="#{relatoriosBean.listaatendimentoscorretor}" selectionMode="single" reflow="true"
                                          id="tableAtendimento2" rowKey="#{atend1.id}"  style="font-size:1.2em"
                                          paginator="true" 
                                          rows="50">
                                 <f:facet name="header">
-                                    ATENDIMENTOS EM ABERTO E ANDAMENTO
+                                    ATENDIMENTO DE VENDAS
                                 </f:facet>
 
                                 <p:column headerText="Id" sortBy="#{atend1.id}" style="width: 4%">
@@ -90,15 +87,11 @@
 
                                 <p:column headerText="VER" style="width:6%">
 
-                                    <p:commandButton    action="#{admBean.listaDetalheAtendimento(atend1.id)}" style="font-size: 1em; font-weight: bold" value="Ver +"/>
+                                    <p:commandButton action="#{atendimentoBean.botaoVermais(atend1.id)}" style="font-size: 1em; font-weight: bold" value="Ver +"/>
                                 </p:column>
 
 
 
-                                <p:column headerText="VERAAAA" style="width:6%">
-
-                                    <p:commandButton action="#{admBean.listaDetalheAtendimento(atend1.id)}" style="font-size: 1em; font-weight: bold" value="Ver +"/>
-                                </p:column>
 
                                 <p:column headerText="Status" sortBy="#{atend1.status}" style="width:70px; font-size: 0.95em">
                                     <h:outputText value="#{atend1.status}"  style="color: red;" rendered="#{atend1.status=='ABERTO'}"/>  
@@ -108,10 +101,10 @@
                                     <h:outputText value="#{atend1.status}"  style="color: green;" rendered="#{atend1.status=='DIRECIONADO'}"/>
                                 </p:column>
 
-                                <p:column headerText="Refazer" style="width:7%">
+                                <p:column headerText="Descartar" style="width:7%">
 
-                                    <p:commandButton action="#{admBean.qualidade(atend1.id)}" value="Qualidade" update="fomrularioDashBoardadm"/>
-
+                                  <p:commandButton action="#{atendimentoBean.qualidade(atend1.id)}" value="Descartar" update="formbuscacompras"
+                                                  />
 
                         </p:column>
                         
@@ -144,14 +137,7 @@
                         </p:panel>
 
 
-                    </p:tab>
-                        
-                        
-                        
-                    </p:tab>
-                   
-                   
-               </p:tabView>
+  
             
             
             
@@ -159,5 +145,5 @@
     </div>
 
 </h:form>
-
+     </ui:define>
 </ui:composition>

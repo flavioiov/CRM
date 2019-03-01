@@ -132,7 +132,7 @@
 
                                                         <p:column headerText="Data" sortBy="#{listatudo.data}" style="width: 10%">
                                                             <h:outputText value="#{listatudo.data}" >
-                                                                <f:convertDateTime pattern="dd/MM/yy" timeZone="GMT-03:00"/>
+                                                                <f:convertDateTime pattern="dd/MM/yy"/>
                                                             </h:outputText>
                                                         </p:column>
 
@@ -736,8 +736,8 @@
 
 
                             <p:calendar value="#{atendimentoBean.agenda.data}" pattern="dd/MM/yyyy" 
-                                        mode="inline" timeZone="America/Sao_Paulo" mask="true" 
-                                        locale="pt_BR" style="display: inline-block"
+                                        mode="inline" mask="true" 
+                                        locale="pt_BR" style="display: inline"
 
                                         />
 

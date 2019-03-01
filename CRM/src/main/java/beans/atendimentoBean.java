@@ -365,6 +365,8 @@ public class atendimentoBean {
             
             this.carregaComboCorretores();
             this.carregaComboOrigens();
+            this.carregaComboCorretores();
+            
         
     }
     
@@ -1166,9 +1168,9 @@ public class atendimentoBean {
 
         }else{
            FacesContext context = FacesContext.getCurrentInstance();
-        //context.addMessage(null, new FacesMessage("DATA :-)", "SELECIONE UMA DATA POR FAVOR !"));
-          RequestContext.getCurrentInstance().update("form_atividade2");
-          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "OPS!", "SELECIONE UMA DATA POR FAVOR !! ;-("));  
+            //context.addMessage(null, new FacesMessage("DATA :-)", "SELECIONE UMA DATA POR FAVOR !"));
+            RequestContext.getCurrentInstance().update("form_atividade2");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "OPS!", "SELECIONE UMA DATA POR FAVOR !! ;-("));  
         
         }
 
