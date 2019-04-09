@@ -1,7 +1,7 @@
 package geral;
 import java.lang.reflect.Field;
 import java.sql.*;
-import util.Conexao;
+import geral.Conexao;
 
 
 
@@ -97,35 +97,36 @@ public class Classe_Geral {
 	
 
 //EXCLUIR CAMPO DE UMA TABELA
-public void excluir(String campo,String cod)
+public void excluir(String campo,Integer cod)
 throws SQLException
 {
+            
+        Conexao conf = new Conexao();
+        Connection connection;
+        connection = conf.getDatabaseConnection();
 
-	 	  Conexao conf = new Conexao();
-	       Connection connection;
-		   connection =  conf.getDatabaseConnection();
-                            
-           PreparedStatement prepared_statement;
-		   String sql;
-        
-        try {       
-        
+        PreparedStatement prepared_statement;
+        String sql;
+
+        try {
+
+            sql = "delete from " + nome_tabela + " where " + campo + "=" + cod;
+
+            System.out.println(sql);
+            st = connection.createStatement();
+            st.executeUpdate(sql);
             
-            sql = "delete from "+nome_tabela+" where "+campo+"="+cod;
-     		st = connection.createStatement();
-    		rs1 = st.executeQuery(sql);     
-			
-		    	
-       }
-        catch (Exception e2)
-      {
             
-       	System.out.println(e2.getMessage());
-	  	this.setErro(e2.getMessage() );
-	    e2.printStackTrace();
-      }	
-	
-}
+            connection.close();
+
+        } catch (Exception e2) {
+
+            System.out.println(e2.getMessage());
+            this.setErro(e2.getMessage());
+            e2.printStackTrace();
+        }
+
+    }
 
 
 
@@ -222,6 +223,38 @@ public ResultSet buscar(String campo,String busca)
 		
 		return rs1;
     }		
+
+
+public ResultSet existeRegistro(String campo,String busca)
+		throws SQLException
+    {
+          
+      try
+        {
+    
+           Conexao conf = new Conexao(); 
+	       Connection connection;
+		   connection =  conf.getDatabaseConnection();
+                            
+           PreparedStatement prepared_statement;
+		   String sql;
+            sql = "select count(*) from "+nome_tabela+" where "+campo+"='"+busca+"'";
+     		st = connection.createStatement();
+    		rs1 = st.executeQuery(sql);     
+			
+		    	
+       }
+        catch (Exception e2)
+      {
+            e2.printStackTrace();
+      }
+		
+		return rs1;
+    }		
+
+
+
+
 
 
 //RETORNA UMA BUSCA 
@@ -376,9 +409,6 @@ public Integer inserirDadosTabela(String Tabela,Object obj) //fechado funcionand
 }
 
 
-
-
-
 public Integer alteraDadosTabela(String Tabela,Object obj,int idx) //A fazer neste objeto será necessário 
         // caso o objeto já exista ou ainda esteja vivo o sistema deverá identificar seu ID
         // e a partir de então atualizar os objetos 
@@ -440,9 +470,11 @@ public Integer alteraDadosTabela(String Tabela,Object obj,int idx) //A fazer nes
                         contador++;
                     }
         
-        String Valores=VALORES.replace("'null'","null"); //substitiu as aspas quando os campos são null, assim evita problemas de compatibilidade com o banco
+        String SQLlimpa=SQL.replace("'null'","null"); //substitiu as aspas quando os campos são null, assim evita problemas de compatibilidade com o banco
 
-        query = "update "+nome_tabela+" "+SQL+" where id='"+idx+"';";
+        
+        
+        query = "update "+nome_tabela+" "+SQLlimpa+" where id='"+idx+"';";
        
 
         System.out.println(query);
@@ -466,11 +498,141 @@ public Integer alteraDadosTabela(String Tabela,Object obj,int idx) //A fazer nes
     }
 	
         objeto_inserido=this.proximo_valor("id", nome_tabela);
-        
-                 
-	return this.objeto_inserido;
+    	return this.objeto_inserido;
 	
 }
+
+
+
+public void pegaAtendimento(String usuario,Integer cod)
+throws SQLException
+{
+            
+        Conexao conf = new Conexao();
+        Connection connection;
+        connection = conf.getDatabaseConnection();
+
+        PreparedStatement prepared_statement;
+        String sql;
+
+        try {
+
+            sql = "update crm.atendimento set status='EM ATENDIMENTO',corretor='"+usuario+"' where id=" + cod;
+
+            System.out.println(sql);
+            st = connection.createStatement();
+            st.executeUpdate(sql);
+            
+            
+            connection.close();
+
+        } catch (Exception e2) {
+
+            System.out.println(e2.getMessage());
+            this.setErro(e2.getMessage());
+            e2.printStackTrace();
+        }
+
+    }
+
+
+
+public void alteraCorretorAgenda(String campo,Integer cod)
+throws SQLException
+{
+            
+        Conexao conf = new Conexao();
+        Connection connection;
+        connection = conf.getDatabaseConnection();
+
+        PreparedStatement prepared_statement;
+        String sql;
+
+        try {
+
+            sql = "update crm.agenda set corretor='"+campo+"' where idatendimento=" + cod;
+
+            System.out.println(sql);
+            st = connection.createStatement();
+            st.executeUpdate(sql);
+            
+            
+            connection.close();
+
+        } catch (Exception e2) {
+
+            System.out.println(e2.getMessage());
+            this.setErro(e2.getMessage());
+            e2.printStackTrace();
+        }
+
+    }
+
+
+
+public void fechaAtividades(Integer cod)
+throws SQLException
+{
+            
+        Conexao conf = new Conexao();
+        Connection connection;
+        connection = conf.getDatabaseConnection();
+
+        PreparedStatement prepared_statement;
+        String sql;
+
+        try {
+
+            sql = "update crm.agenda set status='Realizado' where idatendimento=" + cod;
+
+            System.out.println(sql);
+            st = connection.createStatement();
+            st.executeUpdate(sql);
+            
+            
+            connection.close();
+
+        } catch (Exception e2) {
+
+            System.out.println(e2.getMessage());
+            this.setErro(e2.getMessage());
+            e2.printStackTrace();
+        }
+
+    }
+
+
+
+public void updatevalor(String tabela,String campo,String valor,Integer chave)
+throws SQLException
+{
+            
+        Conexao conf = new Conexao();
+        Connection connection;
+        connection = conf.getDatabaseConnection();
+
+        PreparedStatement prepared_statement;
+        String sql;
+
+        try {
+
+            sql = "update "+tabela+" set "+campo+"='"+valor+"' where id=" + chave;
+
+            System.out.println(sql);
+            st = connection.createStatement();
+            st.executeUpdate(sql);
+            
+            
+            connection.close();
+
+        } catch (Exception e2) {
+
+            System.out.println(e2.getMessage());
+            this.setErro(e2.getMessage());
+            e2.printStackTrace();
+        }
+
+    }
 
 
 
@@ -478,7 +640,7 @@ public Integer alteraDadosTabela(String Tabela,Object obj,int idx) //A fazer nes
 
 
  
-	
+
 	
 	
 	

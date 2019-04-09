@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+             
+    <ui:define id="content" name="content">
+        
+    
+    
+    
+    <ui:define name="title">Empty Page</ui:define>
+   
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card" style="font-size: 1.5em">
+                    
+                    
+                    <h1> LISTA DE CLIENTS ATENDIDOS PELO CORRETOR</h1>
+                    <p:dataTable scrollable="true" var="listatudo" value="#{atendimentoBean.listameusclientes}" rows="30" paginator="true" reflow="true">
+                        <p:column headerText="NOME" sortBy="#{listatudo.nome}">
+                            <h:outputText value="#{listatudo.nome}" />
+                        </p:column>
+                        <p:column headerText="Email" sortBy="#{listatudo.email}">
+                            <h:outputText value="#{listatudo.email}" />
+                        </p:column>
+                        <p:column headerText="DDD" style="width: 15px;">
+                            <h:outputText value="#{listatudo.ddd}" />
+                        </p:column>
+                        <p:column headerText="Telefone">
+                            <h:outputText value="#{listatudo.telefone}" />
+                        </p:column>
+                        
+
+                    </p:dataTable>
+                  
+
+                </div>
+            </div>
+        </div>
+        
+</ui:define>
+
+</ui:composition>

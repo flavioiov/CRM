@@ -1,0 +1,205 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <h:head>
+        <title>Facelet Title</title>
+       
+    </h:head>
+    
+    <h:body>
+     
+
+        <ui:composition template="./template/commomLayout.xhtml">
+
+            <ui:define name="content">
+
+
+                <h:form id="detalhe_atendimento">  
+
+                    <div id="div_atendimento">
+                        <div id="monta_conteudo_main333" style="text-align: center; ">
+
+
+                            <div id="form_formulario1">
+                                
+                                <div id="central" style="text-align: center">
+                             
+                                    <h2> PREENCHA O ATENDIMENTO </h2>
+                                </div>
+                                <br></br>
+                                <h:form id="Formularios">
+                                    <p:growl id="growl" showDetail="true" sticky="true"/>
+
+                                    <h:panelGrid columns="2"  cellspacing="10px" >
+
+                                        <h:outputText value="Atendente" title="Selecione Um Atendente" id="atendente" />
+                                        <h:selectOneMenu title="Escolha uma das opções da lista" styleClass="campoInputText"
+                                                         value="#{atendimentoBean.atd.atendente}" >
+                                            
+                                            <f:selectItem itemValue="#{usuarioManagedBean.usuario.nome}"/>
+                                            <f:selectItem itemValue="Andrea"/>
+                                            <f:selectItem itemValue="Mary"/>
+                                            <f:selectItem itemValue="Sheyla"/>
+                                            <f:selectItem itemValue="João"/>
+                                            <f:selectItem itemValue="Gi"/>
+                                            <f:selectItem itemValue="Marcelo"/>
+                                            <f:selectItem itemValue="Felipe"/>
+                                         
+                                         </h:selectOneMenu>
+                                        
+                                         <h:outputText value="Como Chegou até nós ? " title="Selecione como chegou" />
+                                        <h:selectOneMenu title="Escolha uma das opções da lista" id="comochegou" styleClass="campoInputText"
+                                                         value="#{atendimentoBean.atd.comochegou}">
+
+                                            <f:selectItem itemValue="Telefone"/>
+                                            <f:selectItem itemValue="Site"/>
+                                            <f:selectItem itemValue="Indicação"/>
+                                            <f:selectItem itemValue="Fachada"/>
+                                            <f:selectItem itemValue="Facebook"/>
+                                            <f:selectItem itemValue="Internet"/>
+                                        </h:selectOneMenu>
+
+                                        <h:outputText value="Nome" title="Digite seu nome completo por favor" />
+                                        <h:inputText 
+                                            id="nome"
+                                            styleClass="campoInputText"
+                                            title="Digite seu nome completo por favor" 
+                                            size="47"
+                                            required="true" 
+                                            requiredMessage="Por favor, Preencha seu nome" 
+                                            maxlength="48"  
+                                            value="#{atendimentoBean.atd.nome}" 
+                                            validatorMessage="Digite seu nome inteiro por favor"> 
+                                            <f:validateLength minimum="5" />
+                                        </h:inputText>
+
+
+
+                                        <h:outputText value="WhatsApp" title="Digite seu Telefone por favor" />
+
+                                       <h:inputText styleClass="campoInputText"
+                                                     id="telefone"
+                                                     title="Digite seu telefone por favor" 
+                                                     size="15" 
+                                                     required="false" 
+                                                     requiredMessage="Por favor, Preencha seu Telefone" 
+                                                     maxlength="48"
+                                                     
+                                                     value="#{atendimentoBean.atd.telefone}" 
+                                                     validatorMessage="Digite seu telefone"> 
+                                            <f:validateLength minimum="5" />
+                  
+                                        </h:inputText>
+
+
+
+                                        <h:outputText value="Email" title="Digite seu email por favor"/>        
+
+                                        <h:inputText styleClass="campoInputText"
+                                                     id="email"
+                                                     title="Digite seu email por favor" 
+                                                     size="35" 
+                                                     required="true" 
+                                                     requiredMessage="Por favor, Preencha um e-mail para enviarmos uma resposta"
+                                                     maxlength="200" 
+                                                     value="#{atendimentoBean.atd.email}" 
+                                                     validatorMessage="O e-mail informado não é válido">
+
+                                            <f:validateRegex pattern="(^[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$)" />
+                                        </h:inputText>
+
+                                        <h:outputLabel value="Eu Quero" />
+                                        <h:selectOneMenu title="Escolha uma das opções da lista" id="euquero" styleClass="campoInputText"
+                                                         value="#{atendimentoBean.atd.euquero}">
+                                           
+                                            <f:selectItem itemValue="Comprar ou Alugar"/>
+                                            <f:selectItem itemValue="Falar com a Sheyla"/>
+                                            <f:selectItem itemValue="Falar com a Mariana"/>
+                                            <f:selectItem itemValue="Falar com a Andrea"/>
+                                            <f:selectItem itemValue="Falar com o João"/>
+                                            <f:selectItem itemValue="Falar com a Administração"/>
+                                             <f:selectItem itemValue="Deixar imóvel para negociar"/>
+                                          
+
+
+                                        </h:selectOneMenu>
+
+
+                                        <h:outputText value="Mensagem" title="Você pode nos enviar uma mensagem" />
+                                        <h:inputTextarea  styleClass="campoInputText"
+                                                          id="mensagem"
+                                                          title="Digite sua mensagem por favor" 
+                                                          style="width: 380px; height: 100px" 
+                                                          required="false" 
+                                                          requiredMessage="Por favor, digite uma mensagem." 
+                                                          value="#{atendimentoBean.atd.msg}" 
+                                                          validatorMessage="Escreva uma mensagem maior por favor" > 
+                                            <f:validateLength minimum="0" />
+                                        </h:inputTextarea>
+
+
+                                        <div id="alinha" style="text-align: center">
+                                           
+
+                                         
+                                            
+                                                <h:panelGrid columns="1" >
+                                            <h:panelGrid columns="1" style="alignment-adjust: central">
+                                                  <p:commandButton value="Gravar Atendimento" 
+                                                                   onstart="PF('DialogShow').show();"
+                                                                   style="font-size: 1.1em; font-weight: bold" 
+                                                                   action="#{atendimentoBean.cadastrarAtendimento()}" 
+                                                                  
+                                                                   oncomplete="handleLoginRequest(xhr, status, args)"
+                                                                   update="growl"/>
+                                                     
+                                                  
+                                            </h:panelGrid>
+                                  
+                                                    
+                                                    
+                                                    
+                             </h:panelGrid>
+                                        </div>   
+
+                                    </h:panelGrid>
+
+
+
+                                </h:form>
+
+
+                                <br></br>
+
+                            </div>        
+
+                        </div>
+
+
+
+
+
+                    </div>    
+                </h:form>
+
+
+            </ui:define>
+
+        </ui:composition>
+
+
+
+
+
+    </h:body>
+</html>
+

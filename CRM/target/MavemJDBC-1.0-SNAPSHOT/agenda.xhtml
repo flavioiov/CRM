@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="./template/commomLayout.xhtml">
+
+            <ui:define name="content">
+
+            
+                        <h:form id="listagem">  
+                            <p:panel style="background-color: white; width: 100%">
+                                <p:outputLabel for="inline" value="Inline:" />
+        <p:calendar id="inline" value="#{calendarView.date1}" mode="inline" />
+                                
+                                
+                                <h1> "CONTATOS NÃO ATENDIDOS" </h1>
+                                
+                                
+                                <br></br>
+                              
+                                <p:dataTable value="#{formularioBean.formularios}" var="contato" style="font-size: 1em">
+
+                                    
+                                     <p:column headerText="Data" style="width: 70px;">
+                                        <h:outputText value="#{contato.data}">
+                                            <f:convertDateTime type="both" pattern="dd-MM-yyyy"/>
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column headerText="Hora" style="width: 30px;">
+                                        <h:outputText value="#{contato.data}">
+                                            <f:convertDateTime type="both" pattern="hh:mm"/>
+                                        </h:outputText>
+                                    </p:column>
+                                  <p:column headerText="Nome">
+                                        <h:outputText value="#{contato.nome}" />
+                                    </p:column>
+
+                                    <p:column headerText="Assunto" style="width: 270px;">
+                                        <h:outputText value="#{contato.assunto}" />
+                                    </p:column>
+
+                                    <p:column headerText="Origem" style="width: 200px;">
+                                        <h:outputText value="#{contato.formulario}" />
+                                    </p:column>
+
+                                   
+
+                                    <p:column headerText="Telefone" style="width: 110px;">
+                                        <h:outputText value="#{contato.telefone}" />
+                                    </p:column>
+
+                                    <p:column headerText="Email" style="width: 190px;">
+                                        <h:outputText value="#{contato.email}" />
+                                    </p:column>
+
+                                      <p:column headerText="Mensagem">
+                                        <h:outputText value="#{contato.mensagem}" />
+                                    </p:column>
+
+
+                                </p:dataTable>
+                            </p:panel> 
+                        </h:form>   
+                  
+         
+
+            </ui:define>
+
+        </ui:composition>
+
+
+
+
+
+    </h:body>
+</html>
+

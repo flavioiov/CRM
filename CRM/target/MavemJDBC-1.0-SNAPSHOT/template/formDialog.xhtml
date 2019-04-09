@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+     
+      
+    <body>
+	   
+                 <p:ajaxStatus onstart="preencheForm.show();" onsuccess="preencheForm.hide();" onerror="preencheForm.hide();"/>
+              
+                 <p:dialog widgetVar="preencheForm"  modal="true" header="Aguarde"
+                          draggable="false" closable="true" resizable="false" minWidth="300" minHeight="90" styleClass="dialog" 
+                          showEffect="fade">
+            
+                      
+               
+                              
+                 <h:form id="formConosco">
+                     <p:growl id="golow" showDetail="true" sticky="true"/>
+                      <h:outputText value="Preencha os dados abaixo quem lhe retornamos o Contato" style="margin-bottom: 10px; text-align: center"/>
+                         <h:panelGrid columns="2" >
+
+
+                        <h:outputText value="Nome" title="Digite seu nome completo por favor" />
+                                 <h:inputText 
+                                              styleClass="campoInputText"
+                                             title="Digite seu nome completo por favor" 
+                                             size="47"
+                                             required="true" 
+                                             requiredMessage="Por favor, Preencha seu nome" 
+                                             maxlength="48"  
+                                             value="#{emailSenderManagedBean.mensagemFaleConoscoCliente.nome}" 
+                                             validatorMessage="Digite seu nome inteiro por favor"> 
+                                             <f:validateLength minimum="5" />
+
+                                </h:inputText>
+                         
+                          <h:outputText value="Telefone" title="Digite seu Telefone por favor" />
+
+                          <h:inputText styleClass="campoInputText"
+
+                                     title="Digite seu telefone por favor" 
+                                     size="15" 
+                                     required="false" 
+                                     requiredMessage="Por favor, Preencha seu Telefone" 
+                                     maxlength="48"  
+                                     value="#{emailSenderManagedBean.mensagemFaleConoscoCliente.telefone}" 
+                                     validatorMessage="Digite seu telefone"> 
+                                     <f:validateLength minimum="5" />
+                          
+                        </h:inputText>
+       
+                        <h:outputText value="Email" title="Digite seu email por favor"/>        
+                        
+                        <h:inputText styleClass="campoInputText"
+
+                                     title="Digite seu email por favor" 
+                                     size="35" 
+                                     required="true" 
+                                     requiredMessage="Por favor, Preencha um e-mail para enviarmos uma resposta"
+                                     maxlength="30" 
+                                     value="#{emailSenderManagedBean.mensagemFaleConoscoCliente.email}" 
+                                     validatorMessage="O e-mail informado não é válido">
+
+                        <f:validateRegex pattern="(^[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$)" />
+                        </h:inputText>
+
+                        <h:outputLabel value="Assunto" />
+                        <h:selectOneMenu title="Escolha uma das opções da lista" styleClass="campoInputText"
+                                              value="#{emailSenderManagedBean.mensagemFaleConoscoCliente.assunto}">
+                            <f:selectItem itemValue="Falar com o Responsável"/>
+                            <f:selectItem itemValue="Fazer uma parceria"/>
+                            <f:selectItem itemValue="Interesse em comprar Imóvel"/>
+                            <f:selectItem itemValue="Comprar um apartamento"/>
+                            <f:selectItem itemValue="Outros Assuntos"/>
+                        </h:selectOneMenu>
+
+
+                        <h:outputText value="Mensagem" title="Digite sua mensagem por favor" />
+                        <h:inputTextarea  styleClass="campoInputText"
+                                        title="Digite sua mensagem por favor" 
+                                         style="width: 380px; height: 100px" 
+                                         required="true" 
+                                         requiredMessage="Por favor, digite uma mensagem no fale Conosco." 
+                                         value="#{emailSenderManagedBean.mensagemFaleConoscoCliente.mensagem}" 
+                                         validatorMessage="Escreva uma mensagem maior por favor" > 
+                        <f:validateLength minimum="20" />
+                        </h:inputTextarea>
+          
+
+                         <div id="alinha" style="text-align: center">
+                            
+                        
+                             <h:panelGrid columns="1" >
+                               
+                                          
+                                  <h:panelGrid columns="1" style="alignment-adjust: central">
+                                <p:commandButton value="Enviar Email" 
+                                             style="font-size: 1.1em; font-weight: bold" 
+                                             update="golow,formConosco"
+                                             actionListener="#{emailSenderManagedBean.enviaEmailFaleConosco()}" 
+                                             oncomplete="handleLoginRequest(xhr,status,args)"  />
+                            </h:panelGrid>
+                                 
+                                 
+                               
+                            </h:panelGrid>
+                    </div>   
+                        
+                    </h:panelGrid>
+                        
+               </h:form>
+                        
+                 
+                 </p:dialog>
+ 
+	   
+    </body>
+</html>

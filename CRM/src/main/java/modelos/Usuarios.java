@@ -30,7 +30,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Usuarios.findByIdusuarios", query = "SELECT u FROM Usuarios u WHERE u.idusuarios = :idusuarios")
     , @NamedQuery(name = "Usuarios.findByNome", query = "SELECT u FROM Usuarios u WHERE u.nome = :nome")
     , @NamedQuery(name = "Usuarios.findBySenha", query = "SELECT u FROM Usuarios u WHERE u.senha = :senha")
-    , @NamedQuery(name = "Usuarios.findByTipo", query = "SELECT u FROM Usuarios u WHERE u.tipo = :tipo")})
+    , @NamedQuery(name = "Usuarios.findByTipo", query = "SELECT u FROM Usuarios u WHERE u.tipo = :tipo")
+    , @NamedQuery(name = "Usuarios.findByFoto", query = "SELECT u FROM Usuarios u WHERE u.foto = :foto")
+    , @NamedQuery(name = "Usuarios.findByUnidade", query = "SELECT u FROM Usuarios u WHERE u.unidade = :unidade")})
 public class Usuarios implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,6 +50,36 @@ public class Usuarios implements Serializable {
     @Size(max = 45)
     @Column(name = "tipo")
     private String tipo;
+    @Size(max = 45)
+    @Column(name = "foto")
+    private String foto;
+    @Size(max = 45)
+    @Column(name = "unidade")
+    private String unidade;
+     @Size(max = 145)
+    @Column(name = "nomecompleto")
+    private String nomecompleto;
+      @Size(max = 45)
+    @Column(name = "creci")
+    private String creci;
+
+    public String getNomecompleto() {
+        return nomecompleto;
+    }
+
+    public void setNomecompleto(String nomecompleto) {
+        this.nomecompleto = nomecompleto;
+    }
+
+    public String getCreci() {
+        return creci;
+    }
+
+    public void setCreci(String creci) {
+        this.creci = creci;
+    }
+    
+      
 
     public Usuarios() {
     }
@@ -86,6 +118,22 @@ public class Usuarios implements Serializable {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
+    public String getUnidade() {
+        return unidade;
+    }
+
+    public void setUnidade(String unidade) {
+        this.unidade = unidade;
     }
 
     @Override

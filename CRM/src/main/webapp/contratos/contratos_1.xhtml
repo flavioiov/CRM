@@ -1,0 +1,208 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+   
+    <ui:define name="content">
+
+        
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="ui-g-7">
+              
+  <style type="text/css">
+    .label {
+        width:20%;
+        padding:4px;
+    }
+ 
+    .value {
+        width:80%;
+        padding:4px;
+    }
+ 
+    .grid {
+        width:100%;
+    }
+ 
+    .error {
+        color: red;
+    }
+ 
+    .outputLabel {
+        font-weight: bold;
+    }
+ 
+    .grid {
+        width:33%;
+        padding:4px;
+    }
+</style>
+ 
+                    <script>
+                            function exemplo1(idade) {
+                                alert(idade);
+                                
+                                document.form.corretor.value="aaaaaa";
+                            }
+                         
+                    </script>           
+                    
+                    
+                    
+<script>
+PrimeFaces.locales['pt'] = {
+        closeText: 'Fechar',
+            prevText: 'Anterior',
+            nextText: 'Próximo',
+            currentText: 'Começo',
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],                         monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Des'],
+            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+            weekHeader: 'Semana',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: '',
+            timeOnlyTitle: 'Só Horas',
+            timeText: 'Tempo',
+            hourText: 'Hora',
+            minuteText: 'Minuto',
+            secondText: 'Segundo',
+            ampm: false,
+            month: 'Mês',
+            week: 'Semana',
+            day: 'Dia',
+            allDayText: 'Todo Dia'
+        };
+</script>
+
+                             
+                  
+<h:form id="form" >
+         
+    <p:growl id="growl" sticky="true" showDetail="true"/>
+ 
+
+        <p:tab id="personal" title="personal">
+            <p:panel header=" Dados principais do contrato">
+                <p:messages />
+                <h:panelGrid columns="2" columnClasses="label, value">
+                    
+                    <h:outputText value="Corretor: *" />
+                    <p:inputText value="#{userWizard.user.firstname}" 
+                                 required="true" label="Corretor"
+                                 size="30"
+                                 id="corretor"
+                                 
+                                 />
+                    
+                    <h:outputText value="Tipo Imovel: *" />
+
+
+                    <p:selectCheckboxMenu id="tipoImovel" label="Cars" 
+                                          value="#{atendimentoBean.atdEscolhido.imovelArray}"
+                                          required="true" 
+                                          requiredMessage="Por favor, Selecione o tipo de Imóvel" 
+                                          multiple="true"
+                                          filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                        <f:selectItems value="#{listaTipoImovel.cars}" />
+                    </p:selectCheckboxMenu>
+
+
+                    <h:outputLabel value="Finalidade: *" />
+                    <h:selectOneMenu title="Escolha uma das opções da lista" id="euquero" styleClass="campoInputText"
+                                     value="#{atendimentoBean.atd.euquero}"
+                                     style="font-size: 1.1em">
+
+                        <f:selectItem itemValue="Residencial"/>
+                        <f:selectItem itemValue="Comercial"/>
+                        <f:selectItem itemValue="Temporada"/>
+                    </h:selectOneMenu>
+
+
+
+                    <p:outputLabel value="Data Inicio Contrato:*" />
+                    <p:calendar id="iniciocontrato" value="" locale="pt"/>
+
+                    <h:outputText value="Tempo de Contrato: *" />
+                    <p:inputText value="#{userWizard.user.age}"
+                                 required="true"
+                                 size="5"
+                                 requiredMessage="Tempo de Contrato Obrigatário"
+                                 onchange="Event(exemplo1(123))"
+
+                                 />
+
+
+                    <p:outputLabel value="Data Inicio Contrato:*" />
+                    <p:calendar id="fimcontrato" value="" locale="pt"/>
+
+
+                    <h:outputText value="Matricula : *" />
+                    <p:inputText value="#{userWizard.user.lastname}"
+                                 id="matricula"
+                                 required="true" label="matricula"/>
+
+                    <h:outputText value="Valor Aluguel: " />
+                    <p:inputText value="#{userWizard.user.age}" id="valoraluguel"/>
+                    
+                    <h:outputText value="Valor Iptu: " />
+                    <p:inputText value="#{userWizard.user.age}" id="valoraiptu"/>
+                    
+                    <h:outputText value="Valor Condominio " />
+                    <p:inputText value="#{userWizard.user.age}" id="valorcondominio"/>
+                    
+                    
+                    <h:outputText value="Dia de Vencimento *" />
+                    <p:inputText value="#{userWizard.user.age}"
+                                 required="true"
+                                 size="5"
+                                 requiredMessage="Tempo de Contrato Obrigatário"
+                                 />
+                    
+                    <h:outputText value="Quantidade Locadores" />
+                    <p:inputText value="#{userWizard.user.age}"
+                                 required="true"
+                                 size="5"
+                                 requiredMessage="Quantidade Locadores Obrigatório"
+                                 />
+                    
+                    <h:outputText value="Quantidade de Locatários" />
+                    <p:inputText value="#{userWizard.user.age}"
+                                 required="true"
+                                 size="5"
+                                 requiredMessage="Quantidade Locatários Obrigatório"
+                                 />
+                    
+                    <h:outputText value="Skip to last: " />
+                    <h:selectBooleanCheckbox value="#{userWizard.skip}" />
+                    
+                    
+                </h:panelGrid>
+            </p:panel>
+        </p:tab>
+ 
+       
+    <p:commandButton value="Submit" onclick="exemplo1(203)" update="growl"  process="@this"/>
+ 
+      
+
+ 
+</h:form>
+
+                    
+                    
+                    
+                    
+                </div>
+            </div>
+        </div>
+                          
+
+    </ui:define>
+
+</ui:composition>

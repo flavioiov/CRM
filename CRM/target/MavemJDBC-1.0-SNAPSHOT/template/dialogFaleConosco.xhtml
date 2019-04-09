@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+     
+      >
+    <body>
+	    <ui:composition>
+ 
+		 <p:dialog widgetVar="faleConosco" 
+                         header="Fale Conosco" 
+                         closable="true" 
+                         resizable="false" 
+                         modal="true" 
+                         width="550" 
+                         showEffect="scale" 
+                         hideEffect="explode" 
+                         id="dialogFaleConosco" >
+              
+            
+               <h:form id="formFaleConosco">
+                    
+                        <p:growl id="growl" life="3500"/>
+                        
+                        
+
+                        <h:outputText value="Preencha os dados abaixo para entrar em contato a Visconde da Graça" styleClass="filtro" style="word-spacing: normal; color: #333333"/>
+                        <p:separator/>
+
+                        <h:panelGrid columns="2" cellspacing="3">
+
+
+                        <h:outputText value="Nome" title="Digite seu nome completo por favor" styleClass="filtro"/>
+
+                        <h:inputText title="Digite seu nome completo por favor" 
+                                     size="47" 
+                                     required="true" 
+                                     requiredMessage="Por favor, Preencha seu nome" 
+                                     maxlength="48"  
+                                     value="#{emailSenderManagedBean.mensagemFaleConoscoCliente.nome}" 
+                                     validatorMessage="Digite seu nome inteiro por favor"> 
+                                     <f:validateLength minimum="5" />
+                          
+                        </h:inputText>
+
+                        <h:outputText value="Email" title="Digite seu email por favor" styleClass="filtro"/>        
+                        
+                        <h:inputText title="Digite seu email por favor" 
+                                     size="35" 
+                                     required="true" 
+                                     requiredMessage="Por favor, Preencha um e-mail para enviarmos uma resposta"
+                                     maxlength="30" 
+                                     value="#{emailSenderManagedBean.mensagemFaleConoscoCliente.email}" 
+                                     validatorMessage="O e-mail informado não é válido">
+
+                        <f:validateRegex pattern="(^[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$)" />
+                        </h:inputText>
+
+                        <h:outputLabel value="Assunto" styleClass="filtro"  />
+                        <h:selectOneMenu title="Escolha uma das opções da lista" style="width: 180px;" value="#{emailSenderManagedBean.mensagemFaleConoscoCliente.assunto}">
+                            <f:selectItem itemValue="Sugestão"/>
+                            <f:selectItem itemValue="Reclamação"/>
+                            <f:selectItem itemValue="Interesse em comprar Imóvel"/>
+                            <f:selectItem itemValue="Mensagem"/>
+                        </h:selectOneMenu>
+
+
+                        <h:outputText value="Mensagem" title="Digite sua mensagem por favor" styleClass="filtro"/>
+                        <h:inputTextarea title="Digite sua mensagem por favor" 
+                                         style="width: 380px; height: 100px" 
+                                         required="true" 
+                                         requiredMessage="Por favor, digite uma mensagem no fale Conosco." 
+                                         value="#{emailSenderManagedBean.mensagemFaleConoscoCliente.mensagem}" 
+                                         validatorMessage="Escreva uma mensagem maior por favor" > 
+                        <f:validateLength minimum="20" />
+                        </h:inputTextarea>
+          
+
+                        <div id="alinha" style="text-align: center">
+                            
+                        
+                             <h:panelGrid columns="1" style="alignment-adjust: central">
+                                <p:commandButton value="Enviar Mensagem" 
+                                             style="font-size: 1.1em; font-weight: bold" 
+                                            
+                                             update="growl,formFaleConosco"
+                                             actionListener="#{emailSenderManagedBean.enviaEmailFaleConosco()}" 
+                                             oncomplete="handleLoginRequest(xhr, status, args) "  />
+                            </h:panelGrid>
+                    </div>   
+                        
+                    </h:panelGrid>
+                        
+                    <p:separator/>
+                    
+                    <br></br>
+                    <div id="contato" style="height: auto; text-align: center">
+                            
+                        <div id="tels" style="font-size: 2em; color: #0000FF; display: inline-block">
+                          
+                          
+                            <p:panelGrid columns="2">
+                             
+                                <f:facet name="header">
+                                    Telefones
+                                </f:facet>   
+                                <img title="Ligue-nos" src="./img/icones/telefone.jpg" alt="Telefone"  width="39px" height="39px"/>
+                                <h:outputText style="color:#0000FF" value="(12) 8122 - 7990"/> 
+                                
+                                
+                            </p:panelGrid>
+                            <br></br>
+                        </div>
+                        
+                        
+                        <p:panelGrid columns="1" style="font-size: 1.2em;  display: inline-block">
+                          
+                               <f:facet name="header">
+                                    Midias Sociais
+                                </f:facet>   
+                                
+                            
+                            <a href="http://www.facebook.com/viscondedagraca.emprendimentosimobiliarios">
+                            <img title="Junte-se a nós no Facebook" 
+                                 target="new" 
+                                 src="./img/icones/ico_face.png" 
+                                 alt="Facebook Voner"  
+                                 width="39px"  
+                                 height="39px"/> Junte-se a nós no Facebook</a><p></p>
+                        
+                           <a href="msnim:add?contact=ca_sl@HOTMAIL.COM">
+                            <img title="Fale conosco pelo Messenger : ca_sl@hotmail.com" 
+                                 src="./img/icones/dockMsn.png" 
+                                 alt="Messenger Voner"  
+                                 width="39px"  
+                                 height="39px"/> Fale conosco pelo Messenger</a><p></p>
+                        
+                           <a href="callto://carlos.augusto.simoes.lopes/" target="new">
+                            <img title="Fale conosco pelo Skype: carlos.augusto.simoes.lopes" 
+                                 src="./img/icones/skype.png" 
+                                 alt="Messenger Voner"  
+                                 width="39px"  
+                                 height="39px"/> carlos.augusto.simoes.lopes</a><p></p>
+                   
+                           </p:panelGrid>
+                        
+                        <br></br>
+                        <br></br>
+                        
+                        <div id="emails">
+                           <p:panelGrid columns="2" style="font-size: 1.2em; text-align: left; display: inline-block">
+                          
+                               <f:facet name="header">
+                                    Emails 
+                                </f:facet>   
+                                
+                           <h:outputText style="color:black" value=" Contato : "/>   
+                           <h:outputText style="color:#0000FF" value="contato@viscondedagraca.com.br"/> 
+                                
+                           
+                           <h:outputText style="color:black" value=" Carlos Augusto : "/>   
+                           <h:outputText style="color:#0000FF" value="ca@viscondedagraca.com.br"/>
+                                                      
+                           <h:outputText style="color:black" value="  Adriano : "/>   
+                           <h:outputText style="color:#0000FF" value="adriano@viscondedagraca.com.br "/> 
+                           
+                           <h:outputText style="color:black" value=" Malo : "/>   
+                           <h:outputText style="color:#0000FF" value="malo@viscondedagraca.com.br "/> 
+                                
+                            </p:panelGrid>
+                            <br></br>  
+                            <br></br>  
+                    
+                            
+                            
+                       </div>
+                       </div>
+                       
+
+                </h:form>
+            </p:dialog>
+ 
+	    </ui:composition>
+    </body>
+</html>

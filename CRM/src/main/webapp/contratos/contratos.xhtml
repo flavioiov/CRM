@@ -1,0 +1,117 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                >
+   
+    
+
+        
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="ui-g-7">
+              
+  <style type="text/css">
+    .label {
+        width:20%;
+        padding:4px;
+    }
+ 
+    .value {
+        width:80%;
+        padding:4px;
+    }
+ 
+    .grid {
+        width:100%;
+    }
+ 
+    .error {
+        color: red;
+    }
+ 
+    .outputLabel {
+        font-weight: bold;
+    }
+ 
+    .grid {
+        width:33%;
+        padding:4px;
+    }
+</style>
+ 
+                    <script>
+                            function exemplo1(idade) {
+                                alert (idade);
+                                
+                                document.form.corretor.value=idade;
+                               console.log(valor);
+                                document.write(valor);
+                               
+                                
+                                alert(document.form.corretor.value);
+                                
+                                document.form.tempoContrato.value=valor;
+                            }
+                         
+                    </script>           
+                    
+                    
+                    
+
+
+                             
+                  
+<h:form id="form" >
+         
+    <p:growl id="growl" sticky="true" showDetail="true"/>
+ 
+
+        <p:tab id="personal" title="personal">
+            <p:panel header=" Dados principais do contrato">
+                <p:messages />
+                <h:panelGrid columns="2" columnClasses="label, value">
+                    
+                    <h:outputText value="Corretor: *" />
+                    <p:inputText value="#{userWizard.user.firstname}" 
+                                 required="true" label="corretor"
+                                 size="30"
+                                 id="corretor"/>
+                                 
+         
+
+                    <h:outputText value="Tempo de Contrato: *" />
+                    <p:inputText value="#{userWizard.user.age}"
+                                 required="true"
+                                 size="5"
+                                 id="tempoContrato"
+                                 requiredMessage="Tempo de Contrato Obrigatário"
+                                 onchange="Event(exemplo1(123))"
+
+                                 />
+        
+                </h:panelGrid>
+            </p:panel>
+        </p:tab>
+ 
+       
+    <p:commandButton value="Submit" onclick="exemplo1(203)" />
+ 
+      
+
+ 
+</h:form>
+
+                    
+                    
+                    
+                    
+                </div>
+            </div>
+        </div>
+                          
+
+  
+
+</ui:composition>

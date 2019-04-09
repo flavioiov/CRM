@@ -6,6 +6,7 @@
 package modelos;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -13,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -34,14 +36,30 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Atendimento.findByAtendente", query = "SELECT a FROM Atendimento a WHERE a.atendente = :atendente")
     , @NamedQuery(name = "Atendimento.findByComochegou", query = "SELECT a FROM Atendimento a WHERE a.comochegou = :comochegou")
     , @NamedQuery(name = "Atendimento.findByNome", query = "SELECT a FROM Atendimento a WHERE a.nome = :nome")
+    , @NamedQuery(name = "Atendimento.findByDdd", query = "SELECT a FROM Atendimento a WHERE a.ddd = :ddd")
     , @NamedQuery(name = "Atendimento.findByTelefone", query = "SELECT a FROM Atendimento a WHERE a.telefone = :telefone")
     , @NamedQuery(name = "Atendimento.findByEmail", query = "SELECT a FROM Atendimento a WHERE a.email = :email")
-    , @NamedQuery(name = "Atendimento.findByMsg", query = "SELECT a FROM Atendimento a WHERE a.msg = :msg")
     , @NamedQuery(name = "Atendimento.findByDataatendimento", query = "SELECT a FROM Atendimento a WHERE a.dataatendimento = :dataatendimento")
     , @NamedQuery(name = "Atendimento.findByIp", query = "SELECT a FROM Atendimento a WHERE a.ip = :ip")
     , @NamedQuery(name = "Atendimento.findByCorretor", query = "SELECT a FROM Atendimento a WHERE a.corretor = :corretor")
     , @NamedQuery(name = "Atendimento.findByEuquero", query = "SELECT a FROM Atendimento a WHERE a.euquero = :euquero")
-    , @NamedQuery(name = "Atendimento.findByHoraatendimento", query = "SELECT a FROM Atendimento a WHERE a.horaatendimento = :horaatendimento")})
+    , @NamedQuery(name = "Atendimento.findByHoraatendimento", query = "SELECT a FROM Atendimento a WHERE a.horaatendimento = :horaatendimento")
+    , @NamedQuery(name = "Atendimento.findByStatus", query = "SELECT a FROM Atendimento a WHERE a.status = :status")
+    , @NamedQuery(name = "Atendimento.findByDatainicioatendimento", query = "SELECT a FROM Atendimento a WHERE a.datainicioatendimento = :datainicioatendimento")
+    , @NamedQuery(name = "Atendimento.findByValorminvenda", query = "SELECT a FROM Atendimento a WHERE a.valorminvenda = :valorminvenda")
+    , @NamedQuery(name = "Atendimento.findByValormaxvenda", query = "SELECT a FROM Atendimento a WHERE a.valormaxvenda = :valormaxvenda")
+    , @NamedQuery(name = "Atendimento.findByValorminaluguel", query = "SELECT a FROM Atendimento a WHERE a.valorminaluguel = :valorminaluguel")
+    , @NamedQuery(name = "Atendimento.findByValormaxaluguel", query = "SELECT a FROM Atendimento a WHERE a.valormaxaluguel = :valormaxaluguel")
+    , @NamedQuery(name = "Atendimento.findByTamanho", query = "SELECT a FROM Atendimento a WHERE a.tamanho = :tamanho")
+    , @NamedQuery(name = "Atendimento.findByTemproduto", query = "SELECT a FROM Atendimento a WHERE a.temproduto = :temproduto")
+    , @NamedQuery(name = "Atendimento.findByProdutooferecido", query = "SELECT a FROM Atendimento a WHERE a.produtooferecido = :produtooferecido")
+    , @NamedQuery(name = "Atendimento.findByTempoparamudar", query = "SELECT a FROM Atendimento a WHERE a.tempoparamudar = :tempoparamudar")
+    , @NamedQuery(name = "Atendimento.findByMotivomudanca", query = "SELECT a FROM Atendimento a WHERE a.motivomudanca = :motivomudanca")
+    , @NamedQuery(name = "Atendimento.findByCidadecliente", query = "SELECT a FROM Atendimento a WHERE a.cidadecliente = :cidadecliente")
+    , @NamedQuery(name = "Atendimento.findByProfissaocliente", query = "SELECT a FROM Atendimento a WHERE a.profissaocliente = :profissaocliente")
+    , @NamedQuery(name = "Atendimento.findByCondicaoparamudar", query = "SELECT a FROM Atendimento a WHERE a.condicaoparamudar = :condicaoparamudar")
+    , @NamedQuery(name = "Atendimento.findByTemanimal", query = "SELECT a FROM Atendimento a WHERE a.temanimal = :temanimal")
+    , @NamedQuery(name = "Atendimento.findByMsg", query = "SELECT a FROM Atendimento a WHERE a.msg = :msg")})
 public class Atendimento implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -59,6 +77,9 @@ public class Atendimento implements Serializable {
     @Size(max = 245)
     @Column(name = "nome")
     private String nome;
+    @Size(max = 5)
+    @Column(name = "ddd")
+    private String ddd;
     @Size(max = 45)
     @Column(name = "telefone")
     private String telefone;
@@ -66,9 +87,6 @@ public class Atendimento implements Serializable {
     @Size(max = 145)
     @Column(name = "email")
     private String email;
-    @Size(max = 500)
-    @Column(name = "msg")
-    private String msg;
     @Column(name = "dataatendimento")
     @Temporal(TemporalType.DATE)
     private Date dataatendimento;
@@ -84,18 +102,165 @@ public class Atendimento implements Serializable {
     @Size(max = 45)
     @Column(name = "horaatendimento")
     private String horaatendimento;
-
     @Size(max = 45)
     @Column(name = "status")
     private String status;
+    @Column(name = "datainicioatendimento")
+    @Temporal(TemporalType.DATE)
+    private Date datainicioatendimento;
+    @Lob
+    @Size(max = 2147483647)
+    @Column(name = "negocio")
+    private String negocio;
+    @Lob
+    @Size(max = 2147483647)
+    @Column(name = "tipoimovel")
+    private String tipoimovel;
+    @Lob
+    @Size(max = 2147483647)
+    @Column(name = "bairros")
+    private String bairros;
+    @Lob
+    @Size(max = 2147483647)
+    @Column(name = "caracteristicas")
+    private String caracteristicas;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "valorminvenda")
+    private BigDecimal valorminvenda;
+    @Column(name = "valormaxvenda")
+    private BigDecimal valormaxvenda;
+    @Column(name = "valorminaluguel")
+    private BigDecimal valorminaluguel;
+    @Column(name = "valormaxaluguel")
+    private BigDecimal valormaxaluguel;
+    @Lob
+    @Size(max = 2147483647)
+    @Column(name = "detalhemsg")
+    private String detalhemsg;
+    @Column(name = "tamanho")
+    private Integer tamanho;
+    @Size(max = 3)
+    @Column(name = "temproduto")
+    private String temproduto;
+    @Size(max = 1000)
+    @Column(name = "produtooferecido")
+    private String produtooferecido;
+    @Size(max = 45)
+    @Column(name = "tempoparamudar")
+    private String tempoparamudar;
+    @Size(max = 45)
+    @Column(name = "motivomudanca")
+    private String motivomudanca;
+    @Size(max = 45)
+    @Column(name = "cidadecliente")
+    private String cidadecliente;
+    @Size(max = 45)
+    @Column(name = "profissaocliente")
+    private String profissaocliente;
+    @Size(max = 145)
+    @Column(name = "condicaoparamudar")
+    private String condicaoparamudar;
+    @Size(max = 45)
+    @Column(name = "temanimal")
+    private String temanimal;
+    @Size(max = 500)
+    @Column(name = "msg")
+    private String msg;
     
-    @Size(max = 5)
-    @Column(name = "ddd")
-    private String ddd;
+     @Size(max = 45)
+    @Column(name = "motivofinalizou")
+    private String motivofinalizou;
+     
+      @Size(max = 400)
+    @Column(name = "detalhefinalizou")
+    private String detalhefinalizou;
+    
+    @Size(max = 45)
+    @Column(name = "interesse")
+    private String interesse;
+    
+   @Column(name = "total")
+    private Integer total;
+    @Size(max = 6)
+    
+
+    private String[] bairrosArray;
+     private String[] imovelArray;
+     private String[] caracteristicasArray;
+     private String[] negocioArray;
+
+    public String getMotivofinalizou() {
+        return motivofinalizou;
+    }
+
+    public void setMotivofinalizou(String motivofinalizou) {
+        this.motivofinalizou = motivofinalizou;
+    }
+
+    public String getDetalhefinalizou() {
+        return detalhefinalizou;
+    }
+
+    public void setDetalhefinalizou(String detalhefinalizou) {
+        this.detalhefinalizou = detalhefinalizou;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
+
+   
+
+    public String[] getBairrosArray() {
+        return bairrosArray;
+    }
+
+    public void setBairrosArray(String[] bairrosArray) {
+        this.bairrosArray = bairrosArray;
+    }
+
+    public String[] getImovelArray() {
+        return imovelArray;
+    }
+
+    public void setImovelArray(String[] imovelArray) {
+        this.imovelArray = imovelArray;
+    }
+
+    public String[] getCaracteristicasArray() {
+        return caracteristicasArray;
+    }
+
+    public void setCaracteristicasArray(String[] caracteristicasArray) {
+        this.caracteristicasArray = caracteristicasArray;
+    }
+
+    public String[] getNegocioArray() {
+        return negocioArray;
+    }
+    
+    public void setNegocioArray(String[] negocioArray) {
+        this.negocioArray = negocioArray;
+    }
+    
     
     public Atendimento() {
     }
 
+    public String getInteresse() {
+        return interesse;
+    }
+
+    public void setInteresse(String interesse) {
+        this.interesse = interesse;
+    }
+
+    
+    
     public Atendimento(Integer id) {
         this.id = id;
     }
@@ -132,6 +297,14 @@ public class Atendimento implements Serializable {
         this.nome = nome;
     }
 
+    public String getDdd() {
+        return ddd;
+    }
+
+    public void setDdd(String ddd) {
+        this.ddd = ddd;
+    }
+
     public String getTelefone() {
         return telefone;
     }
@@ -146,14 +319,6 @@ public class Atendimento implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
     }
 
     public Date getDataatendimento() {
@@ -196,22 +361,174 @@ public class Atendimento implements Serializable {
         this.horaatendimento = horaatendimento;
     }
 
-     public String getStatus() {
+    public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
     }
-    
-     public String getDDD() {
-        return ddd;
+
+    public Date getDatainicioatendimento() {
+        return datainicioatendimento;
     }
 
-    public void setDDD(String ddd) {
-        this.ddd = ddd;
+    public void setDatainicioatendimento(Date datainicioatendimento) {
+        this.datainicioatendimento = datainicioatendimento;
     }
-    
+
+    public String getNegocio() {
+        return negocio;
+    }
+
+    public void setNegocio(String negocio) {
+        this.negocio = negocio;
+    }
+
+    public String getTipoimovel() {
+        return tipoimovel;
+    }
+
+    public void setTipoimovel(String tipoimovel) {
+        this.tipoimovel = tipoimovel;
+    }
+
+    public String getBairros() {
+        return bairros;
+    }
+
+    public void setBairros(String bairros) {
+        this.bairros = bairros;
+    }
+
+    public String getCaracteristicas() {
+        return caracteristicas;
+    }
+
+    public void setCaracteristicas(String caracteristicas) {
+        this.caracteristicas = caracteristicas;
+    }
+
+    public BigDecimal getValorminvenda() {
+        return valorminvenda;
+    }
+
+    public void setValorminvenda(BigDecimal valorminvenda) {
+        this.valorminvenda = valorminvenda;
+    }
+
+    public BigDecimal getValormaxvenda() {
+        return valormaxvenda;
+    }
+
+    public void setValormaxvenda(BigDecimal valormaxvenda) {
+        this.valormaxvenda = valormaxvenda;
+    }
+
+    public BigDecimal getValorminaluguel() {
+        return valorminaluguel;
+    }
+
+    public void setValorminaluguel(BigDecimal valorminaluguel) {
+        this.valorminaluguel = valorminaluguel;
+    }
+
+    public BigDecimal getValormaxaluguel() {
+        return valormaxaluguel;
+    }
+
+    public void setValormaxaluguel(BigDecimal valormaxaluguel) {
+        this.valormaxaluguel = valormaxaluguel;
+    }
+
+    public String getDetalhemsg() {
+        return detalhemsg;
+    }
+
+    public void setDetalhemsg(String detalhemsg) {
+        this.detalhemsg = detalhemsg;
+    }
+
+    public Integer getTamanho() {
+        return tamanho;
+    }
+
+    public void setTamanho(Integer tamanho) {
+        this.tamanho = tamanho;
+    }
+
+    public String getTemproduto() {
+        return temproduto;
+    }
+
+    public void setTemproduto(String temproduto) {
+        this.temproduto = temproduto;
+    }
+
+    public String getProdutooferecido() {
+        return produtooferecido;
+    }
+
+    public void setProdutooferecido(String produtooferecido) {
+        this.produtooferecido = produtooferecido;
+    }
+
+    public String getTempoparamudar() {
+        return tempoparamudar;
+    }
+
+    public void setTempoparamudar(String tempoparamudar) {
+        this.tempoparamudar = tempoparamudar;
+    }
+
+    public String getMotivomudanca() {
+        return motivomudanca;
+    }
+
+    public void setMotivomudanca(String motivomudanca) {
+        this.motivomudanca = motivomudanca;
+    }
+
+    public String getCidadecliente() {
+        return cidadecliente;
+    }
+
+    public void setCidadecliente(String cidadecliente) {
+        this.cidadecliente = cidadecliente;
+    }
+
+    public String getProfissaocliente() {
+        return profissaocliente;
+    }
+
+    public void setProfissaocliente(String profissaocliente) {
+        this.profissaocliente = profissaocliente;
+    }
+
+    public String getCondicaoparamudar() {
+        return condicaoparamudar;
+    }
+
+    public void setCondicaoparamudar(String condicaoparamudar) {
+        this.condicaoparamudar = condicaoparamudar;
+    }
+
+    public String getTemanimal() {
+        return temanimal;
+    }
+
+    public void setTemanimal(String temanimal) {
+        this.temanimal = temanimal;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;

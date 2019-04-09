@@ -35,6 +35,9 @@ public class DialogView {
     
     public void destroyWorld() {
         addMessage("System Error", "Please try again later.");
+        
+        System.out.println("clicou sim !!");
+        
     }
     
     public void addMessage(String summary, String detail) {
