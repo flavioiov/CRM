@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="./template/commomLayout.xhtml">
+
+            <f:metadata>
+                <f:viewAction action="#{atendimentoBean.listar_meusAtendimentos()}" />
+            </f:metadata> 
+            
+            <ui:define name="content">
+
+            
+                        <h:form id="listagem">  
+                            <p:panel style="background-color: white; width: 100%">
+                                <h1> "MEUS ATENDIMENTOS" </h1>
+                                
+                                
+                                <br></br>
+                              
+                                <p:dataTable value="#{atendimentoBean.listaAtendimentos}"
+                                             var="contato" paginator="true"
+                                             rowSelector="true"
+                                             rowHover="true"
+                                             rows="30"
+                                            
+                                             styleClass="order-table"
+                                             >
+                                    <f:facet name="header">
+                                        List de Atendimentos
+                                    </f:facet>
+                                    
+                                     <p:column headerText="Data" style="width: 70px;">
+                                         <h:outputText value="#{contato.dataatendimento}">
+                                            <f:convertDateTime type="both" pattern="dd/MM/yyyy"/>
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column headerText="Hora" style="width: 56px;">
+                                        <h:outputText value="#{contato.horaatendimento}">
+                                            <f:convertDateTime type="time" pattern="hh:mm"/>
+                                        </h:outputText>
+                                    </p:column>
+                                  <p:column headerText="Cliente" style="width: 250px;">
+                                      <h:outputText value="#{contato.nome}" />
+                                    </p:column>
+
+                                    <p:column headerText="Assunto" style="width: 200px;">
+                                        <h:outputText value="#{contato.euquero}" />
+                                    </p:column>
+
+                                    <p:column headerText="Origem" style="width: 200px;">
+                                        <h:outputText value="#{contato.corretor}" />
+                                    </p:column>
+
+                                    <p:column headerText="Mensagem">
+                                          <h:outputText value="#{contato.msg}" />
+                                    </p:column>
+                                    <p:column headerText="Corretor">
+                                        <h:outputText value="#{contato.corretor }" />
+                                    </p:column>
+                                    <p:column headerText="Já Atendido">
+
+                                        
+                               
+                                    <button type="button" name="" value="" class="classname">Já Atendido</button>
+                                         
+                                         
+                                    </p:column>
+                                    
+                                     <p:column headerText="Atender">
+                                         
+                                          <p:commandButton value="Atender" 
+                                                                   onstart="PF('DialogShow').show();"
+                                                                   style="font-size: 1.1em; font-weight: bold" 
+                                                                   action="#{atendimentoBean.selecionaAtendimento(contato.id)}"
+                                                                   
+                                                                  />
+                                         
+                                        
+                                    </p:column>
+                                     <p:column headerText="Devolver">
+                                         <button type="button" name="" value="" class="myButton">Devolver</button>
+                                         
+                                    </p:column>
+                  
+                                </p:dataTable>
+                            </p:panel> 
+                        </h:form>   
+                  
+         
+
+            </ui:define>
+
+        </ui:composition>
+
+
+
+
+
+    </h:body>
+</html>
+

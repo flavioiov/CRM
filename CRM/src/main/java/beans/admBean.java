@@ -384,6 +384,10 @@ public class admBean {
     //Método utilizado no Botao ATENDER do DashBoard
     public void listaDetalheAtendimento(int cadastro) throws SQLException, IOException {
 
+        
+        System.out.println("id passado :"+cadastro);
+        
+        
         //  arrumar isso.....
         atdEscolhido = buscaAtendimento(cadastro); //esse metodo retornar o atendimento selecionado.
 

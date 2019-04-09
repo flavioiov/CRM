@@ -155,7 +155,7 @@ public class relatoriosBean {
        
 
         String sql = "SELECT * FROM crm.atendimento  where euquero not like '%falar%' and euquero not like 'Evora' and negocio like '%comprar%'\n" +
-"order by id ";
+"order by id desc ";
 
         ResultSetHandler<List<Atendimento>> h = new BeanListHandler<Atendimento>(Atendimento.class);
         QueryRunner run = new QueryRunner(CustomDataSource.getInstance());
@@ -210,7 +210,7 @@ public class relatoriosBean {
         
         
          String sql9 = "SELECT id,nome,corretor,concat(ddd,' - ',telefone) as telefone,negocio,monthname(dataatendimento),tipoimovel,FORMAT((valormaxvenda),2,'de_DE') as msg,FORMAT((valormaxaluguel),2,'de_DE') as interesse,status,dataatendimento,motivofinalizou \n" +
-"FROM crm.atendimento where monthname(dataatendimento)='"+mes+"' and negocio='"+negocio+"'";
+"FROM crm.atendimento where monthname(dataatendimento)='"+mes+"' and negocio='"+negocio+"' order by dataatendimento asc";
         ResultSetHandler<List<Atendimento>> h9 = new BeanListHandler<Atendimento>(Atendimento.class);
         QueryRunner QR9 = new QueryRunner(CustomDataSource.getInstance());
         listadetalhada = QR9.query(sql9, h9);
