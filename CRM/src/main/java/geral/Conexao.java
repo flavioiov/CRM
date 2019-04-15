@@ -19,7 +19,7 @@ public class Conexao {
    private String user = "usercrm";
 	private String banco="crm";
 	private String password = "kayros33";
-	private String url = "jdbc:mysql://191.252.2.163:3306/"+banco;
+	private String url = "jdbc:mysql://200.98.113.164:3306/"+banco;
 	private String erro="";
 	
 	Connection connection;
